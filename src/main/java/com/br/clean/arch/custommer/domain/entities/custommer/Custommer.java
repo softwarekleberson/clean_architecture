@@ -19,8 +19,7 @@ public class Custommer {
 	private Email email;
 	
 	public Custommer(String cpf, String name,
-					 LocalDate birth, String password,
-					 String confirmPassword, Gender gender,
+					 LocalDate birth, String password, String confirmPassword, Gender gender,
 					 Phone phone, Email email) {
 		
 		this.cpf = cpf;
