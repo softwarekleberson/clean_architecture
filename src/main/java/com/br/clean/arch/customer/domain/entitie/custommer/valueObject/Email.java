@@ -1,6 +1,6 @@
-package com.br.clean.arch.custommer.domain.entities.custommer.valueObject;
+package com.br.clean.arch.customer.domain.entitie.custommer.valueObject;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretEmailException;
+import com.br.clean.arch.customer.domain.entitie.custommer.exceptions.IncorretEmailException;
 
 public class Email {
 

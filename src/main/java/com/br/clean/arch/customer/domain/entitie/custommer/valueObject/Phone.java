@@ -1,6 +1,6 @@
-package com.br.clean.arch.custommer.domain.entities.custommer.valueObject;
+package com.br.clean.arch.customer.domain.entitie.custommer.valueObject;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretPhoneException;
+import com.br.clean.arch.customer.domain.entitie.custommer.exceptions.IncorretPhoneException;
 
 public class Phone {
 

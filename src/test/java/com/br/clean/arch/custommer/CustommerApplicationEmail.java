@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.Customer;
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretEmailException;
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Email;
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Gender;
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Phone;
+import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
+import com.br.clean.arch.customer.domain.entitie.custommer.exceptions.IncorretEmailException;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
 @SpringBootTest
 class CustommerApplicationEmail {

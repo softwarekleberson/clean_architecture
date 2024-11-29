@@ -1,4 +1,4 @@
-package com.br.clean.arch.custommer.domain.entities.custommer.exceptions;
+package com.br.clean.arch.customer.domain.entitie.custommer.exceptions;
 
 public class IncorretPhoneException extends RuntimeException {
 

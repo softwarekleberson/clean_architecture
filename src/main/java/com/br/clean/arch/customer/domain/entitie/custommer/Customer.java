@@ -1,11 +1,11 @@
-package com.br.clean.arch.custommer.domain.entities.custommer;
+package com.br.clean.arch.customer.domain.entitie.custommer;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Email;
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Gender;
-import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Phone;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
+import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
 public class Customer {
 
