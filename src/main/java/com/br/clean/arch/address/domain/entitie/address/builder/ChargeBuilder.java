@@ -3,7 +3,7 @@ package com.br.clean.arch.address.domain.entitie.address.builder;
 import com.br.clean.arch.address.domain.entitie.address.Delivery;
 import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
 
-public class BuilderCharge {
+public class ChargeBuilder {
 
 	private Customer customer;
 	

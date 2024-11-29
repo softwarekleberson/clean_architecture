@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
 import com.br.clean.arch.customer.domain.entitie.custommer.exceptions.IncorretEmailException;
@@ -12,8 +11,7 @@ import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
-@SpringBootTest
-class CustommerApplicationEmail {
+class CustomerApplicationEmail {
 
 	@Test
 	public void shouldNotAcceptNewCustomerWithIncorrectIncorretEmailException() {

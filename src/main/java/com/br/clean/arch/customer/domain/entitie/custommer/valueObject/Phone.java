@@ -36,4 +36,9 @@ public class Phone {
 	public String getPhone() {
 		return phone;
 	}
+
+	@Override
+	public String toString() {
+		return "Phone [ddd=" + ddd + ", phone=" + phone + "]";
+	}
 }

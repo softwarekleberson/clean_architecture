@@ -11,5 +11,10 @@ public class Charge extends Address{
 			String streetType, String typeResidence, String city) {
 		super(receiver, street, number, neighborhood, cep, streetType, typeResidence, city);
 	}
+
+	@Override
+	public String toString() {
+		return "Charge []";
+	}
 	
 }

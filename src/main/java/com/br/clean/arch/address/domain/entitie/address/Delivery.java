@@ -23,4 +23,9 @@ public class Delivery extends Address {
 	public void setDeliveryPhrase(String deliveryPhrase) {
 		this.deliveryPhrase = deliveryPhrase;
 	}
+
+	@Override
+	public String toString() {
+		return "Delivery [deliveryPhrase=" + deliveryPhrase + "]";
+	}
 }
