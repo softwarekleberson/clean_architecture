@@ -7,7 +7,7 @@ import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Email;
 import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Gender;
 import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Phone;
 
-public class Custommer {
+public class Customer {
 
 	private UUID id = UUID.randomUUID();
 	private String cpf;
@@ -17,13 +17,15 @@ public class Custommer {
 	
 	public static final int LENGHT_PASSWORD = 8;
 	private String password;
+	
 	private String confirmPassword;
 	private Gender gender;
 	private Phone phone;
 	private Email email;
 	
-	public Custommer(String cpf, String name,
-					 LocalDate birth, String password, String confirmPassword, Gender gender,
+	public Customer(String cpf, String name,
+					 LocalDate birth, String password,
+					 String confirmPassword, Gender gender,
 					 Phone phone, Email email) {
 		
 		setCpf(cpf);
@@ -43,12 +45,12 @@ public class Custommer {
 	
 	private void checkCharacterQuantity(String password) {
 		if(password.length() < LENGHT_PASSWORD) {
-			throw new IllegalArgumentException("The password request 8 caracters for be valid");
+	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
 		}
 	}
 
 	private void matchPasswordAndConfirmPassword(String password, String confirmPassword) {
-		if(!password.matches(confirmPassword)) {
+		if(!password.equals(confirmPassword)) {
 			throw new IllegalArgumentException("Password and confirm password not match");
 		}
 	}
@@ -58,8 +60,8 @@ public class Custommer {
 	}
 
 	public void setCpf(String cpf) {
-		String regexCpf = "^\\d{11}$";
-		if(!regexCpf.matches(cpf)) {
+	    String regexCpf = "^\\d{11}$";
+		if(!cpf.matches(regexCpf)) {
 			throw new IllegalArgumentException("Cpf does not match the required format");
 		}
 		this.cpf = cpf;
@@ -131,5 +133,11 @@ public class Custommer {
 	public void setEmail(Email email) {
 		this.email = email;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Custommer [id=" + id + ", cpf=" + cpf + ", active=" + active + ", name=" + name + ", birth=" + birth
+				+ ", password=" + password + ", confirmPassword=" + confirmPassword + ", gender=" + gender + ", phone="
+				+ phone + ", email=" + email + "]";
+	}
 }

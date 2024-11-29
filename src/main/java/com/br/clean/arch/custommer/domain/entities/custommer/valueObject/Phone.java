@@ -1,6 +1,6 @@
 package com.br.clean.arch.custommer.domain.entities.custommer.valueObject;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretPhone;
+import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretPhoneException;
 
 public class Phone {
 
@@ -16,8 +16,8 @@ public class Phone {
 	}
 	
 	public void setDdd(String ddd) {
-		if(ddd.length() > FORMAT_DDD) {
-			throw new IncorretPhone("Format DDD incorrect");
+		if(ddd.length() != FORMAT_DDD) {
+			throw new IncorretPhoneException("Format DDD incorrect");
 		}
 		this.ddd = ddd;
 	}
@@ -27,8 +27,8 @@ public class Phone {
 	}
 	
 	public void setPhone(String phone) {
-		if(phone.length() > FORMAT_PHONE) {
-			throw new IncorretPhone("Format phone incorrect");
+		if(phone.length() != FORMAT_PHONE) {
+			throw new IncorretPhoneException("Format phone incorrect");
 		}
 		this.phone = phone;
 	}

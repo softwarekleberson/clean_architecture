@@ -1,6 +1,6 @@
 package com.br.clean.arch.custommer.domain.entities.custommer.valueObject;
 
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretEmail;
+import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretEmailException;
 
 public class Email {
 
@@ -16,8 +16,8 @@ public class Email {
 	
 	public void setEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-		if(!emailRegex.matches(email)) {
-			throw new IncorretEmail("Format email incoret.");
+		if(!email.matches(emailRegex)) {
+			throw new IncorretEmailException("Format email incoret.");
 		}
         this.email = email;
 	}
