@@ -9,7 +9,6 @@ import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
 public class Customer {
 
-	private UUID id = UUID.randomUUID();
 	private String cpf;
 	private boolean active;
 	private String name;
@@ -136,7 +135,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Custommer [id=" + id + ", cpf=" + cpf + ", active=" + active + ", name=" + name + ", birth=" + birth
+		return "Custommer [cpf=" + cpf + ", active=" + active + ", name=" + name + ", birth=" + birth
 				+ ", password=" + password + ", confirmPassword=" + confirmPassword + ", gender=" + gender + ", phone="
 				+ phone + ", email=" + email + "]";
 	}
