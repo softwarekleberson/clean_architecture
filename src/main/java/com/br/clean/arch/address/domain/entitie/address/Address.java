@@ -80,8 +80,8 @@ public abstract class Address {
 
 	public void setCep(String cep) {
 		String regexCep = "^\\d{5}-\\d{3}$";
-		if(!cep.matches(regexCep)) {
-			throw new IllegalArgumentException("Format cep incorrect, you need respect this format 12345-123");
+		if(cep == null || !cep.matches(regexCep)) {
+			throw new IllegalArgumentException("Format cep incorrect, you need respect this format xxxxx-xxx");
 		}
 		this.cep = cep;
 	}
