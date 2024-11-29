@@ -1,20 +1,18 @@
 package com.br.clean.arch.custommer;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.br.clean.arch.custommer.domain.entities.custommer.Customer;
-import com.br.clean.arch.custommer.domain.entities.custommer.exceptions.IncorretEmailException;
 import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Email;
 import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Gender;
 import com.br.clean.arch.custommer.domain.entities.custommer.valueObject.Phone;
 
 @SpringBootTest
-class CustommerApplicationTests {
+class CustommerApplicationCpf {
 
 	@Test
 	public void ShouldNotAceptNewCustommerwitchIncorrectCpf() {
@@ -62,5 +60,5 @@ class CustommerApplicationTests {
 				Gender.MASCULINO,
 				new Phone("11", "123456789"),
 				new Email("santossilvakleberson@gmail.com")));
-	}
+	}	
 }
