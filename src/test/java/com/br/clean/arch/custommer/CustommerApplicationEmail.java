@@ -86,5 +86,4 @@ class CustommerApplicationEmail {
 	        "Should throw IncorretEmailException when creating client."
 	    );
 	}
-		
 }
