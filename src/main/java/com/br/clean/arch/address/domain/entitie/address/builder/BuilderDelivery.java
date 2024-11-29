@@ -1,27 +1,11 @@
-package com.br.clean.arch.customer.domain.entitie.custommer;
-
-import java.time.LocalDate;
+package com.br.clean.arch.address.domain.entitie.address.builder;
 
 import com.br.clean.arch.address.domain.entitie.address.Delivery;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
+import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
 
-public class BuilderCustomer {
+public class BuilderDelivery {
 
 	private Customer customer;
-	
-	public Customer builderCustomer(String cpf, String name,
-			 						LocalDate birth,
-			 						String password,
-			 						String confirmPassword,
-			 						Gender gender,
-			 						Phone phone,
-			 						Email email) {
-		
-		 this.customer = new Customer(cpf, name, birth, password, confirmPassword, gender, phone, email);
-		 return customer;
-	}
 	
 	public Customer builderDeliveryWitchObservation(String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
