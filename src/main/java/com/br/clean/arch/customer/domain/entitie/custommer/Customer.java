@@ -1,8 +1,11 @@
 package com.br.clean.arch.customer.domain.entitie.custommer;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.br.clean.arch.address.domain.entitie.address.Charge;
+import com.br.clean.arch.address.domain.entitie.address.Delivery;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
@@ -21,6 +24,9 @@ public class Customer {
 	private Gender gender;
 	private Phone phone;
 	private Email email;
+	
+	private List<Delivery> deliveries = new ArrayList<Delivery>();
+	private List<Charge> charges = new ArrayList<Charge>();
 	
 	public Customer(String cpf, String name,
 					 LocalDate birth, String password,
@@ -42,14 +48,22 @@ public class Customer {
 		this.email = email;
 	}
 	
+	public void addNewDelivery(Delivery delivery) {
+		this.deliveries.add(delivery);
+	}
+	
+	public void addNewCharge(Charge charge) {
+		this.charges.add(charge);
+	}
+	
 	private void checkCharacterQuantity(String password) {
-		if(password.length() < LENGHT_PASSWORD) {
+		if(password == null || password.length() < LENGHT_PASSWORD) {
 	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
 		}
 	}
 
 	private void matchPasswordAndConfirmPassword(String password, String confirmPassword) {
-		if(!password.equals(confirmPassword)) {
+		if(password == null || !password.equals(confirmPassword)) {
 			throw new IllegalArgumentException("Password and confirm password not match");
 		}
 	}
@@ -60,7 +74,7 @@ public class Customer {
 
 	public void setCpf(String cpf) {
 	    String regexCpf = "^\\d{11}$";
-		if(!cpf.matches(regexCpf)) {
+		if(cpf == null || !cpf.matches(regexCpf)) {
 			throw new IllegalArgumentException("Cpf does not match the required format");
 		}
 		this.cpf = cpf;
@@ -87,7 +101,7 @@ public class Customer {
 	}
 
 	public void setBirth(LocalDate birth) {
-		if(birth.isAfter(LocalDate.now().minusYears(18))) {
+		if(birth == null || birth.isAfter(LocalDate.now().minusYears(18))) {
 			throw new IllegalArgumentException("For register you need 18 years");
 		}
 		this.birth = birth;

@@ -16,7 +16,7 @@ public class Phone {
 	}
 	
 	public void setDdd(String ddd) {
-		if(ddd.length() != FORMAT_DDD) {
+		if(ddd == null || ddd.length() != FORMAT_DDD) {
 			throw new IncorretPhoneException("Format DDD incorrect");
 		}
 		this.ddd = ddd;
@@ -27,7 +27,7 @@ public class Phone {
 	}
 	
 	public void setPhone(String phone) {
-		if(phone.length() != FORMAT_PHONE) {
+		if(phone == null || phone.length() != FORMAT_PHONE) {
 			throw new IncorretPhoneException("Format phone incorrect");
 		}
 		this.phone = phone;
