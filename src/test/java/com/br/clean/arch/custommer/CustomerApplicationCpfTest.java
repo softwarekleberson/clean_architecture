@@ -10,7 +10,7 @@ import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
-class CustomerApplicationCpf {
+class CustomerApplicationCpfTest {
 
 	@Test
 	public void ShouldNotAceptNewCustommerwitchIncorrectCpf() {

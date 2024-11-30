@@ -11,7 +11,7 @@ import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
-class CustomerBuilderDelivery {
+class CustomerBuilderDeliveryTest {
 
 	@Test
 	public void mustCreateDeliveryWitchBuilder() {
@@ -28,7 +28,7 @@ class CustomerBuilderDelivery {
 	        new Email("lordlof@gmail.com")
 	    );
 
-	    // Configurando o Customer no DeliveryBuilder
+	    // Config the Customer at DeliveryBuilder
 	    builder.withCustomer(customer);
 
 	    customer = builder.builderDeliveryWitchObservation(

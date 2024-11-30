@@ -11,7 +11,7 @@ import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
 import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
-class CustomerApplicationEmail {
+class CustomerApplicationEmailTest {
 
 	@Test
 	public void shouldNotAcceptNewCustomerWithIncorrectIncorretEmailException() {
