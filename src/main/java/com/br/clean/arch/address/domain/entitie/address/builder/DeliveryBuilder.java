@@ -7,6 +7,11 @@ public class DeliveryBuilder {
 
 	private Customer customer;
 	
+	public DeliveryBuilder withCustomer(Customer customer) {
+	        this.customer = customer;
+	        return this;
+	}
+	
 	public Customer builderDeliveryWitchObservation(String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
 				

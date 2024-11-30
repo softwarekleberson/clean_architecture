@@ -67,6 +67,14 @@ public class Customer {
 			throw new IllegalArgumentException("Password and confirm password not match");
 		}
 	}
+	
+	public List<Charge> getCharges() {
+		return charges;
+	}
+	
+	public List<Delivery> getDeliveries() {
+		return deliveries;
+	}
 
 	public String getCpf() {
 		return cpf;
