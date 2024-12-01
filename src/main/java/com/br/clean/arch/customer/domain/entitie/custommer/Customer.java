@@ -48,6 +48,19 @@ public class Customer {
 		this.email = email;
 	}
 	
+	public Customer(String cpf, String name,
+			 LocalDate birth,
+			 Gender gender,
+			 Phone phone, Email email) {
+
+		this.cpf = cpf;
+		this.birth = birth;
+		this.name = name;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+	}
+	
 	public void addNewDelivery(Delivery delivery) {
 		this.deliveries.add(delivery);
 	}

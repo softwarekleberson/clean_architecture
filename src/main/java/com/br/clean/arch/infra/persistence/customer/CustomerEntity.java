@@ -1,11 +1,11 @@
 package com.br.clean.arch.infra.persistence.customer;
 
 import java.time.LocalDate;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,32 +24,44 @@ public class CustomerEntity {
 	private String name;
 	private LocalDate birth;
 	
-	public static final int LENGHT_PASSWORD = 8;
 	private String password;
 	
 	@Transient
 	private String confirmPassword;
-	private Gender gender;
-	private Phone phone;
-	private Email email;
+	
+	@Enumerated(EnumType.STRING)
+	private GenderEntity genderEntity;
+	
+	@Embedded
+	private PhoneEntity phoneEntity;
+	
+	@Embedded
+	private EmailEntity emailEntity;
 		
 	public CustomerEntity() {
 	}
 	
 	public CustomerEntity(String cpf, String name,
 					 LocalDate birth, String password,
-					 String confirmPassword, Gender gender,
-					 Phone phone, Email email) {
+					 GenderEntity genderEntity,
+					 PhoneEntity phoneEntity, EmailEntity emailEntity) {
 						
 		this.active = false;
 		this.cpf = cpf;
 		this.birth = birth;
 		this.name = name;
 		this.password = password;
-		this.confirmPassword = confirmPassword;
-		this.gender = gender;
-		this.phone = phone;
-		this.email = email;
+		this.genderEntity = genderEntity;
+		this.phoneEntity = phoneEntity;
+		this.emailEntity = emailEntity;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCpf() {
@@ -100,27 +112,27 @@ public class CustomerEntity {
 		this.confirmPassword = confirmPassword;
 	}
 
-	public Gender getGender() {
-		return gender;
+	public GenderEntity getGenderEntity() {
+		return genderEntity;
 	}
 
-	public void setGender(Gender gender) {
-		this.gender = gender;
+	public void setGenderEntity(GenderEntity genderEntity) {
+		this.genderEntity = genderEntity;
 	}
 
-	public Phone getPhone() {
-		return phone;
+	public PhoneEntity getPhoneEntity() {
+		return phoneEntity;
 	}
 
-	public void setPhone(Phone phone) {
-		this.phone = phone;
+	public void setPhoneEntity(PhoneEntity phoneEntity) {
+		this.phoneEntity = phoneEntity;
 	}
 
-	public Email getEmail() {
-		return email;
+	public EmailEntity getEmailEntity() {
+		return emailEntity;
 	}
 
-	public void setEmail(Email email) {
-		this.email = email;
+	public void setEmailEntity(EmailEntity emailEntity) {
+		this.emailEntity = emailEntity;
 	}
 }
