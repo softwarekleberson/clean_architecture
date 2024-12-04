@@ -1,7 +1,7 @@
 package com.br.clean.arch.application.usecases.address.charge;
 
-import com.br.clean.arch.address.domain.entitie.address.Charge;
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
+import com.br.clean.arch.domain.entitie.address.Charge;
 
 public class CreateCharge {
 

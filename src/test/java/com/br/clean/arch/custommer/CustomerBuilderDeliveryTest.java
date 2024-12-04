@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.br.clean.arch.address.domain.entitie.address.builder.DeliveryBuilder;
-import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
+import com.br.clean.arch.domain.entitie.address.builder.DeliveryBuilder;
+import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 
 class CustomerBuilderDeliveryTest {
 

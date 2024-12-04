@@ -1,14 +1,14 @@
-package com.br.clean.arch.customer.domain.entitie.custommer;
+package com.br.clean.arch.domain.entitie.customer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.br.clean.arch.address.domain.entitie.address.Charge;
-import com.br.clean.arch.address.domain.entitie.address.Delivery;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
+import com.br.clean.arch.domain.entitie.address.Charge;
+import com.br.clean.arch.domain.entitie.address.Delivery;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 
 public class Customer {
 

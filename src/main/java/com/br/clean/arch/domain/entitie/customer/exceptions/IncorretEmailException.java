@@ -1,4 +1,4 @@
-package com.br.clean.arch.customer.domain.entitie.custommer.exceptions;
+package com.br.clean.arch.domain.entitie.customer.exceptions;
 
 public class IncorretEmailException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.br.clean.arch.address.domain.entitie.address;
+package com.br.clean.arch.domain.entitie.address;
 
 public abstract class Address {
 	

@@ -2,7 +2,7 @@ package com.br.clean.arch.application.gateways.address;
 
 import java.util.List;
 
-import com.br.clean.arch.address.domain.entitie.address.Charge;
+import com.br.clean.arch.domain.entitie.address.Charge;
 
 public interface RepositoryCharge {
 

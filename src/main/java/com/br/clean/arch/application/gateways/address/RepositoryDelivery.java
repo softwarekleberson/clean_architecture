@@ -2,7 +2,7 @@ package com.br.clean.arch.application.gateways.address;
 
 import java.util.List;
 
-import com.br.clean.arch.address.domain.entitie.address.Delivery;
+import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public interface RepositoryDelivery {
 

@@ -1,7 +1,7 @@
 package com.br.clean.arch.application.usecases.address.delivery;
 
-import com.br.clean.arch.address.domain.entitie.address.Delivery;
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
+import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public class CreateDelivery {
 

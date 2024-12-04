@@ -1,7 +1,7 @@
-package com.br.clean.arch.address.domain.entitie.address.builder;
+package com.br.clean.arch.domain.entitie.address.builder;
 
-import com.br.clean.arch.address.domain.entitie.address.Charge;
-import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
+import com.br.clean.arch.domain.entitie.address.Charge;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 
 public class ChargeBuilder {
 

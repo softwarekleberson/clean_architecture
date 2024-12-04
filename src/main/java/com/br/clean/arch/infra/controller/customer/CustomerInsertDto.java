@@ -2,9 +2,9 @@ package com.br.clean.arch.infra.controller.customer;
 
 import java.time.LocalDate;
 
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Email;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Gender;
-import com.br.clean.arch.customer.domain.entitie.custommer.valueObject.Phone;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
+import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

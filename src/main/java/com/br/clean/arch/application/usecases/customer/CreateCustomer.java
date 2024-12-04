@@ -1,7 +1,7 @@
 package com.br.clean.arch.application.usecases.customer;
 
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
-import com.br.clean.arch.customer.domain.entitie.custommer.Customer;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 
 public class CreateCustomer {
 
