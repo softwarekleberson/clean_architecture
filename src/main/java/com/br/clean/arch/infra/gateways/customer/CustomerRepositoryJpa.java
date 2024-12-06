@@ -1,6 +1,7 @@
 package com.br.clean.arch.infra.gateways.customer;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.domain.entitie.customer.Customer;
@@ -26,7 +27,9 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer{
 
 	@Override
 	public List<Customer> listCustomer() {
-		return null;
+		return repository.findAll().stream()
+			   .map(mapper::toDomain)
+			   .collect(Collectors.toList());
 	}
 
 }

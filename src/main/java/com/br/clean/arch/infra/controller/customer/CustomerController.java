@@ -1,5 +1,9 @@
 package com.br.clean.arch.infra.controller.customer;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +29,13 @@ public class CustomerController {
 	public CustomerListDto createUser(@RequestBody CustomerDto dto) {
 		Customer customer = createCustomer.createCustomer(new Customer(dto.cpf(), dto.name(), dto.birth(), dto.password(), dto.confirmPassword(), dto.gender(), dto.phone(), dto.email()));
 		return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
+	}
+	
+	@GetMapping
+	public List<CustomerListDto> listAllCustomers(){
+		return listCustomer.listCustomers().
+			   stream().
+			   map(u -> new CustomerListDto(u.getCpf(), u.getName(), u.getEmail())).
+			   collect(Collectors.toList());
 	}
 }
