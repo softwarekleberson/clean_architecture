@@ -21,7 +21,7 @@ class CustomerApplicationAgeTest {
 	            LocalDate.now().minusYears(17).plusDays(1), // Menor de idade
 	            "123VAIjava@",
 	            "123VAIjava@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("11", "123456789"),
 	            new Email("santossilvakleberson@gmail.com")
 	        ));	    

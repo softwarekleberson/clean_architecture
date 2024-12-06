@@ -21,7 +21,7 @@ class CustomerApplicationCpfTest {
 				 LocalDate.now().minusYears(18).minusDays(1),
 				"123VAIjava@",
 				"123VAIjava@",
-				Gender.MASCULINO,
+				Gender.MALE,
 				new Phone("11", "123456789"),
 				new Email("santossilvakleberson@gmail.com")));
 		
@@ -33,7 +33,7 @@ class CustomerApplicationCpfTest {
 				 LocalDate.now().minusYears(18).minusDays(1),
 				"123VAIjava@",
 				"123VAIjava@",
-				Gender.MASCULINO,
+				Gender.MALE,
 				new Phone("11", "123456789"),
 				new Email("santossilvakleberson@gmail.com")));
 		
@@ -44,7 +44,7 @@ class CustomerApplicationCpfTest {
 				 LocalDate.now().minusYears(18).minusDays(1),
 				"123VAIjava@",
 				"123VAIjava@",
-				Gender.MASCULINO,
+				Gender.MALE,
 				new Phone("11", "123456789"),
 				new Email("santossilvakleberson@gmail.com")));
 		
@@ -55,7 +55,7 @@ class CustomerApplicationCpfTest {
 				 LocalDate.now().minusYears(18).minusDays(1),
 				"123VAIjava@",
 				"123VAIjava@",
-				Gender.MASCULINO,
+				Gender.MALE,
 				new Phone("11", "123456789"),
 				new Email("santossilvakleberson@gmail.com")));
 	}	

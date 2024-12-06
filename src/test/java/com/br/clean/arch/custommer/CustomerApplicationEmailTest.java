@@ -22,7 +22,7 @@ class CustomerApplicationEmailTest {
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
 	            "123VAIjava@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("11", "123456789"),
 	            new Email("@gmail.com")
 	        ),
@@ -40,7 +40,7 @@ class CustomerApplicationEmailTest {
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
 	            "123VAIjava@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("11", "123456789"),
 	            new Email("emailgmail.com")
 	        ),
@@ -58,7 +58,7 @@ class CustomerApplicationEmailTest {
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
 	            "123VAIjava@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("11", "123456789"),
 	            new Email("email@.com")
 	        ),
@@ -76,7 +76,7 @@ class CustomerApplicationEmailTest {
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
 	            "123VAIjava@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("11", "123456789"),
 	            new Email("email@gmail.")
 	        ),

@@ -7,7 +7,10 @@ import lombok.Getter;
 @Getter
 public class EmailEntity {
 
-private String email;
+	private String email;
+	
+	public EmailEntity() {
+	}
 	
 	public EmailEntity(String email) {
 		this.email = email;

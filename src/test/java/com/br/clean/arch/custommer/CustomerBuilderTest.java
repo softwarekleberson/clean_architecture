@@ -22,7 +22,7 @@ class CustomerBuilderTest {
 	            LocalDate.of(1994, 10, 5),
 	            "89724521GOLvi1@",
 	            "89724521GOLvi1@",
-	            Gender.MASCULINO,
+	            Gender.MALE,
 	            new Phone("22", "123456789"),
 	            new Email("lordlof@gmail.com")
 	        );
@@ -32,7 +32,7 @@ class CustomerBuilderTest {
 	        Assertions.assertEquals(LocalDate.of(1994, 10, 5), customer.getBirth());
 	        Assertions.assertEquals("89724521GOLvi1@", customer.getPassword());
 	        Assertions.assertEquals("89724521GOLvi1@", customer.getConfirmPassword());
-	        Assertions.assertEquals(Gender.MASCULINO, customer.getGender());
+	        Assertions.assertEquals(Gender.MALE, customer.getGender());
 	        Assertions.assertEquals("22", customer.getPhone().getDdd());
 	        Assertions.assertEquals("123456789", customer.getPhone().getPhone());
 	        Assertions.assertEquals("lordlof@gmail.com", customer.getEmail().getEmail());

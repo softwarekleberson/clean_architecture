@@ -23,7 +23,7 @@ class CustomerBuilderDeliveryTest {
 	        LocalDate.of(1994, 10, 5),
 	        "89724521GOLvi1@",
 	        "89724521GOLvi1@",
-	        Gender.MASCULINO,
+	        Gender.MALE,
 	        new Phone("22", "123456789"),
 	        new Email("lordlof@gmail.com")
 	    );

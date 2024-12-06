@@ -13,6 +13,9 @@ public class PhoneEntity {
 	public static final int FORMAT_PHONE = 9;
 	private String phone;
 	
+	public PhoneEntity() {
+	}
+	
 	public PhoneEntity(String ddd, String phone) {
 		this.ddd = ddd;
 		this.phone = phone;

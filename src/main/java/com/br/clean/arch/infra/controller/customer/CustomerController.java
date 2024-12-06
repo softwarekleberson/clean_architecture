@@ -1,5 +1,6 @@
 package com.br.clean.arch.infra.controller.customer;
 
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class CustomerController {
 		this.listCustomer = listCustomer;
 	}
 	
+	@PostMapping
 	public CustomerListDto createUser(@RequestBody CustomerDto dto) {
 		Customer customer = createCustomer.createCustomer(new Customer(dto.cpf(), dto.name(), dto.birth(), dto.gender(), dto.phone(), dto.email()));
 		return new CustomerListDto(customer.getCpf(), customer.getCpf(), customer.getEmail());
