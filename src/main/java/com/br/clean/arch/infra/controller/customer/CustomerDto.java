@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 
-public record CustomerInsertDto(
+public record CustomerDto(
 	
     @NotBlank(message = "CPF not be empity our null")
 	String cpf,
@@ -27,14 +27,11 @@ public record CustomerInsertDto(
 						+ " special character")
 	String password,
 	
-	@NotBlank(message = "Confirm password need be igual password")
-	String confirmPassword,
-	
 	@NotNull
 	Gender gender,
 	
 	@NotBlank(message = "Report ddd and phone")
-	Phone ddd,
+	Phone phone,
 	
 	@NotNull
 	Email email

@@ -11,7 +11,7 @@ import com.br.clean.arch.infra.persistence.customer.PhoneEntity;
 
 public class CustomerEntityMapper {
 
-	 public static CustomerEntity toEntity(Customer domain) {
+	 public CustomerEntity toEntity(Customer domain) {
 	        if (domain == null) {
 	            return null;
 	        }
@@ -27,7 +27,7 @@ public class CustomerEntityMapper {
 	        );
 	    }
 
-	    public static Customer toDomain(CustomerEntity entity) {
+	    public Customer toDomain(CustomerEntity entity) {
 	        if (entity == null) {
 	            return null;
 	        }
