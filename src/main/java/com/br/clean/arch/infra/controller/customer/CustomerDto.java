@@ -27,6 +27,9 @@ public record CustomerDto(
 						+ " special character")
 	String password,
 	
+	@NotBlank
+	String confirmPassword,
+	
 	@NotNull
 	Gender gender,
 	

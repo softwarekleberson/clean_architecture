@@ -23,7 +23,7 @@ public class CustomerController {
 	
 	@PostMapping
 	public CustomerListDto createUser(@RequestBody CustomerDto dto) {
-		Customer customer = createCustomer.createCustomer(new Customer(dto.cpf(), dto.name(), dto.birth(), dto.gender(), dto.phone(), dto.email()));
-		return new CustomerListDto(customer.getCpf(), customer.getCpf(), customer.getEmail());
+		Customer customer = createCustomer.createCustomer(new Customer(dto.cpf(), dto.name(), dto.birth(), dto.password(), dto.confirmPassword(), dto.gender(), dto.phone(), dto.email()));
+		return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
 	}
 }

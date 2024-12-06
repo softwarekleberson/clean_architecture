@@ -49,12 +49,13 @@ public class Customer {
 	}
 	
 	public Customer(String cpf, String name,
-			 LocalDate birth,
-			 Gender gender,
+			 LocalDate birth, Gender gender,
 			 Phone phone, Email email) {
 
-		this.cpf = cpf;
-		this.birth = birth;
+		setCpf(cpf);
+		setBirth(birth);
+
+		this.active = false;
 		this.name = name;
 		this.gender = gender;
 		this.phone = phone;
@@ -74,10 +75,14 @@ public class Customer {
 	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
 		}
 	}
-
+	
 	private void matchPasswordAndConfirmPassword(String password, String confirmPassword) {
-		if(password == null || !password.equals(confirmPassword)) {
-			throw new IllegalArgumentException("Password and confirm password not match");
+		if(password == null || confirmPassword == null) {
+			throw new IllegalArgumentException("Password or confirm password not be null or empity");
+		}
+		
+		if(!password.equals(confirmPassword)) {
+			throw new IllegalArgumentException("Password not equals confirm password");
 		}
 	}
 	
