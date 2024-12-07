@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.persistence.address;
+package com.br.clean.arch.infra.persistence.address.delivery;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

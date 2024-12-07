@@ -1,7 +1,11 @@
 package com.br.clean.arch.infra.persistence.customer;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -33,6 +38,9 @@ public class CustomerEntity {
 	
 	@Embedded
 	private EmailEntity email;
+	
+	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<DeliveryEntity> delivery;
 		
 	public CustomerEntity() {
 	}
