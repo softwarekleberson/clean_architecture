@@ -14,7 +14,7 @@ import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 class CustomerBuilderDeliveryTest {
 
 	@Test
-	public void mustCreateDeliveryWitchBuilder() {
+	public void mustCreateDeliveryWithBuilder() {
 		
 		DeliveryBuilder builder = new DeliveryBuilder();
 	    Customer customer = new Customer(

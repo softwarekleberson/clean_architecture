@@ -10,7 +10,7 @@ public class CardBuilder {
 
 	private Customer customer;
 	
-	public CardBuilder witchCard(Customer customer) {
+	public CardBuilder WithCard(Customer customer) {
 		this.customer = customer;
 		return this;
 	}

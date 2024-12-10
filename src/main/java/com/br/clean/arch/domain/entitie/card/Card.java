@@ -63,9 +63,9 @@ public class Card {
 	}
 
 	public void setNumberCard(String numberCard) {
-		String patterNumberCard = "^[0-9]{13}$";
+		String patterNumberCard = "^[0-9]{16}$";
 		if(!numberCard.matches(patterNumberCard)) {
-			throw new IncorrectCardExpetion("Your card must have 13 numbers");
+			throw new IncorrectCardExpetion("Your card must have 16 numbers");
 		}
 		this.numberCard = numberCard;
 	}

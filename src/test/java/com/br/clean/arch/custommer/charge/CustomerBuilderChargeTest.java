@@ -14,7 +14,7 @@ import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 class CustomerBuilderChargeTest {
 
 	@Test
-	public void mustCreateChargeWitchBuilder() {
+	public void mustCreateChargeWithBuilder() {
 		
 		ChargeBuilder builder = new ChargeBuilder();
 	    Customer customer = new Customer(
