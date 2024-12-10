@@ -1,4 +1,4 @@
-package com.br.clean.arch.custommer;
+package com.br.clean.arch.custommer.delivery;
 
 import java.time.LocalDate;
 
