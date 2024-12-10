@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.address.Delivery;
+import com.br.clean.arch.domain.entitie.card.Card;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
@@ -27,6 +28,7 @@ public class Customer {
 	
 	private List<Delivery> deliveries = new ArrayList<Delivery>();
 	private List<Charge> charges = new ArrayList<Charge>();
+	private List<Card> cards = new ArrayList<>();
 	
 	public Customer(String cpf, String name,
 					 LocalDate birth, String password,
@@ -70,6 +72,10 @@ public class Customer {
 		this.charges.add(charge);
 	}
 	
+	public void addNewCard(Card card) {
+		this.cards.add(card);
+	}
+	
 	private void checkCharacterQuantity(String password) {
 		if(password == null || password.length() < LENGHT_PASSWORD) {
 	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
@@ -92,6 +98,14 @@ public class Customer {
 	
 	public List<Delivery> getDeliveries() {
 		return deliveries;
+	}
+	
+	public List<Card> getCards() {
+		return cards;
+	}
+	
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 
 	public String getCpf() {
@@ -179,4 +193,5 @@ public class Customer {
 				+ ", password=" + password + ", confirmPassword=" + confirmPassword + ", gender=" + gender + ", phone="
 				+ phone + ", email=" + email + "]";
 	}
+
 }
