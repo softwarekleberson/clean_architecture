@@ -25,14 +25,25 @@ public class CustomerController {
 		this.listCustomer = listCustomer;
 	}
 	
-	@PostMapping
-	public CustomerListDto createUser(@RequestBody CustomerDto dto) {
-		Customer customer = createCustomer.createCustomer(new Customer(dto.cpf(), dto.name(), dto.birth(), dto.password(), dto.confirmPassword(), dto.gender(), dto.phone(), dto.email()));
-		return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
-	}
+	   	@PostMapping
+	    public CustomerListDto createCustomer(@RequestBody CustomerDto dto) {
+	   			Customer customer = createCustomer.createCustomer(
+	            new Customer(
+	                dto.cpf(), 
+	                dto.name(), 
+	                dto.birth(), 
+	                dto.password(), 
+	                dto.confirmPassword(), 
+	                dto.gender(), 
+	                dto.phone(), 
+	                dto.email()
+	            )
+	        );
+	        return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
+	    }
 	
 	@GetMapping
-	public List<CustomerListDto> listAllCustomers(){
+	public List<CustomerListDto> getAllCustomers(){
 		return listCustomer.listCustomers().
 			   stream().
 			   map(u -> new CustomerListDto(u.getCpf(), u.getName(), u.getEmail())).
