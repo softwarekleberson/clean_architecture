@@ -97,4 +97,14 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 			throw new IllegalArgumentException("Delivery not found");
 		}
 	}
+
+	@Override
+	public Delivery deleteDelivery(Long id) {
+		Optional<DeliveryEntity> opDataBaseDelivery = repository.findById(id);
+		if(opDataBaseDelivery.isPresent()) {
+			DeliveryEntity entity = opDataBaseDelivery.get();
+			repository.delete(entity);
+		}
+		return null;
+	}
 }

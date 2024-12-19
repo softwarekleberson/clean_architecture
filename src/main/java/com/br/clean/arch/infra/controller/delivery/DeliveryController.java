@@ -3,6 +3,7 @@ package com.br.clean.arch.infra.controller.delivery;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
@@ -19,6 +21,7 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
 import jakarta.validation.Valid;
+import lombok.Delegate;
 
 @RestController
 @RequestMapping("/delivery")
@@ -28,12 +31,14 @@ public class DeliveryController {
 	private final CreateDelivery createDelivery;
 	private final ListDelivery listDelivery;
 	private final UpdateDelivery upadateDelivery;
+	private final DeleteDelivery deleteDelivery;
 	
-	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery) {
+	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery) {
 		this.getCustomer = getCustomer;
 		this.createDelivery = createDelivery;
 		this.listDelivery = listDelivery;
 		this.upadateDelivery = upadateDelivery;
+		this.deleteDelivery = deleteDelivery;
 	}
 	
 	@PostMapping("/{cpf}")
@@ -56,5 +61,10 @@ public class DeliveryController {
 	public DeliveryListDto updateDelivery(@PathVariable Long id, @RequestBody @Valid DeliveryUpdateDto dto) {
 		Delivery delivery = upadateDelivery.updateDelivery(id, dto);
 		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteDelivery(@PathVariable Long id) {
+		deleteDelivery.deleteDelivery(id);
 	}
 }

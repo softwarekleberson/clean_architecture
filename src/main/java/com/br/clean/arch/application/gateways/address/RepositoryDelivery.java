@@ -10,4 +10,5 @@ public interface RepositoryDelivery {
 	List<Delivery> listDelivery (String customerId);
 	Delivery createDelivery(String cpf, Delivery delivery);
 	Delivery updateDelivery(Long id, DeliveryUpdateDto dto);
+	Delivery deleteDelivery(Long id);
 }
