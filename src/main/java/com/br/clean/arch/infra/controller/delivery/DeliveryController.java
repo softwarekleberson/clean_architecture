@@ -21,7 +21,6 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
 import jakarta.validation.Valid;
-import lombok.Delegate;
 
 @RestController
 @RequestMapping("/delivery")
