@@ -2,6 +2,7 @@ package com.br.clean.arch.domain.entitie.address;
 
 public abstract class Address {
 	
+	protected Long id;
 	protected String receiver;
 	protected String street;
 	protected String number;
@@ -40,6 +41,14 @@ public abstract class Address {
 		this.streetType = streetType;
 		this.typeResidence = typeResidence;
 		this.city = city;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getReceiver() {

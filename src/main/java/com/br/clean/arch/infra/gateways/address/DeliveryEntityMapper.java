@@ -28,7 +28,7 @@ public class DeliveryEntityMapper {
             return null;
         }
         return new Delivery(
-                deliveryEntity.getReceiver(),
+        		deliveryEntity.getReceiver(),
                 deliveryEntity.getStreet(),
                 deliveryEntity.getNumber(),
                 deliveryEntity.getNeighborhood(),

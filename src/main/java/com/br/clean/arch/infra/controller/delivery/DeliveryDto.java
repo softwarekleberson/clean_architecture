@@ -19,7 +19,6 @@ public record DeliveryDto(
 		@NotBlank
 		String cep,
 		
-		@NotBlank
 		String observation,
 		
 		@NotBlank
