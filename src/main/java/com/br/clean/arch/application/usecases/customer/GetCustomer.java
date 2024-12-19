@@ -1,20 +1,17 @@
-
 package com.br.clean.arch.application.usecases.customer;
-
-import java.util.List;
 
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
-public class ListCustomer {
+public class GetCustomer {
 
 	private RepositoriyCustomer repositoriyCustomer;
 	
-	public ListCustomer(RepositoriyCustomer repositoriyCustomer) {
+	public GetCustomer(RepositoriyCustomer repositoriyCustomer) {
 		this.repositoriyCustomer = repositoriyCustomer;
 	}
 	
-	public List<Customer> listCustomers(){
-		return this.repositoriyCustomer.listCustomer();
+	public Customer getCustomerByCpf(String cpf) {
+		return this.repositoriyCustomer.getCustomerByCpf(cpf);
 	}
 }

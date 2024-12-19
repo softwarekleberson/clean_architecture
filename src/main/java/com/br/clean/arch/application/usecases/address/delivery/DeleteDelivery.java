@@ -1,19 +1,17 @@
 package com.br.clean.arch.application.usecases.address.delivery;
 
-import java.util.List;
-
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 
-public class ListDelivery {
+public class DeleteDelivery {
 
 	private RepositoryDelivery repositoryDelivery;
 	
-	public ListDelivery(RepositoryDelivery repositoryDelivery) {
+	public DeleteDelivery(RepositoryDelivery repositoryDelivery) {
 		this.repositoryDelivery = repositoryDelivery;
 	}
 	
-	public List<Delivery> listDelivery(String customerId) {
-		return this.repositoryDelivery.listDelivery(customerId);
-	}
+	public Delivery deleteDelivery(Long id) {
+		return this.repositoryDelivery.deleteDelivery(id);
+	} 
 }

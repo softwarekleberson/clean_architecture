@@ -15,7 +15,7 @@ public class DeliveryBuilder {
 	public Customer builderDeliveryWitchObservation(String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
 				
-		this.customer.addNewDelivery(new Delivery(receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city, deliveryPhrase));
+		this.customer.addNewDelivery(new Delivery(street, number, neighborhood, cep, observation, streetType, typeResidence, city, deliveryPhrase));
 		return customer;
 	}
 	

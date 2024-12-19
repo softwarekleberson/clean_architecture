@@ -11,7 +11,7 @@ public class CreateDelivery {
 		this.repositoryDelivery = repositoryDelivery;
 	}
 	
-	public Delivery createDelivery(Delivery delivery) {
-		return this.repositoryDelivery.createDelivery(delivery);
+	public Delivery createDelivery(String cpf, Delivery delivery) {
+		return this.repositoryDelivery.createDelivery(cpf, delivery);
 	}
 }
