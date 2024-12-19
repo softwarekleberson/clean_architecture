@@ -1,3 +1,4 @@
+
 package com.br.clean.arch.application.usecases.customer;
 
 import java.util.List;

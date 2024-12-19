@@ -13,7 +13,7 @@ public class ListDelivery {
 		this.repositoryDelivery = repositoryDelivery;
 	}
 	
-	public List<Delivery> createDelivery() {
-		return this.repositoryDelivery.listDelivery();
+	public List<Delivery> listDelivery(String customerId) {
+		return this.repositoryDelivery.listDelivery(customerId);
 	}
 }

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
 import com.br.clean.arch.infra.gateways.address.DeliveryEntityMapper;
 import com.br.clean.arch.infra.gateways.address.DeliveryRepositoryJpa;
@@ -18,6 +19,11 @@ public class DeliveryConfig {
 	@Bean
 	public CreateDelivery createDelivery(RepositoryDelivery repositoriyDelivery) {
 		return new CreateDelivery(repositoriyDelivery);
+	}
+	
+	@Bean
+	public ListDelivery listDelivery(RepositoryDelivery repositoryDelivery) {
+		return new ListDelivery(repositoryDelivery);
 	}
 	
 	@Bean

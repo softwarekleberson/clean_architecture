@@ -24,6 +24,10 @@ public class DeliveryEntity extends AddressEntity{
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	
+	public DeliveryEntity() {
+        super();
+    }
+	
 	public void setCustomerEntity(CustomerEntity customerEntity) {
 		this.customerEntity = customerEntity;
 	}

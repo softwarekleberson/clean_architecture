@@ -1,6 +1,7 @@
 package com.br.clean.arch.infra.gateways.address;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
@@ -33,7 +34,10 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 	}
 
 	@Override
-	public List<Delivery> listDelivery() {
-		return null;
+	public List<Delivery> listDelivery(String customerId) {
+		return repository.findByCustomerId(customerId).stream()
+			   .map(mapper::toDomain)
+			   .collect(Collectors.toList());
+
 	}
 }
