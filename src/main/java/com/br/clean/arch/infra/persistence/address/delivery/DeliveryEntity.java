@@ -15,14 +15,23 @@ public class DeliveryEntity extends AddressEntity{
 	private String deliveryPhrase;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customerEntity_id")
+    @JoinColumn(name = "customer_entity_id") 
 	private CustomerEntity customerEntity;
-
-	public DeliveryEntity(String deliveryPhrase) {
-		super();
+	
+	public DeliveryEntity(String receiver, String street, String number, String neighborhood, String cep,
+			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
+		super(receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	
+	public void setCustomerEntity(CustomerEntity customerEntity) {
+		this.customerEntity = customerEntity;
+	}
+	
+	public CustomerEntity getCustomerEntity() {
+		return customerEntity;
+	}
+
 	public String getDeliveryPhrase() {
 		return deliveryPhrase;
 	}

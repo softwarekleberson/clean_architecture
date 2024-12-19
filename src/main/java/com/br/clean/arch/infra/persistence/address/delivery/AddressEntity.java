@@ -15,6 +15,7 @@ public abstract class AddressEntity {
 	protected Long id;
 	protected String receiver;
 	protected String street;
+	
 	protected String number;
 	protected String neighborhood;
 	
@@ -23,4 +24,97 @@ public abstract class AddressEntity {
 	protected String streetType;
 	protected String typeResidence;
 	protected String city;
+	
+	public AddressEntity(String receiver, String street, String number, String neighborhood, String cep,
+			String observation, String streetType, String typeResidence, String city) {
+		this.receiver = receiver;
+		this.street = street;
+		this.number = number;
+		this.neighborhood = neighborhood;
+		this.cep = cep;
+		this.observation = observation;
+		this.streetType = streetType;
+		this.typeResidence = typeResidence;
+		this.city = city;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getNumber() {
+		return number;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getObservation() {
+		return observation;
+	}
+
+	public void setObservation(String observation) {
+		this.observation = observation;
+	}
+
+	public String getStreetType() {
+		return streetType;
+	}
+
+	public void setStreetType(String streetType) {
+		this.streetType = streetType;
+	}
+
+	public String getTypeResidence() {
+		return typeResidence;
+	}
+
+	public void setTypeResidence(String typeResidence) {
+		this.typeResidence = typeResidence;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 }

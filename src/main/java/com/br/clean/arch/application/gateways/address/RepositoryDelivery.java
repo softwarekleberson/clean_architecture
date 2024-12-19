@@ -6,6 +6,6 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public interface RepositoryDelivery {
 
-	Delivery createDelivery (Delivery delivery);
 	List<Delivery> listDelivery ();
+	Delivery createDelivery(String cpf, Delivery delivery);
 }

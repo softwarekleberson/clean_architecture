@@ -8,4 +8,5 @@ public interface RepositoriyCustomer {
 
 	Customer createCustomer(Customer customer);
 	List<Customer> listCustomer();
+	Customer getCustomerByCpf(String cpf);
 }

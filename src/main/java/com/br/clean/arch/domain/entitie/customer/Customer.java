@@ -12,6 +12,7 @@ import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
 
 public class Customer {
 
+	private String id;
 	private String cpf;
 	private boolean active;
 	private String name;
@@ -84,6 +85,14 @@ public class Customer {
 		if(!password.equals(confirmPassword)) {
 			throw new IllegalArgumentException("Password not equals confirm password");
 		}
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public List<Charge> getCharges() {

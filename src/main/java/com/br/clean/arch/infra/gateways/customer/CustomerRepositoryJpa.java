@@ -32,4 +32,12 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer{
 			   .collect(Collectors.toList());
 	}
 
+	@Override
+	public Customer getCustomerByCpf(String cpf) {
+		CustomerEntity entity = repository.findByCpf(cpf);
+		if(entity == null) {
+			throw new IllegalArgumentException("Cpf not found");
+		}
+		return mapper.toDomain(entity);
+	}
 }
