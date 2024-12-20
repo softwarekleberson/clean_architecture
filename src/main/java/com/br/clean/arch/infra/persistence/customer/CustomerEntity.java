@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
+import com.br.clean.arch.infra.persistence.card.CardEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -41,6 +42,9 @@ public class CustomerEntity {
 	
 	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<DeliveryEntity> delivery;
+	
+	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<CardEntity> card;
 		
 	public CustomerEntity() {
 	}
