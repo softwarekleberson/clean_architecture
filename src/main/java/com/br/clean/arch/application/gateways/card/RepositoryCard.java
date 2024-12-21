@@ -10,4 +10,5 @@ public interface RepositoryCard {
 	List<Card> listCard (String id);
 	Card createNewCard (String id, Card card);
 	Card updateCard (String id, CardUpdateDto dto);
+	Card deleteCard (Long id);
 }

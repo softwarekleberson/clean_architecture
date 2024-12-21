@@ -37,11 +37,11 @@ public class CardEntityMapper {
 				);
 	}
 
-	private Flag toDomain(FlagEntity entity) {
+	private static Flag toDomain(FlagEntity entity) {
 		return entity == null ? null : Flag.valueOf(entity.name());
 	}
 
-	private FlagEntity toEntity(Flag domain) {
+	private static FlagEntity toEntity(Flag domain) {
 		return domain == null ? null : FlagEntity.valueOf(domain.name());
 	}
 }
