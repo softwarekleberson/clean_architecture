@@ -49,6 +49,10 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 		if(opDataBaseDelivery.isPresent()) {
 			DeliveryEntity entity = opDataBaseDelivery.get();
 			
+			if(dto.main() != null) {
+				entity.setMain(dto.main());
+			}
+			
 			if(dto.receiver() != null) {
 				entity.setReceiver(dto.receiver());
 			}
@@ -106,5 +110,42 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 			repository.delete(entity);
 		}
 		return null;
+	}
+
+	@Override
+	public Delivery verifyMainDelivery(String cpf) {
+	    CustomerEntity customerEntity = customerRepository.findByCpf(cpf);
+	    if(customerEntity == null) {
+	    	throw new IllegalArgumentException("Customer not found");
+	    }
+	    
+	    List<DeliveryEntity> entity = customerEntity.getDelivery();
+	    for(DeliveryEntity verify : entity) {
+	    	if(verify.getMain()) {
+	    		customerEntity.setActive(true);
+	    		customerRepository.save(customerEntity);
+	    		break;
+	    	}
+	    }
+		return null;
+	}
+
+	@Override
+	public Delivery ensuresAprimaryAddress(String cpf, boolean principal) {
+		CustomerEntity customerEntity = customerRepository.findByCpf(cpf);
+	    if(customerEntity == null) {
+	    	throw new IllegalArgumentException("Customer not found");
+	    }
+	    
+	    if(principal) {
+	    	List<DeliveryEntity> entity = customerEntity.getDelivery();
+	 	    for(DeliveryEntity verify : entity) {
+	 	    	if(verify.getMain()) {
+	 	    	   verify.setMain(false);
+	 	    	   repository.save(verify);
+	 	    	}
+	 	    }
+	    }
+		return null;	   
 	}
 }

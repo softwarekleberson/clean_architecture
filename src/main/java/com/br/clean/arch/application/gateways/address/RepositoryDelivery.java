@@ -11,4 +11,6 @@ public interface RepositoryDelivery {
 	Delivery createDelivery(String cpf, Delivery delivery);
 	Delivery updateDelivery(Long id, DeliveryUpdateDto dto);
 	Delivery deleteDelivery(Long id);
+	Delivery verifyMainDelivery(String cpf);
+	Delivery ensuresAprimaryAddress(String cpf, boolean principal);
 }

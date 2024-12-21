@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.EnsuresAprimaryAddress;
 import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.VerifyMainDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
@@ -31,20 +33,27 @@ public class DeliveryController {
 	private final ListDelivery listDelivery;
 	private final UpdateDelivery upadateDelivery;
 	private final DeleteDelivery deleteDelivery;
+	private final VerifyMainDelivery verifyMainDelivery;
+	private final EnsuresAprimaryAddress ensuresAprimaryAddress;
 	
-	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery) {
+	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery, VerifyMainDelivery verifyMainDelivery, EnsuresAprimaryAddress ensuresAprimaryAddress) {
 		this.getCustomer = getCustomer;
 		this.createDelivery = createDelivery;
 		this.listDelivery = listDelivery;
 		this.upadateDelivery = upadateDelivery;
 		this.deleteDelivery = deleteDelivery;
+		this.verifyMainDelivery = verifyMainDelivery;
+		this.ensuresAprimaryAddress = ensuresAprimaryAddress;
 	}
 	
 	@PostMapping("/{cpf}")
 	public DeliveryListDto createDelivery(@PathVariable String cpf, @RequestBody @Valid DeliveryDto dto) {
 		Customer customer = getCustomer.getCustomerByCpf(cpf);
+		ensuresAprimaryAddress.ensuresAprimaryAddress(cpf, dto.main());
 		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+
 		Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+		verifyMainDelivery.verifyMainDelivery(cpf);
 		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
 	}
 	

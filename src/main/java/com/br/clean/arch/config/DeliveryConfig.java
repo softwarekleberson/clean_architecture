@@ -7,8 +7,10 @@ import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.EnsuresAprimaryAddress;
 import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.VerifyMainDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
 import com.br.clean.arch.infra.gateways.address.DeliveryEntityMapper;
 import com.br.clean.arch.infra.gateways.address.DeliveryRepositoryJpa;
@@ -36,6 +38,16 @@ public class DeliveryConfig {
 	@Bean
 	public DeleteDelivery deleteDelivery(RepositoryDelivery repositoryDelivery) {
 		return new DeleteDelivery(repositoryDelivery);
+	}
+	
+	@Bean
+	public VerifyMainDelivery verifyMainDelivery(RepositoryDelivery repositoryDelivery) {
+		return new VerifyMainDelivery(repositoryDelivery);
+	}
+	
+	@Bean
+	public EnsuresAprimaryAddress ensuresAprimaryAddress (RepositoryDelivery repositoryDelivery) {
+		return new EnsuresAprimaryAddress(repositoryDelivery);
 	}
 	
 	@Bean

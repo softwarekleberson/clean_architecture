@@ -71,6 +71,10 @@ public class CustomerEntity {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public List<DeliveryEntity> getDelivery() {
+		return delivery;
+	}
 
 	public String getCpf() {
 		return cpf;
