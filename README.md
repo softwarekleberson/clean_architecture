@@ -18,7 +18,7 @@ O projeto está organizado em camadas, seguindo os princípios da Clean Architec
 - **Domain**: Contém as entidades principais, interfaces de repositórios e casos de uso. Esta camada é independente de frameworks e bibliotecas.
 - **Application**: Implementação dos casos de uso e regras de negócio, coordenando as interações entre a camada de domínio e as externas.
 - **Infrastructure**: Implementação de repositórios, serviços externos e integrações com APIs ou bancos de dados.
-- **Presentation**: IAPIs REST.
+- **Presentation**: APIs REST.
 
 ## Requisitos
 
