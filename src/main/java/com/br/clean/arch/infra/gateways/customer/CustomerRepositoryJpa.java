@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.customer.CustomerUpdateDto;
@@ -14,17 +16,28 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer{
 
 	private final CustomerRepository repository;
 	private final CustomerEntityMapper mapper;
+	private final PasswordEncoder passwordEncoder;
 	
-	public CustomerRepositoryJpa(CustomerRepository repository, CustomerEntityMapper mapper) {
+	public CustomerRepositoryJpa(CustomerRepository repository, CustomerEntityMapper mapper, PasswordEncoder passwordEncoder) {
 		this.repository = repository;
 		this.mapper = mapper;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public Customer createCustomer(Customer customer) {
 		CustomerEntity entity = mapper.toEntity(customer);
+		
+		var encryptPassword = encryptPassword(customer.getPassword());
+		entity.setPassword(encryptPassword);
+		
 		repository.save(entity);
 		return mapper.toDomain(entity);
+	}
+	
+	private String encryptPassword (String password) {
+		var encrypt = passwordEncoder.encode(password);
+		return encrypt;
 	}
 
 	@Override
