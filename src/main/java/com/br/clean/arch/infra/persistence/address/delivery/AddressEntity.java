@@ -15,6 +15,7 @@ public abstract class AddressEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Long id;
+	protected Boolean main;
 	protected String receiver;
 	protected String street;
 	
@@ -27,8 +28,9 @@ public abstract class AddressEntity {
 	protected String typeResidence;
 	protected String city;
 	
-	public AddressEntity(String receiver, String street, String number, String neighborhood, String cep,
+	public AddressEntity(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String observation, String streetType, String typeResidence, String city) {
+		this.main = main;
 		this.receiver = receiver;
 		this.street = street;
 		this.number = number;
@@ -48,6 +50,14 @@ public abstract class AddressEntity {
 		this.id = id;
 	}
 
+	public Boolean getMain() {
+		return main;
+	}
+	
+	public void setMain(Boolean main) {
+		this.main = main;
+	}
+	
 	public String getReceiver() {
 		return receiver;
 	}

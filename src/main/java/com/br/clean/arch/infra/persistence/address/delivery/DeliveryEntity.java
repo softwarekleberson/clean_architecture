@@ -18,9 +18,9 @@ public class DeliveryEntity extends AddressEntity{
     @JoinColumn(name = "customer_entity_id") 
 	private CustomerEntity customerEntity;
 	
-	public DeliveryEntity(String receiver, String street, String number, String neighborhood, String cep,
+	public DeliveryEntity(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	

@@ -12,10 +12,10 @@ public class ChargeBuilder {
 	        return this;
 	}
 	
-	public Customer builderCharge(String receiver, String street, String number, String neighborhood, String cep,
+	public Customer builderCharge(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
 				
-		this.customer.addNewCharge(new Charge(receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase));
+		this.customer.addNewCharge(new Charge(main, receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase));
 		return customer;
 	}
 }

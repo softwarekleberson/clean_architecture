@@ -10,6 +10,7 @@ public class DeliveryEntityMapper {
             return null;
         }
         return new DeliveryEntity(
+        		delivery.getMain(),
         		delivery.getReceiver(),
                 delivery.getStreet(),
                 delivery.getNumber(),
@@ -28,6 +29,7 @@ public class DeliveryEntityMapper {
             return null;
         }
         return new Delivery(
+        		deliveryEntity.getMain(),
         		deliveryEntity.getReceiver(),
                 deliveryEntity.getStreet(),
                 deliveryEntity.getNumber(),

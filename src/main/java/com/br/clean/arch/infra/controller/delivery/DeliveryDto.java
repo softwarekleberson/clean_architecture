@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DeliveryDto(
 		
+		Boolean main,
+		
 		@NotBlank
 		String receiver,
 		

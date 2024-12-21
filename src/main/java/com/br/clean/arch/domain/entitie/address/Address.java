@@ -3,6 +3,7 @@ package com.br.clean.arch.domain.entitie.address;
 public abstract class Address {
 	
 	protected Long id;
+	protected Boolean main;
 	protected String receiver;
 	protected String street;
 	protected String number;
@@ -14,11 +15,12 @@ public abstract class Address {
 	protected String typeResidence;
 	protected String city;
 	
-	public Address(String receiver, String street, String number, String neighborhood, String cep, String observation,
+	public Address(Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city) {
 		
 		setCep(cep);
 
+		this.main = main;
 		this.receiver = receiver;
 		this.street = street;
 		this.number = number;
@@ -29,11 +31,12 @@ public abstract class Address {
 		this.city = city;
 	}
 
-	public Address(String receiver, String street, String number, String neighborhood, String cep, String streetType,
+	public Address(Boolean main, String receiver, String street, String number, String neighborhood, String cep, String streetType,
 			String typeResidence, String city) {
 
 		setCep(cep);
 		
+		this.main = main;
 		this.receiver = receiver;
 		this.street = street;
 		this.number = number;
@@ -51,6 +54,14 @@ public abstract class Address {
 		this.id = id;
 	}
 
+	public Boolean getMain() {
+		return main;
+	}
+	
+	public void setMain(Boolean main) {
+		this.main = main;
+	}
+	
 	public String getReceiver() {
 		return receiver;
 	}

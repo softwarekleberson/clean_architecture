@@ -43,8 +43,8 @@ public class DeliveryController {
 	@PostMapping("/{cpf}")
 	public DeliveryListDto createDelivery(@PathVariable String cpf, @RequestBody @Valid DeliveryDto dto) {
 		Customer customer = getCustomer.getCustomerByCpf(cpf);
-		customer.addNewDelivery(new Delivery(dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
-		Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+		Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
 	}
 	

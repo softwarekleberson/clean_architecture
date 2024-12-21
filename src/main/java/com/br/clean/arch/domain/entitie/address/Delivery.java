@@ -4,15 +4,15 @@ public class Delivery extends Address {
 
 	private String deliveryPhrase;
 
-	public Delivery(String receiver, String street, String number, String neighborhood, String cep, String observation,
+	public Delivery(Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	
-	public Delivery(String receiver, String street, String number, String neighborhood, String cep,
+	public Delivery(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(receiver, street, number, neighborhood, cep, streetType, typeResidence, city);
+		super(main, receiver, street, number, neighborhood, cep, streetType, typeResidence, city);
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	

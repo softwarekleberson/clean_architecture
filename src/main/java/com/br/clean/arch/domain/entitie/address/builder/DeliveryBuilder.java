@@ -12,17 +12,17 @@ public class DeliveryBuilder {
 	        return this;
 	}
 	
-	public Customer builderDeliveryWitchObservation(String receiver, String street, String number, String neighborhood, String cep, String observation,
+	public Customer builderDeliveryWitchObservation(Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
 				
-		this.customer.addNewDelivery(new Delivery(street, number, neighborhood, cep, observation, streetType, typeResidence, city, deliveryPhrase));
+		this.customer.addNewDelivery(new Delivery(main, street, number, neighborhood, cep, observation, streetType, typeResidence, city, deliveryPhrase));
 		return customer;
 	}
 	
-	public Customer builderDeliverywithoutObservation(String receiver, String street, String number, String neighborhood, String cep,
+	public Customer builderDeliverywithoutObservation(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String streetType, String typeResidence, String city, String deliveryPhrase) {
 				
-		this.customer.addNewDelivery(new Delivery(receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase));
+		this.customer.addNewDelivery(new Delivery(main, receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase));
 		return customer;
 	}
 }

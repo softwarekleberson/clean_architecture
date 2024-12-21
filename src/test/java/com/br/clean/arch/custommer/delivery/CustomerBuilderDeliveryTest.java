@@ -32,7 +32,7 @@ class CustomerBuilderDeliveryTest {
 	    builder.withCustomer(customer);
 
 	    customer = builder.builderDeliveryWitchObservation(
-	        "jose silva", "rua das flores", "100", "vila belmiro", "12345-700",
+	        true, "jose silva", "rua das flores", "100", "vila belmiro", "12345-700",
 	        "entregar as 10 horas", "rua", "casa", "São jose", "entregar na portaria"
 	    );
 
