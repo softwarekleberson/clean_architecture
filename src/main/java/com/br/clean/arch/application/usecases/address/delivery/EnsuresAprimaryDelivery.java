@@ -3,11 +3,11 @@ package com.br.clean.arch.application.usecases.address.delivery;
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 
-public class EnsuresAprimaryAddress {
+public class EnsuresAprimaryDelivery {
 
 	private RepositoryDelivery repositoryDelivery;
 
-	public EnsuresAprimaryAddress(RepositoryDelivery repositoryDelivery) {
+	public EnsuresAprimaryDelivery(RepositoryDelivery repositoryDelivery) {
 		this.repositoryDelivery = repositoryDelivery;
 	}
 	

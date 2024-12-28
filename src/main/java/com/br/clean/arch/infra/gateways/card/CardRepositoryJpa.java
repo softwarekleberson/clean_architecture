@@ -33,13 +33,14 @@ public class CardRepositoryJpa implements RepositoryCard {
 
 	@Override
 	public Card createNewCard(String cpf, Card card) {
-		CustomerEntity customer = customerRepository.findByCpf(cpf);
-		if(customer == null) {
+		Optional<CustomerEntity> optDataBase = customerRepository.findByCpf(cpf);
+		if(optDataBase.isEmpty()) {
 			throw new IllegalArgumentException("Customer not found");
 		}
 		
+		CustomerEntity customerEntity = optDataBase.get();
 		CardEntity entity = mapper.toEntity(card);
-		entity.setCustomerEntity(customer);
+		entity.setCustomerEntity(customerEntity);
 		
 		repository.save(entity);
 		return mapper.toDomain(entity);

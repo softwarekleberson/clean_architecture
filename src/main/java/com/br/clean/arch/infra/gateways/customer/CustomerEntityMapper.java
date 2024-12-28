@@ -17,7 +17,8 @@ public class CustomerEntityMapper {
 	        }
 
 	        return new CustomerEntity(
-	            domain.getCpf(),
+	            domain.getId(),
+	        	domain.getCpf(),
 	            domain.getName(),
 	            domain.getBirth(),
 	            domain.getPassword(),
@@ -33,7 +34,8 @@ public class CustomerEntityMapper {
 	        }
 
 	        return new Customer(
-	            entity.getCpf(),
+	            entity.getId(),
+	        	entity.getCpf(),
 	            entity.getName(),
 	            entity.getBirth(),
 	            toDomain(entity.getGenderEntity()),

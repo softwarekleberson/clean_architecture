@@ -3,6 +3,7 @@ package com.br.clean.arch.infra.persistence.customer;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.card.CardEntity;
 
@@ -44,6 +45,9 @@ public class CustomerEntity {
 	private List<DeliveryEntity> delivery;
 	
 	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ChargeEntity> charges;
+	
+	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CardEntity> card;
 		
 	public CustomerEntity() {
@@ -54,6 +58,22 @@ public class CustomerEntity {
 					 GenderEntity gender,
 					 PhoneEntity phone, EmailEntity email) {
 						
+		this.active = false;
+		this.cpf = cpf;
+		this.birth = birth;
+		this.name = name;
+		this.password = password;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+	}
+	
+	public CustomerEntity(String id, String cpf, String name,
+			 LocalDate birth, String password,
+			 GenderEntity gender,
+			 PhoneEntity phone, EmailEntity email) {
+		
+		this.id = id;
 		this.active = false;
 		this.cpf = cpf;
 		this.birth = birth;
@@ -76,6 +96,10 @@ public class CustomerEntity {
 		return delivery;
 	}
 
+	public List<ChargeEntity> getCharges() {
+		return charges;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}

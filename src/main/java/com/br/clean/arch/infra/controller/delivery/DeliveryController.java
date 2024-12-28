@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.CustomerIsActiveDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
-import com.br.clean.arch.application.usecases.address.delivery.EnsuresAprimaryAddress;
+import com.br.clean.arch.application.usecases.address.delivery.EnsuresAprimaryDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
-import com.br.clean.arch.application.usecases.address.delivery.VerifyMainDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
@@ -33,17 +33,17 @@ public class DeliveryController {
 	private final ListDelivery listDelivery;
 	private final UpdateDelivery upadateDelivery;
 	private final DeleteDelivery deleteDelivery;
-	private final VerifyMainDelivery verifyMainDelivery;
-	private final EnsuresAprimaryAddress ensuresAprimaryAddress;
+	private final EnsuresAprimaryDelivery ensuresAprimaryAddress;
+	private final CustomerIsActiveDelivery customerIsActiveDelivery;
 	
-	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery, VerifyMainDelivery verifyMainDelivery, EnsuresAprimaryAddress ensuresAprimaryAddress) {
+	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery, EnsuresAprimaryDelivery ensuresAprimaryAddress, CustomerIsActiveDelivery customerIsActiveDelivery) {
 		this.getCustomer = getCustomer;
 		this.createDelivery = createDelivery;
 		this.listDelivery = listDelivery;
 		this.upadateDelivery = upadateDelivery;
 		this.deleteDelivery = deleteDelivery;
-		this.verifyMainDelivery = verifyMainDelivery;
 		this.ensuresAprimaryAddress = ensuresAprimaryAddress;
+		this.customerIsActiveDelivery = customerIsActiveDelivery;
 	}
 	
 	@PostMapping("/{cpf}")
@@ -53,7 +53,7 @@ public class DeliveryController {
 		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 
 		Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
-		verifyMainDelivery.verifyMainDelivery(cpf);
+		customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
 		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
 	}
 	

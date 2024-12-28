@@ -15,29 +15,33 @@ import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 public class DeliveryRepositoryJpa implements RepositoryDelivery{
 
 	private final CustomerRepository customerRepository;
-	private final DeliveryRepository repository;
+	private final DeliveryRepository deliveryRepository;
 	private final DeliveryEntityMapper mapper;
 	
-	public DeliveryRepositoryJpa(CustomerRepository customerRepository, DeliveryRepository repository, DeliveryEntityMapper mapper) {
-		this.repository = repository;
+	public DeliveryRepositoryJpa(CustomerRepository customerRepository, DeliveryRepository deliveryRepository, DeliveryEntityMapper mapper) {
+		this.deliveryRepository = deliveryRepository;
 		this.customerRepository = customerRepository;
 		this.mapper = mapper;
 	}
 
 	@Override
 	public Delivery createDelivery(String customerId, Delivery delivery) {	
-
-	    CustomerEntity customerEntity = customerRepository.findByCpf(customerId);
-		DeliveryEntity entity = mapper.toEntity(delivery);
-		entity.setCustomerEntity(customerEntity);
+	    Optional<CustomerEntity> optDataBase = customerRepository.findByCpf(customerId);
+		if(optDataBase.isEmpty()) {
+			throw new IllegalArgumentException("Customer not found");
+		}
 		
-		repository.save(entity);
+	    CustomerEntity customer = optDataBase.get();
+	    DeliveryEntity entity = mapper.toEntity(delivery);
+		entity.setCustomerEntity(customer);
+		
+		deliveryRepository.save(entity);
 		return mapper.toDomain(entity);
 	}
 
 	@Override
 	public List<Delivery> listDelivery(String customerId) {
-		return repository.findByCustomerId(customerId).stream()
+		return deliveryRepository.findByCustomerId(customerId).stream()
 			   .map(mapper::toDomain)
 			   .collect(Collectors.toList());
 
@@ -45,7 +49,7 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 
 	@Override
 	public Delivery updateDelivery(Long id, DeliveryUpdateDto dto) {
-		Optional<DeliveryEntity> opDataBaseDelivery = repository.findById(id);
+		Optional<DeliveryEntity> opDataBaseDelivery = deliveryRepository.findById(id);
 		if(opDataBaseDelivery.isPresent()) {
 			DeliveryEntity entity = opDataBaseDelivery.get();
 			
@@ -93,7 +97,7 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 				entity.setDeliveryPhrase(dto.deliveryPhrase());
 			}
 			
-			repository.save(entity);
+			deliveryRepository.save(entity);
 			return mapper.toDomain(entity);
 		}
 		
@@ -104,48 +108,52 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 
 	@Override
 	public Delivery deleteDelivery(Long id) {
-		Optional<DeliveryEntity> opDataBaseDelivery = repository.findById(id);
+		Optional<DeliveryEntity> opDataBaseDelivery = deliveryRepository.findById(id);
 		if(opDataBaseDelivery.isPresent()) {
 			DeliveryEntity entity = opDataBaseDelivery.get();
-			repository.delete(entity);
+			deliveryRepository.delete(entity);
 		}
 		return null;
 	}
 
 	@Override
-	public Delivery verifyMainDelivery(String cpf) {
-	    CustomerEntity customerEntity = customerRepository.findByCpf(cpf);
-	    if(customerEntity == null) {
+	public Delivery ensuresAprimaryAddress(String cpf, boolean main) {
+		Optional<CustomerEntity> customerEntity = customerRepository.findByCpf(cpf);
+	    if(customerEntity.isEmpty()) {
 	    	throw new IllegalArgumentException("Customer not found");
 	    }
 	    
-	    List<DeliveryEntity> entity = customerEntity.getDelivery();
-	    for(DeliveryEntity verify : entity) {
-	    	if(verify.getMain()) {
-	    		customerEntity.setActive(true);
-	    		customerRepository.save(customerEntity);
-	    		break;
-	    	}
-	    }
-		return null;
-	}
-
-	@Override
-	public Delivery ensuresAprimaryAddress(String cpf, boolean principal) {
-		CustomerEntity customerEntity = customerRepository.findByCpf(cpf);
-	    if(customerEntity == null) {
-	    	throw new IllegalArgumentException("Customer not found");
-	    }
-	    
-	    if(principal) {
-	    	List<DeliveryEntity> entity = customerEntity.getDelivery();
+	    if(main) {
+	    	List<DeliveryEntity> entity = customerEntity.get().getDelivery();
 	 	    for(DeliveryEntity verify : entity) {
 	 	    	if(verify.getMain()) {
 	 	    	   verify.setMain(false);
-	 	    	   repository.save(verify);
+	 	    	   deliveryRepository.save(verify);
 	 	    	}
 	 	    }
 	    }
 		return null;	   
+	}
+
+	@Override
+	public Delivery customerIsActive(String id) {
+		
+		if(id == null || id.isEmpty()) {
+			throw new IllegalArgumentException("Id of customer not present");
+		}
+		
+		Optional<CustomerEntity> obtDataBase = customerRepository.findById(id);
+		if(obtDataBase.isEmpty()) {
+			throw new IllegalArgumentException("Customer not found");
+		}
+		
+		CustomerEntity customer = obtDataBase.get();
+
+		boolean customerMostByActive = deliveryRepository.existsDeliveryAndChargeByCustomerId(id);	
+		if(customerMostByActive) {
+			customer.setActive(true);
+			customerRepository.save(customer);
+		}
+		return null;
 	}
 }

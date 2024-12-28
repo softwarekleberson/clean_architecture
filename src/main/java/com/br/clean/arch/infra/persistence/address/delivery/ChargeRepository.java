@@ -1,17 +1,15 @@
 package com.br.clean.arch.infra.persistence.address.delivery;
 
-
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-
-public interface DeliveryRepository extends JpaRepository<DeliveryEntity, Long>{
+public interface ChargeRepository extends JpaRepository<ChargeEntity, Long>{
     
-    @Query("SELECT d FROM DeliveryEntity d WHERE d.customerEntity.id = :customerId")
-    List<DeliveryEntity> findByCustomerId(@Param("customerId") String customerId);
+    @Query("SELECT c FROM ChargeEntity c WHERE c.customerEntity.id = :customerId")
+    List<ChargeEntity> findByCustomerId(@Param("customerId") String customerId);
 
     @Query("""
             SELECT CASE 

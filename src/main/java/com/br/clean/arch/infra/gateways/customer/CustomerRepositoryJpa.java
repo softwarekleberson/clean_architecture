@@ -49,11 +49,13 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer{
 
 	@Override
 	public Customer getCustomerByCpf(String cpf) {
-		CustomerEntity entity = repository.findByCpf(cpf);
-		if(entity == null) {
+		Optional<CustomerEntity> entity = repository.findByCpf(cpf);
+		if(entity.isEmpty()) {
 			throw new IllegalArgumentException("Cpf not found");
 		}
-		return mapper.toDomain(entity);
+		
+		CustomerEntity customerEntity = entity.get();
+		return mapper.toDomain(customerEntity);
 	}
 
 	@Override

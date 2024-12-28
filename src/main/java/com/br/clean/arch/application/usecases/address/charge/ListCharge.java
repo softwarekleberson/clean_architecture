@@ -13,7 +13,7 @@ public class ListCharge {
 		this.repositoryCharge = repositoryCharge;
 	}
 	
-	public List<Charge> createCharge() {
-		return this.repositoryCharge.listCharge();
+	public List<Charge> listCharge(String custonId) {
+		return this.repositoryCharge.listCharge(custonId);
 	}
 }

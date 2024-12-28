@@ -46,21 +46,21 @@ public class CustomerController {
                 dto.email()
 	         )
 	        );
-	   	return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
+	   	return new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
 	}
 	
 	@GetMapping
 	public List<CustomerListDto> getAllCustomers(){
 		return listCustomer.listCustomers().
 			   stream().
-			   map(u -> new CustomerListDto(u.getCpf(), u.getName(), u.getEmail())).
+			   map(u -> new CustomerListDto(u.getId(), u.getCpf(), u.getName(), u.getEmail())).
 			   collect(Collectors.toList());
 	}
 	
 	@PutMapping("/{id}")
 	public CustomerListDto updateAllCustomer(@PathVariable String id, @Valid @RequestBody CustomerUpdateDto dto){
 		Customer customer = updateCustomer.updateCustomer(id, dto);
-	   	return new CustomerListDto(customer.getCpf(), customer.getName(), customer.getEmail());
+	   	return new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
 	}
 	
 }

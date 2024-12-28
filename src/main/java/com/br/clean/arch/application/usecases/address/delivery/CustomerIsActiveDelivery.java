@@ -3,15 +3,16 @@ package com.br.clean.arch.application.usecases.address.delivery;
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 
-public class VerifyMainDelivery {
+public class CustomerIsActiveDelivery {
 
 	private RepositoryDelivery repositoryDelivery;
-
-	public VerifyMainDelivery(RepositoryDelivery repositoryDelivery) {
+	
+	public CustomerIsActiveDelivery(RepositoryDelivery repositoryDelivery) {
 		this.repositoryDelivery = repositoryDelivery;
 	}
 	
-	public Delivery verifyMainDelivery(String cpf) {
-		return this.repositoryDelivery.verifyMainDelivery(cpf);
+	public Delivery customerIsActiveDelivery(String id) {
+		return this.repositoryDelivery.customerIsActive(id);
 	}
+	
 }

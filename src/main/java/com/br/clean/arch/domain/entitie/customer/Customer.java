@@ -64,7 +64,18 @@ public class Customer {
 		this.phone = phone;
 		this.email = email;
 	}
-	
+
+	public Customer(String id, String cpf, String name, LocalDate birth, Gender gender, Phone phone, Email email) {
+		super();
+		this.id = id;
+		this.cpf = cpf;
+		this.name = name;
+		this.birth = birth;
+		this.gender = gender;
+		this.phone = phone;
+		this.email = email;
+	}
+
 	public void addNewDelivery(Delivery delivery) {
 		this.deliveries.add(delivery);
 	}

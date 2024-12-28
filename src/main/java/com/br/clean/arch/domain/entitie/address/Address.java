@@ -99,7 +99,6 @@ public abstract class Address {
 	}
 
 	public void setCep(String cep) {
-		System.out.println("ssssssss" + cep);
 		String regexCep = "^\\d{5}-\\d{3}$";
 		if(cep == null || !cep.matches(regexCep)) {
 			throw new IllegalArgumentException("Format cep incorrect, you need respect this format xxxxx-xxx");

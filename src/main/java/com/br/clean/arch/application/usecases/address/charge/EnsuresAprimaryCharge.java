@@ -3,15 +3,15 @@ package com.br.clean.arch.application.usecases.address.charge;
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
 import com.br.clean.arch.domain.entitie.address.Charge;
 
-public class CreateCharge {
+public class EnsuresAprimaryCharge {
 
 	private RepositoryCharge repositoryCharge;
 	
-	public CreateCharge(RepositoryCharge repositoryCharge) {
+	public EnsuresAprimaryCharge(RepositoryCharge repositoryCharge) {
 		this.repositoryCharge = repositoryCharge;
 	}
 	
-	public Charge createCharge(String cpf, Charge charge) {
-		return this.repositoryCharge.createCharge(cpf, charge);
+	public Charge ensuresAprimaryCharge(String cpf, boolean main) {
+		return this.repositoryCharge.ensuresAprimaryAddress(cpf, main);
 	}
 }
