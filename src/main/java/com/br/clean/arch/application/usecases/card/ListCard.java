@@ -4,16 +4,20 @@ import java.util.List;
 
 import com.br.clean.arch.application.gateways.card.RepositoryCard;
 import com.br.clean.arch.domain.entitie.card.Card;
+import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 
 public class ListCard {
 
-	private RepositoryCard repositoryCard;
+	private RepositoryCard repository;
 	
-	public ListCard(RepositoryCard repositoryCard) {
-		this.repositoryCard = repositoryCard;
+	public ListCard(RepositoryCard repository) {
+		this.repository = repository;
 	}
 	
 	public List<Card> listCards(String id){
-		return repositoryCard.listCard(id);
+		if(repository.getCustomerById(id).isEmpty()) {
+			throw new CustomerNotFoundException("Customer not found");
+		}
+		return repository.listCard(id);
 	}
 }

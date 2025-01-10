@@ -1,6 +1,7 @@
 package com.br.clean.arch.domain.entitie.card;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import com.br.clean.arch.domain.entitie.card.exeptions.IncorrectCardExpetion;
 import com.br.clean.arch.domain.entitie.card.valueObject.Flag;
@@ -88,6 +89,23 @@ public class Card {
 			throw new IncorrectCardExpetion("Your card need expiration date bigger current date");
 		}
 		this.expirationDate = expirationDate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(numberCard, printedName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		return Objects.equals(numberCard, other.numberCard) && Objects.equals(printedName, other.printedName);
 	}
 
 	@Override

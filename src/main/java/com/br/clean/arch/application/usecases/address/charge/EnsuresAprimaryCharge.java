@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.address.Charge;
 
 public class EnsuresAprimaryCharge {
 
-	private RepositoryCharge repositoryCharge;
+	private RepositoryCharge repository;
 	
-	public EnsuresAprimaryCharge(RepositoryCharge repositoryCharge) {
-		this.repositoryCharge = repositoryCharge;
+	public EnsuresAprimaryCharge(RepositoryCharge repository) {
+		this.repository = repository;
 	}
 	
 	public Charge ensuresAprimaryCharge(String cpf, boolean main) {
-		return this.repositoryCharge.ensuresAprimaryAddress(cpf, main);
+		return this.repository.ensuresAprimaryAddress(cpf, main);
 	}
 }

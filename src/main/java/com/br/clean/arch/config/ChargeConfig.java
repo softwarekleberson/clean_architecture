@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
+import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
 import com.br.clean.arch.application.usecases.address.charge.CreateCharge;
 import com.br.clean.arch.application.usecases.address.charge.CustomerIsActive;
 import com.br.clean.arch.application.usecases.address.charge.DeleteCharge;
@@ -12,6 +13,7 @@ import com.br.clean.arch.application.usecases.address.charge.ListCharge;
 import com.br.clean.arch.application.usecases.address.charge.UpdateCharge;
 import com.br.clean.arch.infra.gateways.address.ChargeEntityMapper;
 import com.br.clean.arch.infra.gateways.address.ChargeRepositoryJpa;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeRepository;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
@@ -24,8 +26,8 @@ public class ChargeConfig {
 	}
 	
 	@Bean
-	public ListCharge listCharge(RepositoryCharge repositoryCharge) {
-		return new ListCharge(repositoryCharge);
+	public ListCharge listCharge(RepositoryCharge repositoryCharge, RepositoriyCustomer repositoriyCustomer) {
+		return new ListCharge(repositoryCharge, repositoriyCustomer);
 	}
 	
 	@Bean
@@ -49,8 +51,8 @@ public class ChargeConfig {
 	}
 	
 	@Bean
-	public ChargeRepositoryJpa chargeRepositoryJpa(CustomerRepository customerRepository, ChargeRepository repository, ChargeEntityMapper mapper) {
-	    return new ChargeRepositoryJpa(customerRepository, repository, mapper);  
+	public ChargeRepositoryJpa chargeRepositoryJpa(CustomerRepository customerRepository, ChargeRepository repository, ChargeEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
+	    return new ChargeRepositoryJpa(customerRepository, repository, mapper, customerEntityMapper);  
 	}
 	
 	@Bean

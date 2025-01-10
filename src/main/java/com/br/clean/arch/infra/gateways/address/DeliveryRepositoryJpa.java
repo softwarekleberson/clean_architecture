@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.delivery.DeliveryUpdateDto;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryRepository;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
@@ -17,11 +19,13 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 	private final CustomerRepository customerRepository;
 	private final DeliveryRepository deliveryRepository;
 	private final DeliveryEntityMapper mapper;
+	private final CustomerEntityMapper customerEntityMapper;
 	
-	public DeliveryRepositoryJpa(CustomerRepository customerRepository, DeliveryRepository deliveryRepository, DeliveryEntityMapper mapper) {
+	public DeliveryRepositoryJpa(CustomerRepository customerRepository, DeliveryRepository deliveryRepository, DeliveryEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
 		this.deliveryRepository = deliveryRepository;
 		this.customerRepository = customerRepository;
 		this.mapper = mapper;
+		this.customerEntityMapper = customerEntityMapper;
 	}
 
 	@Override
@@ -155,5 +159,10 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery{
 			customerRepository.save(customer);
 		}
 		return null;
+	}
+
+	@Override
+	public Optional<Customer> findByCpf(String cpf) {
+		return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
 	}
 }

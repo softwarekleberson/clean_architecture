@@ -5,9 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @MappedSuperclass
 @EqualsAndHashCode(of = "id")
 public abstract class AddressEntity {
@@ -40,6 +38,25 @@ public abstract class AddressEntity {
 		this.streetType = streetType;
 		this.typeResidence = typeResidence;
 		this.city = city;
+	}
+	
+	public AddressEntity(Long id, Boolean main, String receiver, String street, String number, String neighborhood,
+			String cep, String observation, String streetType, String typeResidence, String city) {
+		
+		this.id = id;
+		this.main = main;
+		this.receiver = receiver;
+		this.street = street;
+		this.number = number;
+		this.neighborhood = neighborhood;
+		this.cep = cep;
+		this.observation = observation;
+		this.streetType = streetType;
+		this.typeResidence = typeResidence;
+		this.city = city;
+	}
+	
+	public AddressEntity() {
 	}
 
 	public Long getId() {
@@ -129,4 +146,5 @@ public abstract class AddressEntity {
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 }

@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.card.Card;
 
 public class DeleteCard {
 
-	private RepositoryCard repositoryCard;
+	private RepositoryCard repository;
 	
-	public DeleteCard(RepositoryCard repositoryCard) {
-		this.repositoryCard = repositoryCard;
+	public DeleteCard(RepositoryCard repository) {
+		this.repository = repository;
 	}
 	
 	public Card deleteCard(Long id) {
-		return repositoryCard.deleteCard(id);
+		return repository.deleteCard(id);
 	}
 }

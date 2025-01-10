@@ -6,13 +6,13 @@ import com.br.clean.arch.infra.controller.charge.ChargeUpdateDto;
 
 public class UpdateCharge {
 
-	private RepositoryCharge repositoryCharge;
+	private RepositoryCharge repository;
 	
-	public UpdateCharge(RepositoryCharge repositoryCharge) {
-		this.repositoryCharge = repositoryCharge;
+	public UpdateCharge(RepositoryCharge repository) {
+		this.repository = repository;
 	}
 	
 	public Charge updateCharge(Long id, ChargeUpdateDto dto) {
-		return repositoryCharge.updateCharge(id, dto);
+		return repository.updateCharge(id, dto);
 	}
 }

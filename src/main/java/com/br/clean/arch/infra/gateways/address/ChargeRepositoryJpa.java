@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
 import com.br.clean.arch.domain.entitie.address.Charge;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.charge.ChargeUpdateDto;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeRepository;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
@@ -17,11 +19,13 @@ public class ChargeRepositoryJpa implements RepositoryCharge{
 	private final CustomerRepository customerRepository;
 	private final ChargeRepository chargeRepository;
 	private final ChargeEntityMapper mapper;
+	private final CustomerEntityMapper customerEntityMapper;
 	
-	public ChargeRepositoryJpa(CustomerRepository customerRepository, ChargeRepository repository, ChargeEntityMapper mapper) {
+	public ChargeRepositoryJpa(CustomerRepository customerRepository, ChargeRepository repository, ChargeEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
 		this.chargeRepository = repository;
 		this.customerRepository = customerRepository;
 		this.mapper = mapper;
+		this.customerEntityMapper = customerEntityMapper;
 	}
 
 	@Override
@@ -154,5 +158,10 @@ public class ChargeRepositoryJpa implements RepositoryCharge{
 			customerRepository.save(customer);
 		}
 		return null;
+	}
+
+	@Override
+	public Optional<Customer> findByCpf(String cpf) {
+		return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
 	}
 }

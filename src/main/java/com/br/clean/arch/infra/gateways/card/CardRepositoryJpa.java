@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 
 import com.br.clean.arch.application.gateways.card.RepositoryCard;
 import com.br.clean.arch.domain.entitie.card.Card;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.card.CardUpdateDto;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.card.CardEntity;
 import com.br.clean.arch.infra.persistence.card.CardRepositoy;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
@@ -17,11 +19,13 @@ public class CardRepositoryJpa implements RepositoryCard {
 	private final CustomerRepository customerRepository;
 	private final CardRepositoy repository;
 	private final CardEntityMapper mapper;
+	private final CustomerEntityMapper customerEntityMapper;
 	
-	public CardRepositoryJpa(CustomerRepository customerRepository, CardRepositoy repository, CardEntityMapper mapper) {
+	public CardRepositoryJpa(CustomerRepository customerRepository, CardRepositoy repository, CardEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
 		this.repository = repository;
 		this.customerRepository = customerRepository;
 		this.mapper = mapper;
+		this.customerEntityMapper = customerEntityMapper;
 	}
 
 	@Override
@@ -59,5 +63,15 @@ public class CardRepositoryJpa implements RepositoryCard {
 			repository.delete(entity);
 		}
 		return null;
+	}
+
+	@Override
+	public boolean registeredCard(String numberCard) {
+		 return repository.existsByNumberCard(numberCard);
+	}
+
+	@Override
+	public Optional<Customer> getCustomerById(String cpf) {
+        return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
 	}
 }

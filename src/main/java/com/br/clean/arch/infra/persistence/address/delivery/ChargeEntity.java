@@ -21,6 +21,11 @@ public class ChargeEntity extends AddressEntity{
 		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
 	}
 	
+	public ChargeEntity(Long id, Boolean main, String receiver, String street, String number, String neighborhood, String cep,
+			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
+		super(id, main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+	}
+	
 	public ChargeEntity() {
         super();
     }

@@ -1,5 +1,9 @@
 package com.br.clean.arch.domain.entitie.address;
 
+import java.util.Objects;
+
+import com.br.clean.arch.domain.entitie.address.exception.IncorrectCepException;
+
 public abstract class Address {
 	
 	protected Long id;
@@ -101,7 +105,7 @@ public abstract class Address {
 	public void setCep(String cep) {
 		String regexCep = "^\\d{5}-\\d{3}$";
 		if(cep == null || !cep.matches(regexCep)) {
-			throw new IllegalArgumentException("Format cep incorrect, you need respect this format xxxxx-xxx");
+			throw new IncorrectCepException("Format cep incorrect, you need respect this format xxxxx-xxx");
 		}
 		this.cep = cep;
 	}
@@ -139,9 +143,27 @@ public abstract class Address {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Address other = (Address) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	@Override
 	public String toString() {
 		return "Address [receiver=" + receiver + ", street=" + street + ", number=" + number + ", neighborhood="
 				+ neighborhood + ", cep=" + cep + ", observation=" + observation + ", streetType=" + streetType
 				+ ", typeResidence=" + typeResidence + ", city=" + city + "]";
 	}
+	
 }

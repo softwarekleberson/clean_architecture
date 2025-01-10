@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.customer.Customer;
 
 public class GetCustomer {
 
-	private RepositoriyCustomer repositoriyCustomer;
+	private RepositoriyCustomer repositoriy;
 	
-	public GetCustomer(RepositoriyCustomer repositoriyCustomer) {
-		this.repositoriyCustomer = repositoriyCustomer;
+	public GetCustomer(RepositoriyCustomer repositoriy) {
+		this.repositoriy = repositoriy;
 	}
 	
 	public Customer getCustomerByCpf(String cpf) {
-		return this.repositoriyCustomer.getCustomerByCpf(cpf);
+		return this.repositoriy.getCustomerByCpf(cpf);
 	}
 }

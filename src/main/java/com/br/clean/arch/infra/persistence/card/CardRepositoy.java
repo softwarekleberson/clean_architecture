@@ -10,4 +10,6 @@ public interface CardRepositoy extends JpaRepository<CardEntity, Long>{
 
 	@Query("SELECT d FROM CardEntity d WHERE d.customerEntity.id = :customerId")
     List<CardEntity> findByCustomerId(@Param("customerId") String customerId);
+
+	boolean existsByNumberCard(String numberCard);
 }

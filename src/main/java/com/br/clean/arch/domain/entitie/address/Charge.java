@@ -6,6 +6,11 @@ public class Charge extends Address{
 			String streetType, String typeResidence, String city) {
 		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
 	}
+	
+	public Charge(Long id, Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
+			String streetType, String typeResidence, String city) {
+		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+	}
 
 	public Charge(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
 			String streetType, String typeResidence, String city) {
@@ -16,5 +21,4 @@ public class Charge extends Address{
 	public String toString() {
 		return "Charge []";
 	}
-	
 }

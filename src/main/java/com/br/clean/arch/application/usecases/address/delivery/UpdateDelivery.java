@@ -6,13 +6,13 @@ import com.br.clean.arch.infra.controller.delivery.DeliveryUpdateDto;
 
 public class UpdateDelivery {
 
-	private RepositoryDelivery repositoryDelivery;
+	private RepositoryDelivery repository;
 	
-	public UpdateDelivery(RepositoryDelivery repositoryDelivery) {
-		this.repositoryDelivery = repositoryDelivery;
+	public UpdateDelivery(RepositoryDelivery repository) {
+		this.repository = repository;
 	}
 	
 	public Delivery updateDelivery(Long id, DeliveryUpdateDto dto){ 
-		return repositoryDelivery.updateDelivery(id, dto);
+		return repository.updateDelivery(id, dto);
 	}
 }

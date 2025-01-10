@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public class EnsuresAprimaryDelivery {
 
-	private RepositoryDelivery repositoryDelivery;
+	private RepositoryDelivery repository;
 
-	public EnsuresAprimaryDelivery(RepositoryDelivery repositoryDelivery) {
-		this.repositoryDelivery = repositoryDelivery;
+	public EnsuresAprimaryDelivery(RepositoryDelivery repository) {
+		this.repository = repository;
 	}
 	
 	public Delivery ensuresAprimaryAddress(String cpf, boolean main) {
-		return this.repositoryDelivery.ensuresAprimaryAddress(cpf, main);
+		return this.repository.ensuresAprimaryAddress(cpf, main);
 	}
 }

@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.address.Charge;
 
 public class CustomerIsActive {
 
-	private RepositoryCharge repositoryCharge;
+	private RepositoryCharge repository;
 
-	public CustomerIsActive(RepositoryCharge repositoryCharge) {
-		this.repositoryCharge = repositoryCharge;
+	public CustomerIsActive(RepositoryCharge repository) {
+		this.repository = repository;
 	}
 	
 	public Charge customerIsActive(String id) {
-		return this.repositoryCharge.customerIsActive(id);
+		return this.repository.customerIsActive(id);
 	}
 }

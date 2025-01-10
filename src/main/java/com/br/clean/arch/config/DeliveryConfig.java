@@ -14,6 +14,7 @@ import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomer;
 import com.br.clean.arch.infra.gateways.address.DeliveryEntityMapper;
 import com.br.clean.arch.infra.gateways.address.DeliveryRepositoryJpa;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryRepository;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
@@ -26,8 +27,8 @@ public class DeliveryConfig {
 	}
 	
 	@Bean
-	public ListDelivery listDelivery(RepositoryDelivery repositoryDelivery) {
-		return new ListDelivery(repositoryDelivery);
+	public ListDelivery listDelivery(RepositoryDelivery repositoryDelivery, RepositoriyCustomer repositoriyCustomer) {
+		return new ListDelivery(repositoryDelivery, repositoriyCustomer);
 	}
 	
 	@Bean
@@ -56,8 +57,8 @@ public class DeliveryConfig {
 	}
 	
 	@Bean
-    public DeliveryRepositoryJpa deliveryRepositoryJpa(CustomerRepository customerRepository,DeliveryRepository repository, DeliveryEntityMapper mapper) {
-        return new DeliveryRepositoryJpa(customerRepository, repository, mapper);
+    public DeliveryRepositoryJpa deliveryRepositoryJpa(CustomerRepository customerRepository,DeliveryRepository repository, DeliveryEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
+        return new DeliveryRepositoryJpa(customerRepository, repository, mapper, customerEntityMapper);
     }
 	
 	@Bean

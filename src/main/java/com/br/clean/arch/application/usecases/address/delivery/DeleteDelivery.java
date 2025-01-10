@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public class DeleteDelivery {
 
-	private RepositoryDelivery repositoryDelivery;
+	private RepositoryDelivery repository;
 	
-	public DeleteDelivery(RepositoryDelivery repositoryDelivery) {
-		this.repositoryDelivery = repositoryDelivery;
+	public DeleteDelivery(RepositoryDelivery repository) {
+		this.repository = repository;
 	}
 	
 	public Delivery deleteDelivery(Long id) {
-		return this.repositoryDelivery.deleteDelivery(id);
+		return this.repository.deleteDelivery(id);
 	} 
 }

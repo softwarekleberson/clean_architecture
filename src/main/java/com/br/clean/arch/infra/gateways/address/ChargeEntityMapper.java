@@ -10,6 +10,7 @@ public class ChargeEntityMapper {
             return null;
         }
         return new ChargeEntity(
+        		charge.getId(),
         		charge.getMain(),
         		charge.getReceiver(),
         		charge.getStreet(),
@@ -29,6 +30,7 @@ public class ChargeEntityMapper {
             return null;
         }
         return new Charge(
+        		chargeEntity.getId(),
         		chargeEntity.getMain(),
         		chargeEntity.getReceiver(),
                 chargeEntity.getStreet(),

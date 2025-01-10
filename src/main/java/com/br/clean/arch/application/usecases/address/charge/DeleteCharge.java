@@ -5,13 +5,13 @@ import com.br.clean.arch.domain.entitie.address.Charge;
 
 public class DeleteCharge {
 
-	private RepositoryCharge repositoryCharge;
+	private RepositoryCharge repository;
 	
-	public DeleteCharge(RepositoryCharge repositoryCharge) {
-		this.repositoryCharge = repositoryCharge;
+	public DeleteCharge(RepositoryCharge repository) {
+		this.repository = repository;
 	}
 	
 	public Charge deleteCharge(Long id) {
-		return repositoryCharge.deleteCharge(id);
+		return repository.deleteCharge(id);
 	}
 }

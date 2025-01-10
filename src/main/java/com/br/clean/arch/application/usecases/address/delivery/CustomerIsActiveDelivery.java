@@ -5,14 +5,14 @@ import com.br.clean.arch.domain.entitie.address.Delivery;
 
 public class CustomerIsActiveDelivery {
 
-	private RepositoryDelivery repositoryDelivery;
+	private RepositoryDelivery repository;
 	
-	public CustomerIsActiveDelivery(RepositoryDelivery repositoryDelivery) {
-		this.repositoryDelivery = repositoryDelivery;
+	public CustomerIsActiveDelivery(RepositoryDelivery repository) {
+		this.repository = repository;
 	}
 	
 	public Delivery customerIsActiveDelivery(String id) {
-		return this.repositoryDelivery.customerIsActive(id);
+		return this.repository.customerIsActive(id);
 	}
 	
 }

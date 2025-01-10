@@ -1,8 +1,10 @@
 package com.br.clean.arch.application.gateways.card;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.br.clean.arch.domain.entitie.card.Card;
+import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.card.CardUpdateDto;
 
 public interface RepositoryCard {
@@ -11,4 +13,6 @@ public interface RepositoryCard {
 	Card createNewCard (String id, Card card);
 	Card updateCard (String id, CardUpdateDto dto);
 	Card deleteCard (Long id);
+	boolean registeredCard(String numberCard);
+	Optional<Customer> getCustomerById(String id);
 }

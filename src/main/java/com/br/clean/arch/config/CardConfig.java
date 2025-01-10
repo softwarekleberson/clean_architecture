@@ -9,6 +9,7 @@ import com.br.clean.arch.application.usecases.card.DeleteCard;
 import com.br.clean.arch.application.usecases.card.ListCard;
 import com.br.clean.arch.infra.gateways.card.CardEntityMapper;
 import com.br.clean.arch.infra.gateways.card.CardRepositoryJpa;
+import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.card.CardRepositoy;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
@@ -31,8 +32,8 @@ public class CardConfig {
 	}
 	
 	@Bean
-    public CardRepositoryJpa cardRepositoryJpa(CustomerRepository customerRepository, CardRepositoy repository, CardEntityMapper mapper) {
-        return new CardRepositoryJpa(customerRepository, repository, mapper);
+    public CardRepositoryJpa cardRepositoryJpa(CustomerRepository customerRepository, CardRepositoy repository, CardEntityMapper mapper, CustomerEntityMapper customerEntityMapper) {
+        return new CardRepositoryJpa(customerRepository, repository, mapper, customerEntityMapper);
     }
 	
 	@Bean

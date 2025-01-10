@@ -53,23 +53,22 @@ public class ChargeController {
 		customer.addNewCharge(new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
 
 		Charge charge = createCharge.createCharge(cpf, new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
-		System.out.println(customer.getId() + "qqqqqqqqqqqq");
 		customerIsActive.customerIsActive(customer.getId());
-		return new ChargeListDto(charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+		return new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
 	}
 	
 	@GetMapping("/{id}")
 	public List<ChargeListDto> listAllCustomers(@PathVariable String id){
 		return listCharge.listCharge(id).
 			   stream().
-			   map(u -> new ChargeListDto(u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep())).
+			   map(u -> new ChargeListDto(u.getId() ,u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep())).
 			   collect(Collectors.toList());
 	}
 	
 	@PutMapping("/{id}")
 	public ChargeListDto updateCharge(@PathVariable Long id, @RequestBody @Valid ChargeUpdateDto dto) {
 		Charge charge = upadateCharge.updateCharge(id, dto);
-		return new ChargeListDto(charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+		return new ChargeListDto(charge.getId() ,charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
 	}
 	
 	@DeleteMapping("/{id}")
