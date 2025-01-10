@@ -22,7 +22,7 @@ public class CreateCard {
 	}
 	
 	private void customerPresentCard(String id) {
-		if(repositoy.getCustomerById(id).isEmpty()) {
+		if(repositoy.getCustomerByCpf(id).isEmpty()) {
 			throw new CustomerNotFoundException("Customer not found");
 		}
 	}
