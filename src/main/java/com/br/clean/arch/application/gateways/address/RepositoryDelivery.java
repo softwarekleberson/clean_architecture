@@ -16,4 +16,5 @@ public interface RepositoryDelivery {
 	Delivery ensuresAprimaryAddress(String cpf, boolean main);
 	Delivery customerIsActive(String id);
 	Optional<Customer> findByCpf(String cpf);
+	Optional<Delivery> findById(Long id);
 }

@@ -122,4 +122,9 @@ public class ChargeRepositoryJpa implements RepositoryCharge {
         Optional.ofNullable(dto.typeResidence()).ifPresent(entity::setTypeResidence);
         Optional.ofNullable(dto.city()).ifPresent(entity::setCity);
     }
+
+	@Override
+	public Optional<Charge> findById(Long id) {
+		return chargeRepository.findById(id).map(mapper::toDomain);
+	}
 }

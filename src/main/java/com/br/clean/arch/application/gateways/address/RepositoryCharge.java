@@ -16,4 +16,5 @@ public interface RepositoryCharge {
 	Charge ensuresAprimaryAddress(String cpf, boolean main);
 	Charge customerIsActive(String id);
 	Optional<Customer> findByCpf(String cpf);
+	Optional<Charge> findById(Long id);
 }

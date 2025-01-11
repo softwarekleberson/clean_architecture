@@ -12,5 +12,6 @@ public interface RepositoryCard {
 	Card createNewCard (String id, Card card);
 	Card deleteCard (Long id);
 	boolean registeredCard(String numberCard);
-	Optional<Customer> getCustomerByCpf(String cpf);
+	Optional<Customer> fidByCpf(String cpf);
+	Optional<Card> findById(Long id);
 }

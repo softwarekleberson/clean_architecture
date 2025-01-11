@@ -21,8 +21,8 @@ public class CreateCard {
 		return this.repositoy.createNewCard(id, card);
 	}
 	
-	private void customerPresentCard(String id) {
-		if(repositoy.getCustomerByCpf(id).isEmpty()) {
+	private void customerPresentCard(String cpf) {
+		if(repositoy.fidByCpf(cpf).isEmpty()) {
 			throw new CustomerNotFoundException("Customer not found");
 		}
 	}

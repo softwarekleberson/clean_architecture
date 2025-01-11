@@ -64,7 +64,12 @@ public class CardRepositoryJpa implements RepositoryCard {
     }
 
     @Override
-    public Optional<Customer> getCustomerByCpf(String cpf) {
+    public Optional<Customer> fidByCpf(String cpf) {
         return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
     }
+
+	@Override
+	public Optional<Card> findById(Long id) {
+		return repository.findById(id).map(mapper::toDomain);
+	}
 }

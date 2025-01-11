@@ -121,4 +121,9 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery {
         Optional.ofNullable(dto.city()).ifPresent(entity::setCity);
         Optional.ofNullable(dto.deliveryPhrase()).ifPresent(entity::setDeliveryPhrase);
     }
+
+	@Override
+	public Optional<Delivery> findById(Long id) {
+		return deliveryRepository.findById(id).map(mapper::toDomain);
+	}
 }
