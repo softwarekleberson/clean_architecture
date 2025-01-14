@@ -52,9 +52,16 @@ public class DeliveryController {
 		ensuresAprimaryAddress.ensuresAprimaryAddress(cpf, dto.main());
 		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 
-		Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
-		customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
-		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+		if(dto.observation() != null) {
+			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
+			return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+		}
+		else {	
+			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
+			return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+		}
 	}
 	
 	@GetMapping("/{id}")

@@ -23,4 +23,5 @@ public class ListCard {
 		}
 		return repository.listCard(id);
 	}
+
 }
