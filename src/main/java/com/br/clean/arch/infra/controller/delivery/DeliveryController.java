@@ -1,8 +1,13 @@
 package com.br.clean.arch.infra.controller.delivery;
 
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +52,7 @@ public class DeliveryController {
 	}
 	
 	@PostMapping("/{cpf}")
-	public DeliveryListDto createDelivery(@PathVariable String cpf, @RequestBody @Valid DeliveryDto dto) {
+	public ResponseEntity<DeliveryListDto> createDelivery(@PathVariable String cpf, @RequestBody @Valid DeliveryDto dto) {
 		Customer customer = getCustomer.getCustomerByCpf(cpf);
 		ensuresAprimaryAddress.ensuresAprimaryAddress(cpf, dto.main());
 		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
@@ -55,31 +60,58 @@ public class DeliveryController {
 		if(dto.observation() != null) {
 			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
-			return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+			return ResponseEntity.created(URI.create("/delivery/" + delivery.getCep()))
+					   					 .body(deliveryListDto);
 		}
 		else {	
 			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
-			return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+			return ResponseEntity.created(URI.create("/delivery/" + delivery.getCep()))
+  					 .body(deliveryListDto);
 		}
 	}
 	
 	@GetMapping("/{id}")
-	public List<DeliveryListDto> listAllCustomers(@PathVariable String id){
-		return listDelivery.listDelivery(id).
-			   stream().
-			   map(u -> new DeliveryListDto(u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep())).
-			   collect(Collectors.toList());
+	public ResponseEntity<Page<DeliveryListDto>> listAllDeliveries(
+	        @PathVariable String id, 
+	        @PageableDefault(size = 10) Pageable pageable) {
+	    
+	    List<Delivery> allDeliveries = listDelivery.listDelivery(id);
+
+	    int start = (int) pageable.getOffset();
+	    int end = Math.min((start + pageable.getPageSize()), allDeliveries.size());
+
+	    if (start >= allDeliveries.size()) {
+	        return ResponseEntity.noContent().build();
+	    }
+
+	    List<DeliveryListDto> paginatedDeliveries = allDeliveries.subList(start, end)
+	            .stream()
+	            .map(u -> new DeliveryListDto(u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep()))
+	            .toList();
+
+	    Page<DeliveryListDto> page = new PageImpl<>(paginatedDeliveries, pageable, allDeliveries.size());
+
+	    return ResponseEntity.ok(page);
 	}
+
 	
 	@PutMapping("/{id}")
-	public DeliveryListDto updateDelivery(@PathVariable Long id, @RequestBody @Valid DeliveryUpdateDto dto) {
+	public ResponseEntity<DeliveryListDto> updateDelivery(@PathVariable Long id, @RequestBody @Valid DeliveryUpdateDto dto) {
 		Delivery delivery = upadateDelivery.updateDelivery(id, dto);
-		return new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+		DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep());
+		return ResponseEntity.ok(deliveryListDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteDelivery(@PathVariable Long id) {
-		deleteDelivery.deleteDelivery(id);
+	public ResponseEntity<Void> deleteDelivery(@PathVariable Long id) {
+		try {
+			deleteDelivery.deleteDelivery(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }

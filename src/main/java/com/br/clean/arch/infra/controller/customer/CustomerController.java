@@ -1,8 +1,13 @@
 package com.br.clean.arch.infra.controller.customer;
 
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +38,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public CustomerListDto createCustomer(@RequestBody CustomerDto dto) {
+	public ResponseEntity<CustomerListDto> createCustomer(@RequestBody CustomerDto dto) {
 	   		Customer customer = createCustomer.createCustomer(
 	        new Customer(
 	            dto.cpf(), 
@@ -46,21 +51,40 @@ public class CustomerController {
                 dto.email()
 	         )
 	        );
-	   	return new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   		
+	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   	return ResponseEntity.created(URI.create("/customer/" + customer.getId())).body(customerListDto);
 	}
 	
 	@GetMapping
-	public List<CustomerListDto> getAllCustomers(){
-		return listCustomer.listCustomers().
-			   stream().
-			   map(u -> new CustomerListDto(u.getId(), u.getCpf(), u.getName(), u.getEmail())).
-			   collect(Collectors.toList());
+	public ResponseEntity<Page<CustomerListDto>> getAllCustomers(
+	        @PageableDefault(size = 10, sort = "name") Pageable pageable) {
+	    
+	    List<Customer> allCustomers = listCustomer.listCustomers();
+
+	    int start = (int) pageable.getOffset();
+	    int end = Math.min((start + pageable.getPageSize()), allCustomers.size());
+
+	    if (start >= allCustomers.size()) {
+	        return ResponseEntity.noContent().build(); 
+	    }
+
+	    List<CustomerListDto> paginatedCustomers = allCustomers.subList(start, end)
+	            .stream()
+	            .map(u -> new CustomerListDto(u.getId(), u.getCpf(), u.getName(), u.getEmail()))
+	            .toList();
+
+	    Page<CustomerListDto> page = new PageImpl<>(paginatedCustomers, pageable, allCustomers.size());
+
+	    return ResponseEntity.ok(page);
 	}
+
 	
 	@PutMapping("/{id}")
-	public CustomerListDto updateAllCustomer(@PathVariable String id, @Valid @RequestBody CustomerUpdateDto dto){
+	public ResponseEntity<CustomerListDto> updateAllCustomer(@PathVariable String id, @Valid @RequestBody CustomerUpdateDto dto){
 		Customer customer = updateCustomer.updateCustomer(id, dto);
-	   	return new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   	return ResponseEntity.ok(customerListDto);
 	}
 	
 }
