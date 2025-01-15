@@ -1,55 +1,39 @@
 # Clean Architecture Project
 
-Este projeto segue os princípios da **Clean Architecture**, garantindo alta modularidade, separação de responsabilidades e facilidade de manutenção.
+This project follows the principles of **Clean Architecture**, ensuring high modularity, separation of responsibilities, and ease of maintenance.
 
-## Domínios
+## Domains
 
-O projeto abrange os seguintes domínios principais:
+The project covers the following main domains:
 
-1. **Customer**: Gerenciamento de clientes, incluindo cadastro, atualização e consultas
-2. **Card**: Gerenciamento de cartões, como cadastro, validação e associação a clientes.
-3. **Delivery**
-4. **Charge**
+1. **Customer**: Management of customers, including registration, updates, and queries.
+2. **Card**: Management of cards, such as registration, validation, and association with customers.
+3. **Delivery**: Management of cards, such as registration, validation, and association with customers.
+4. **Charge**: Management of cards, such as registration, validation, and association with customers.
 
-## Estrutura do Projeto
+## Project Structure
 
-O projeto está organizado em camadas, seguindo os princípios da Clean Architecture:
+The project is organized into layers, following Clean Architecture principles:
 
-- **Domain**: Contém as entidades principais, interfaces de repositórios e casos de uso. Esta camada é independente de frameworks e bibliotecas.
-- **Application**: Implementação dos casos de uso e regras de negócio, coordenando as interações entre a camada de domínio e as externas.
-- **Infrastructure**: Implementação de repositórios, serviços externos e integrações com APIs ou bancos de dados.
-- **Presentation**: APIs REST.
+- **Domain**: Contains the core entities, repository interfaces, and use cases. This layer is independent of frameworks and libraries.
+- **Application**: Implements use cases and business rules, coordinating interactions between the domain layer and external layers.
+- **Infrastructure**: Implements repositories, external services, and integrations with APIs or databases.
+- **Presentation**: REST APIs.
 
-## Requisitos
+## Requirements
 
-- **Linguagem**: Java 17
+- **Language**: Java 17
 - **Framework**: Spring Boot
-- **Banco de Dados**: MySql
-- **Outras Dependências**:
+- **Database**: MySQL
+- **Other Dependencies**:
   - Spring Data JPA
-  - Spring Boot
   - Lombok
   - Migration
+  - Spring Security
+  - Junit
 
-## Configuração
+## Setup
 
-1. Compile e execute o projeto:
+1. Compile and run the project:
    ```bash
    ./mvnw spring-boot:run
-   ```
-
-## Testes
-
-O projeto inclui testes unitários e de integração para garantir a qualidade do código:
-
-1. Execute os testes:
-   ```bash
-   ./mvnw test
-   ```
-
-2. Confira a cobertura de testes:
-   ```bash
-   ./mvnw jacoco:report
-   ```
-   
-**Autor**: Kleberson dos santos silva
