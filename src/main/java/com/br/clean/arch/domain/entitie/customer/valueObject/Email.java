@@ -9,7 +9,7 @@ public class Email {
 	public Email(String email) {
 		setEmail(email);
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}

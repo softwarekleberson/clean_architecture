@@ -14,7 +14,7 @@ public class Phone {
 		setDdd(ddd);
 		setPhone(phone);
 	}
-	
+
 	public void setDdd(String ddd) {
 		if(ddd == null || ddd.length() != FORMAT_DDD) {
 			throw new IncorretPhoneException("Format DDD incorrect");
