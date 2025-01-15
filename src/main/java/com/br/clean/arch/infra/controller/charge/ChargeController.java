@@ -1,8 +1,13 @@
 package com.br.clean.arch.infra.controller.charge;
 
+import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,32 +52,63 @@ public class ChargeController {
 	}
 	
 	@PostMapping("/{cpf}")
-	public ChargeListDto createCharge(@PathVariable String cpf, @RequestBody @Valid ChargeDto dto) {
+	public ResponseEntity<ChargeListDto> createCharge(@PathVariable String cpf, @RequestBody @Valid ChargeDto dto) {
 		Customer customer = getCustomer.getCustomerByCpf(cpf);
 		ensuresAprimaryAddress.ensuresAprimaryCharge(cpf, dto.main());
 		customer.addNewCharge(new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
 
 		Charge charge = createCharge.createCharge(cpf, new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
 		customerIsActive.customerIsActive(customer.getId());
-		return new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+		ChargeListDto chargeListDto = new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+	
+		return ResponseEntity.created(URI.create("/charge/" + charge.getCep()))
+			   .body(chargeListDto);
 	}
 	
 	@GetMapping("/{id}")
-	public List<ChargeListDto> listAllCustomers(@PathVariable String id){
-		return listCharge.listCharge(id).
-			   stream().
-			   map(u -> new ChargeListDto(u.getId() ,u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep())).
-			   collect(Collectors.toList());
+	public ResponseEntity<Page<ChargeListDto>> listAllCustomers(
+	        @PathVariable String id, 
+	        @PageableDefault(size = 10) Pageable pageable) {
+
+	    List<Charge> allCharges = listCharge.listCharge(id);
+
+	    int start = (int) pageable.getOffset();
+	    int end = Math.min((start + pageable.getPageSize()), allCharges.size());
+
+	    if (start >= allCharges.size()) {
+	        return ResponseEntity.noContent().build(); 
+	    }
+
+	    List<ChargeListDto> paginatedCharges = allCharges.subList(start, end)
+	            .stream()
+	            .map(u -> new ChargeListDto(
+	                    u.getId(),
+	                    u.getReceiver(),
+	                    u.getStreet(),
+	                    u.getNumber(),
+	                    u.getNeighborhood(),
+	                    u.getCep()))
+	            .toList();
+
+	    Page<ChargeListDto> page = new PageImpl<>(paginatedCharges, pageable, allCharges.size());
+
+	    return ResponseEntity.ok(page);
 	}
 	
 	@PutMapping("/{id}")
-	public ChargeListDto updateCharge(@PathVariable Long id, @RequestBody @Valid ChargeUpdateDto dto) {
+	public ResponseEntity<ChargeListDto> updateCharge(@PathVariable Long id, @RequestBody @Valid ChargeUpdateDto dto) {
 		Charge charge = upadateCharge.updateCharge(id, dto);
-		return new ChargeListDto(charge.getId() ,charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+		ChargeListDto chargeListDto = new ChargeListDto(charge.getId() ,charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+		return ResponseEntity.ok(chargeListDto);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteCharge(@PathVariable Long id) {
-		deleteCharge.deleteCharge(id);
+	public ResponseEntity<Void> deleteCharge(@PathVariable Long id) {
+		try {
+			deleteCharge.deleteCharge(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 }
