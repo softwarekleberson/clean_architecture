@@ -5,7 +5,7 @@ CREATE TABLE deliverys (
     number VARCHAR(50) NOT NULL,
     neighborhood VARCHAR(255) NOT NULL,
     cep VARCHAR(20) NOT NULL,
-    observation TEXT NOT NULL,
+    observation TEXT,
     street_type VARCHAR(50) NOT NULL,
     type_residence VARCHAR(50) NOT NULL,
     city VARCHAR(100) NOT NULL,
