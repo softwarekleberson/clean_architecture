@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.domain.entitie.customer.exceptions.UnderageException;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
@@ -14,7 +15,7 @@ class CustomerApplicationAgeTest {
 
 	@Test
 	public void ShouldNotAceptNewCustommerwitchUnderage() {
-	    Assertions.assertThrows(IllegalArgumentException.class, 
+	    Assertions.assertThrows(UnderageException.class, 
 	        () -> new Customer(
 	            "41762597180",
 	            "kleberson",

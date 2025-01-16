@@ -8,7 +8,7 @@ import java.util.Objects;
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.card.Card;
-import com.br.clean.arch.domain.entitie.customer.exceptions.DuplicateCpfException;
+import com.br.clean.arch.domain.entitie.customer.exceptions.IllegalCpfException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.UnderageException;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
@@ -138,7 +138,7 @@ public class Customer {
 	public void setCpf(String cpf) {
 	    String regexCpf = "^\\d{11}$";
 		if(cpf == null || !cpf.matches(regexCpf)) {
-			throw new DuplicateCpfException("Cpf does not match the required format");
+			throw new IllegalCpfException("Cpf does not match the required format");
 		}
 		this.cpf = cpf;
 	}
