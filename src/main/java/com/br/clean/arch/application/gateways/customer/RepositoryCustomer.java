@@ -6,7 +6,7 @@ import java.util.Optional;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.customer.CustomerUpdateDto;
 
-public interface RepositoriyCustomer {
+public interface RepositoryCustomer {
 
 	Customer createCustomer(Customer customer);
 	List<Customer> listCustomer();

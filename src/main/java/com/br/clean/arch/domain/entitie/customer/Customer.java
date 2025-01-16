@@ -68,7 +68,7 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Customer(String id, String cpf, String name, LocalDate birth, Gender gender, Phone phone, Email email) {
+	public Customer(String id, String cpf, String name, LocalDate birth, Gender gender, Phone phone, Email email, String password) {
 		super();
 		this.id = id;
 		this.cpf = cpf;
@@ -77,6 +77,7 @@ public class Customer {
 		this.gender = gender;
 		this.phone = phone;
 		this.email = email;
+		this.password = password;
 	}
 
 	public void addNewDelivery(Delivery delivery) {

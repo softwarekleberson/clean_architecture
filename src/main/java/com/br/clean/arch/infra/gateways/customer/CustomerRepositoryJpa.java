@@ -7,14 +7,15 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
+import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
+import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
 import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.customer.CustomerUpdateDto;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
-public class CustomerRepositoryJpa implements RepositoriyCustomer {
+public class CustomerRepositoryJpa implements RepositoryCustomer, RepositoryPasswordEncoder {
 
     private final CustomerRepository repository;
     private final CustomerEntityMapper mapper;
@@ -29,13 +30,8 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer {
     @Override
     public Customer createCustomer(Customer customer) {
         CustomerEntity entity = mapper.toEntity(customer);
-        entity.setPassword(encryptPassword(customer.getPassword()));
         repository.save(entity);
         return mapper.toDomain(entity);
-    }
-
-    private String encryptPassword(String password) {
-        return passwordEncoder.encode(password);
     }
 
     @Override
@@ -86,4 +82,14 @@ public class CustomerRepositoryJpa implements RepositoriyCustomer {
     public Optional<Customer> findById(String id) {
         return repository.findById(id).map(mapper::toDomain);
     }
+
+	@Override
+	public String encode(String rawPassword) {
+        return passwordEncoder.encode(rawPassword);
+	}
+
+	@Override
+	public boolean matches(String rawPassword, String encodedPassword) {
+	    return passwordEncoder.matches(rawPassword, encodedPassword);
+	}
 }

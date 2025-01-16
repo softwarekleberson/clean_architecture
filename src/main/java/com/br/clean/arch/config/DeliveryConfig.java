@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
-import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
+import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.usecases.address.delivery.CreateDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.CustomerIsActiveDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
@@ -27,7 +27,7 @@ public class DeliveryConfig {
 	}
 	
 	@Bean
-	public ListDelivery listDelivery(RepositoryDelivery repositoryDelivery, RepositoriyCustomer repositoriyCustomer) {
+	public ListDelivery listDelivery(RepositoryDelivery repositoryDelivery, RepositoryCustomer repositoriyCustomer) {
 		return new ListDelivery(repositoryDelivery, repositoriyCustomer);
 	}
 	
@@ -52,7 +52,7 @@ public class DeliveryConfig {
 	}
 	
 	@Bean
-	public GetCustomer getCustomer(RepositoriyCustomer repositoriyCustomer) {
+	public GetCustomer getCustomer(RepositoryCustomer repositoriyCustomer) {
 		return new GetCustomer(repositoriyCustomer);
 	}
 	

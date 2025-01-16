@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.br.clean.arch.application.gateways.card.RepositoryCard;
-import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
+import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.usecases.card.CreateCard;
 import com.br.clean.arch.application.usecases.card.DeleteCard;
 import com.br.clean.arch.application.usecases.card.ListCard;
@@ -23,7 +23,7 @@ public class CardConfig {
 	}
 	
 	@Bean
-	public ListCard listCard(RepositoryCard repositoriyCard, RepositoriyCustomer repositoriyCustomer) {
+	public ListCard listCard(RepositoryCard repositoriyCard, RepositoryCustomer repositoriyCustomer) {
 		return new ListCard(repositoriyCard, repositoriyCustomer);
 	}
 	

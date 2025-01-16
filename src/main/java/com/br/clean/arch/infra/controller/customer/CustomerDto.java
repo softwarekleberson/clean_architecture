@@ -33,7 +33,7 @@ public record CustomerDto(
 	@NotNull
 	Gender gender,
 	
-	@NotBlank(message = "Report ddd and phone")
+	@NotNull(message = "Report ddd and phone")
 	Phone phone,
 	
 	@NotNull

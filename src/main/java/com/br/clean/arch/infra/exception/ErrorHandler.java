@@ -18,6 +18,7 @@ import com.br.clean.arch.domain.entitie.card.exeptions.DuplicateCardException;
 import com.br.clean.arch.domain.entitie.card.exeptions.IncorrectCardExpetion;
 import com.br.clean.arch.domain.entitie.customer.exceptions.DuplicateCpfException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.DuplicateEmailException;
+import com.br.clean.arch.domain.entitie.customer.exceptions.IncorrectCpfException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.IncorretEmailException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.IncorretPhoneException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.UnderageException;
@@ -86,6 +87,11 @@ public class ErrorHandler {
     
     @ExceptionHandler(DuplicateCpfException.class)
     public ResponseEntity handlerErrorBusinesRule(DuplicateCpfException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    
+    @ExceptionHandler(IncorrectCpfException.class)
+    public ResponseEntity handlerErrorBusinesRule(IncorrectCpfException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
     

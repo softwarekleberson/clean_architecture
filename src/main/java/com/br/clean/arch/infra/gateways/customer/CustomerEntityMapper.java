@@ -40,7 +40,8 @@ public class CustomerEntityMapper {
 	            entity.getBirth(),
 	            toDomain(entity.getGenderEntity()),
 	            toDomain(entity.getPhoneEntity()),
-	            toDomain(entity.getEmailEntity())
+	            toDomain(entity.getEmailEntity()),
+	            entity.getPassword()
 	        );
 	    }
 

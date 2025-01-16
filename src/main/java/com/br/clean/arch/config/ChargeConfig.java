@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
-import com.br.clean.arch.application.gateways.customer.RepositoriyCustomer;
+import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.usecases.address.charge.CreateCharge;
 import com.br.clean.arch.application.usecases.address.charge.CustomerIsActive;
 import com.br.clean.arch.application.usecases.address.charge.DeleteCharge;
@@ -26,7 +26,7 @@ public class ChargeConfig {
 	}
 	
 	@Bean
-	public ListCharge listCharge(RepositoryCharge repositoryCharge, RepositoriyCustomer repositoriyCustomer) {
+	public ListCharge listCharge(RepositoryCharge repositoryCharge, RepositoryCustomer repositoriyCustomer) {
 		return new ListCharge(repositoryCharge, repositoriyCustomer);
 	}
 	
