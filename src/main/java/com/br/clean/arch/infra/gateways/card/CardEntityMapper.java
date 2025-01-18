@@ -28,6 +28,7 @@ public class CardEntityMapper {
 		}
 		
 		return new Card(
+				entity.getId(),
 				entity.isMain(),
 				entity.getPrintedName(),
 				entity.getCode(),

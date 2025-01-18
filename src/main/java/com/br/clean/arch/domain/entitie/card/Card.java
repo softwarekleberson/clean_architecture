@@ -8,12 +8,24 @@ import com.br.clean.arch.domain.entitie.card.valueObject.Flag;
 
 public class Card {
 
+	private Long id;
 	private boolean main;
 	private String printedName;
 	private String code;
 	private String numberCard;
 	private Flag flag;
 	private LocalDate expirationDate;
+	
+	public Card(Long id, boolean main, String printedName, String code, String numberCard, Flag flag, LocalDate expirationDate) {
+		
+		this.id = id;
+		this.main = main;
+		this.printedName = printedName;
+		this.code = code;
+		this.numberCard = numberCard;
+		this.flag = flag;
+		this.expirationDate = expirationDate;
+	}
 	
 	public Card(boolean main, String printedName, String code, String numberCard, Flag flag, LocalDate expirationDate) {
 		
@@ -29,6 +41,10 @@ public class Card {
 	
 	public void algoritmoLumn(String numberCard) {
 		AlgoritmoLumn.validate(numberCard);
+	}
+	
+	public Long getId() {
+		return id;
 	}
 
 	public boolean isMain() {

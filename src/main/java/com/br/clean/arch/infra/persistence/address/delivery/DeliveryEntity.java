@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Table(name = "deliverys")
 public class DeliveryEntity extends AddressEntity{
 	
+	
 	private String deliveryPhrase;
 	
 	@ManyToOne(fetch = FetchType.LAZY)

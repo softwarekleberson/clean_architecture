@@ -66,7 +66,7 @@ public class CardController {
 	            dto.expirationDate()
 	    ));
 
-	    CardListDto responseDto = new CardListDto(card.getNumberCard(), card.getCode());
+	    CardListDto responseDto = new CardListDto(card.getId(), card.getNumberCard(), card.getCode());
 
 	    return ResponseEntity
 	            .created(URI.create("/card/" + card.getNumberCard())) 
@@ -89,7 +89,7 @@ public class CardController {
 
 	    List<CardListDto> paginatedCards = allCards.subList(start, end)
 	            .stream()
-	            .map(card -> new CardListDto(card.getNumberCard(), card.getCode()))
+	            .map(card -> new CardListDto(card.getId(), card.getNumberCard(), card.getCode()))
 	            .toList();
 
 	    Page<CardListDto> page = new PageImpl<>(paginatedCards, pageable, allCards.size());
