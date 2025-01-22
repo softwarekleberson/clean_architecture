@@ -6,7 +6,8 @@ public record DeliveryListDto(
 		String street,
 		String number,
 		String neighborhood,
-		String cep
+		String cep,
+		String observation
 		
 		) {
 }
