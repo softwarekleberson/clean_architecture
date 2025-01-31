@@ -29,6 +29,7 @@ public class DeliveryEntityMapper {
             return null;
         }
         return new Delivery(
+        		deliveryEntity.getId(),
         		deliveryEntity.getMain(),
         		deliveryEntity.getReceiver(),
                 deliveryEntity.getStreet(),

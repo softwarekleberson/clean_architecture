@@ -12,6 +12,7 @@ import com.br.clean.arch.infra.controller.charge.ChargeUpdateDto;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeRepository;
+import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
@@ -41,8 +42,9 @@ public class ChargeRepositoryJpa implements RepositoryCharge {
         CustomerEntity customer = findCustomerByCpf(cpf);
         ChargeEntity entity = mapper.toEntity(charge);
         entity.setCustomerEntity(customer);
-        chargeRepository.save(entity);
-        return mapper.toDomain(entity);
+        
+        ChargeEntity savedEntity = chargeRepository.save(entity);
+        return mapper.toDomain(savedEntity);
     }
 
     @Override

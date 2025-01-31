@@ -60,15 +60,15 @@ public class DeliveryController {
 		if(dto.observation() != null) {
 			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
-			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
+			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId() ,delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
 			return ResponseEntity.created(URI.create("/delivery/" + delivery.getCep()))
 					   					 .body(deliveryListDto);
 		}
 		else {	
 			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
-			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
-			return ResponseEntity.created(URI.create("/delivery/" + delivery.getCep()))
+			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId() ,delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
+			return ResponseEntity.created(URI.create("/delivery/" + delivery.getId()))
   					 .body(deliveryListDto);
 		}
 	}
@@ -89,7 +89,7 @@ public class DeliveryController {
 
 	    List<DeliveryListDto> paginatedDeliveries = allDeliveries.subList(start, end)
 	            .stream()
-	            .map(u -> new DeliveryListDto(u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep(), u.getObservation()))
+	            .map(u -> new DeliveryListDto(u.getId() ,u.getReceiver(), u.getStreet(), u.getNumber(), u.getNeighborhood(), u.getCep(), u.getObservation()))
 	            .toList();
 
 	    Page<DeliveryListDto> page = new PageImpl<>(paginatedDeliveries, pageable, allDeliveries.size());
@@ -101,7 +101,7 @@ public class DeliveryController {
 	@PutMapping("/{id}")
 	public ResponseEntity<DeliveryListDto> updateDelivery(@PathVariable Long id, @RequestBody @Valid DeliveryUpdateDto dto) {
 		Delivery delivery = upadateDelivery.updateDelivery(id, dto);
-		DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
+		DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId(), delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
 		return ResponseEntity.ok(deliveryListDto);
 	}
 	

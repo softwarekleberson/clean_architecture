@@ -7,7 +7,8 @@ public record CustomerListDto(
 		String id,
 		String cpf,
 		String name,
-		Email email
+		Email email,
+		Boolean active
 		
 		) {
 

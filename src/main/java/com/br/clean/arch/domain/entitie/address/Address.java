@@ -19,6 +19,23 @@ public abstract class Address {
 	protected String typeResidence;
 	protected String city;
 	
+	public Address(Long id, Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
+			String streetType, String typeResidence, String city) {
+		
+		setCep(cep);
+
+		this.id = id;
+		this.main = main;
+		this.receiver = receiver;
+		this.street = street;
+		this.number = number;
+		this.neighborhood = neighborhood;
+		this.observation = observation;
+		this.streetType = streetType;
+		this.typeResidence = typeResidence;
+		this.city = city;
+	}
+	
 	public Address(Boolean main, String receiver, String street, String number, String neighborhood, String cep, String observation,
 			String streetType, String typeResidence, String city) {
 		

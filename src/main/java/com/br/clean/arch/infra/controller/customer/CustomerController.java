@@ -55,7 +55,7 @@ public class CustomerController {
 	         )
 	        );
 	   		
-	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail(), customer.isActive());
 	   	return ResponseEntity.created(URI.create("register/customer/" + customer.getId())).body(customerListDto);
 	}
 	
@@ -80,7 +80,7 @@ public class CustomerController {
 
 	    List<CustomerListDto> paginatedCustomers = allCustomers.subList(start, end)
 	            .stream()
-	            .map(u -> new CustomerListDto(u.getId(), u.getCpf(), u.getName(), u.getEmail()))
+	            .map(u -> new CustomerListDto(u.getId(), u.getCpf(), u.getName(), u.getEmail(), u.isActive()))
 	            .toList();
 
 	    Page<CustomerListDto> page = new PageImpl<>(paginatedCustomers, pageable, allCustomers.size());
@@ -88,12 +88,10 @@ public class CustomerController {
 	    return ResponseEntity.ok(page);
 	}
 
-	
 	@PutMapping("/{id}")
 	public ResponseEntity<CustomerListDto> updateAllCustomer(@PathVariable String id, @Valid @RequestBody CustomerUpdateDto dto){
 		Customer customer = updateCustomer.updateCustomer(id, dto);
-	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail());
+	   	CustomerListDto customerListDto = new CustomerListDto(customer.getId(), customer.getCpf(), customer.getName(), customer.getEmail(), customer.isActive());
 	   	return ResponseEntity.ok(customerListDto);
 	}
-	
 }

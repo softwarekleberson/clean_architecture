@@ -40,8 +40,8 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery {
         DeliveryEntity entity = mapper.toEntity(delivery);
         entity.setCustomerEntity(customerEntity);
 
-        deliveryRepository.save(entity);
-        return mapper.toDomain(entity);
+        DeliveryEntity savedEntity = deliveryRepository.save(entity);
+        return mapper.toDomain(savedEntity);
     }
 
     @Override

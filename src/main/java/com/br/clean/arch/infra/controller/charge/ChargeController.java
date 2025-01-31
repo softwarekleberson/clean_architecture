@@ -61,7 +61,7 @@ public class ChargeController {
 		customerIsActive.customerIsActive(customer.getId());
 		ChargeListDto chargeListDto = new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
 	
-		return ResponseEntity.created(URI.create("/charge/" + charge.getCep()))
+		return ResponseEntity.created(URI.create("/charge/" + charge.getId()))
 			   .body(chargeListDto);
 	}
 	
