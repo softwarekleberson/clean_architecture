@@ -6,6 +6,7 @@ import java.util.List;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.card.CardEntity;
+import com.br.clean.arch.infra.security.token.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -49,6 +50,9 @@ public class CustomerEntity {
 	
 	@OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CardEntity> card;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role = Role.ROLE_CUSTOMER;
 		
 	public CustomerEntity() {
 	}

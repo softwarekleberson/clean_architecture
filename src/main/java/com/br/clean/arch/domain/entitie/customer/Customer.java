@@ -13,6 +13,7 @@ import com.br.clean.arch.domain.entitie.customer.exceptions.UnderageException;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
+import com.br.clean.arch.infra.security.token.Role;
 
 public class Customer {
 
@@ -29,6 +30,8 @@ public class Customer {
 	private Gender gender;
 	private Phone phone;
 	private Email email;
+	
+	private Role role = Role.ROLE_CUSTOMER;
 	
 	private List<Delivery> deliveries = new ArrayList<Delivery>();
 	private List<Charge> charges = new ArrayList<Charge>();
@@ -209,6 +212,10 @@ public class Customer {
 
 	public void setEmail(Email email) {
 		this.email = email;
+	}
+	
+	public Role getRole() {
+		return role;
 	}
 
 	@Override

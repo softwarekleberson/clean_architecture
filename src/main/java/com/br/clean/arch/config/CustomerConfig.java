@@ -8,27 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
-import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
-import com.br.clean.arch.application.usecases.customer.CreateCustomer;
 import com.br.clean.arch.application.usecases.customer.ListCustomer;
 import com.br.clean.arch.application.usecases.customer.UpdateCustomer;
-import com.br.clean.arch.application.usecases.password.AuthenticateUser;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.gateways.customer.CustomerRepositoryJpa;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
 @Configuration
 public class CustomerConfig {
-
-	@Bean
-	public CreateCustomer createCustomer(RepositoryCustomer repositoriyCustomer, RepositoryPasswordEncoder passwordEncoder) {
-		return new CreateCustomer(repositoriyCustomer, passwordEncoder);
-	}
-	
-	@Bean
-	public AuthenticateUser authenticate(RepositoryCustomer repositoriyCustomer, RepositoryPasswordEncoder passwordEncoder) {
-		return new AuthenticateUser(repositoriyCustomer, passwordEncoder);
-	}
 
 	@Bean
 	public ListCustomer listCustomer(RepositoryCustomer repositoriyCustomer) {
