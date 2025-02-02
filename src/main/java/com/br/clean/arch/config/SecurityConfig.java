@@ -16,9 +16,9 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/auth/login/customer", "/auth/register/customer").permitAll()  // Permite acesso público aos endpoints de login e registro
-                .anyRequest().authenticated()  // Exige autenticação para todas as outras rotas
+                .anyRequest().authenticated() 
             )
-            .csrf(csrf -> csrf.disable())  // Desabilita CSRF se não for necessário
+            .csrf(csrf -> csrf.disable())  
             .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);  // Adiciona o filtro de autenticação JWT
 
         return http.build();

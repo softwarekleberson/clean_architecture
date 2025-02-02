@@ -69,7 +69,7 @@ public class CardController {
 	    CardListDto responseDto = new CardListDto(card.getId(), card.getNumberCard(), card.getCode());
 
 	    return ResponseEntity
-	            .created(URI.create("/card/" + card.getNumberCard())) 
+	            .created(URI.create("/card/" + card.getId())) 
 	            .body(responseDto);
 	}
 	

@@ -2,6 +2,7 @@ package com.br.clean.arch.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
@@ -21,4 +22,10 @@ public class AuthConfig {
 	public AuthenticateUser authenticate(RepositoryCustomer repositoriyCustomer, RepositoryPasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
 		return new AuthenticateUser(repositoriyCustomer, passwordEncoder, jwtUtil);
 	}
+	
+	@Bean
+	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+	    return new InMemoryUserDetailsManager();
+	}
+
 }

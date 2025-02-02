@@ -20,7 +20,7 @@ public class JwtUtil {
 
 	public String generateToken(String userId, String role) {
 		return Jwts.builder()
-				.setSubject(userId) // UUID como String
+				.setSubject(userId) 
 				.claim("role", role)
 				.setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + expiration))
@@ -34,7 +34,7 @@ public class JwtUtil {
 				.build()
 				.parseClaimsJws(token)
 				.getBody()
-				.getSubject(); // Retorna UUID como String
+				.getSubject(); 
 	}
 
 	public String extractRole(String token) {
@@ -69,8 +69,6 @@ public class JwtUtil {
 	            .build()
 	            .parseClaimsJws(token)
 	            .getBody()
-	            .getSubject(); // Retorna o 'subject' (userId) do token
+	            .getSubject(); 
 	}
-
-	
 }
