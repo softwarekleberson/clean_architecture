@@ -62,4 +62,15 @@ public class JwtUtil {
 	private Key getSigningKey() {
 		return Keys.hmacShaKeyFor(secretKey.getBytes());
 	}
+
+	public String extractUsername(String token) {
+	    return Jwts.parserBuilder()
+	            .setSigningKey(getSigningKey())
+	            .build()
+	            .parseClaimsJws(token)
+	            .getBody()
+	            .getSubject(); // Retorna o 'subject' (userId) do token
+	}
+
+	
 }
