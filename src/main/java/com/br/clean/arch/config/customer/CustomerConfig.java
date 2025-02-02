@@ -1,4 +1,4 @@
-package com.br.clean.arch.config;
+package com.br.clean.arch.config.customer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
+import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.application.usecases.customer.ListCustomer;
 import com.br.clean.arch.application.usecases.customer.UpdateCustomer;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
@@ -23,6 +24,11 @@ public class CustomerConfig {
     @Bean
     public UpdateCustomer updateCustomer(RepositoryCustomer repositoriyCustomer) {
         return new UpdateCustomer(repositoriyCustomer);
+    }
+    
+    @Bean
+    public GetCustomerById getCustomerById(RepositoryCustomer repositoriyCustomer) {
+        return new GetCustomerById(repositoriyCustomer);
     }
     
     @Bean

@@ -1,4 +1,4 @@
-package com.br.clean.arch.config;
+package com.br.clean.arch.config.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

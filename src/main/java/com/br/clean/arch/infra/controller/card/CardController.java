@@ -2,6 +2,9 @@ package com.br.clean.arch.infra.controller.card;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.security.core.Authentication;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.br.clean.arch.application.usecases.card.CreateCard;
 import com.br.clean.arch.application.usecases.card.DeleteCard;
 import com.br.clean.arch.application.usecases.card.ListCard;
-import com.br.clean.arch.application.usecases.customer.GetCustomer;
+import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.card.Card;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
@@ -29,26 +32,27 @@ import jakarta.validation.Valid;
 @RequestMapping("/card")
 public class CardController {
 
-	private final GetCustomer getCustomer;
+	private final GetCustomerById getCustomerById;
 	private final CreateCard createCard;
 	private final ListCard listCard;
 	private final DeleteCard deleteCard;
 	
-	public CardController(GetCustomer getCustomer, CreateCard createCard, ListCard listCard, DeleteCard deleteCard) {
+	public CardController(CreateCard createCard, ListCard listCard, DeleteCard deleteCard, GetCustomerById getCustomerById) {
 		this.createCard = createCard;
-		this.getCustomer = getCustomer;
 		this.listCard = listCard;
 		this.deleteCard = deleteCard;
+		this.getCustomerById = getCustomerById;
 	}
 	
-	@PostMapping("/{cpf}")
+	@PostMapping
 	public ResponseEntity<CardListDto> createCard(
-	        @PathVariable String cpf, 
-	        @RequestBody @Valid CardDto dto) {
+	        @RequestBody @Valid CardDto dto,
+	        Authentication authentication) {
 	    
-	    Customer customer = getCustomer.getCustomerByCpf(cpf);
+		String id = authentication.getName();
+	    Optional<Customer> customer = getCustomerById.getCustomerById(id);
 	    
-	    customer.addNewCard(new Card(
+	    customer.get().addNewCard(new Card(
 	            dto.main(),
 	            dto.printedName(),
 	            dto.code(),
@@ -57,7 +61,7 @@ public class CardController {
 	            dto.expirationDate()
 	    ));
 	    
-	    Card card = createCard.createCard(cpf, new Card(
+	    Card card = createCard.createCard(customer.get().getCpf(), new Card(
 	            dto.main(),
 	            dto.printedName(),
 	            dto.code(),
@@ -73,12 +77,15 @@ public class CardController {
 	            .body(responseDto);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping
 	public ResponseEntity<Page<CardListDto>> listAllCards(
-	        @PathVariable String id, 
+			Authentication authentication,
 	        @PageableDefault(size = 10) Pageable pageable) {
 	    
-	    List<Card> allCards = listCard.listCards(id);
+
+		String id = authentication.getName();
+	    Optional<Customer> customer = getCustomerById.getCustomerById(id);
+	    List<Card> allCards = listCard.listCards(customer.get().getId());
 
 	    int start = (int) pageable.getOffset();
 	    int end = Math.min((start + pageable.getPageSize()), allCards.size());

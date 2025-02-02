@@ -1,4 +1,4 @@
-package com.br.clean.arch.config;
+package com.br.clean.arch.config.auth;
 
 import com.br.clean.arch.infra.security.filter.JwtAuthenticationFilter;
 import com.br.clean.arch.infra.security.token.JwtUtil;

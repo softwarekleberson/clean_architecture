@@ -2,12 +2,14 @@ package com.br.clean.arch.infra.controller.delivery;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import com.br.clean.arch.application.usecases.address.delivery.DeleteDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.EnsuresAprimaryDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.ListDelivery;
 import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
-import com.br.clean.arch.application.usecases.customer.GetCustomer;
+import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
@@ -33,7 +35,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/delivery")
 public class DeliveryController {
 
-	private final GetCustomer getCustomer;
+	private final GetCustomerById getCustomerById;
 	private final CreateDelivery createDelivery;
 	private final ListDelivery listDelivery;
 	private final UpdateDelivery upadateDelivery;
@@ -41,8 +43,8 @@ public class DeliveryController {
 	private final EnsuresAprimaryDelivery ensuresAprimaryAddress;
 	private final CustomerIsActiveDelivery customerIsActiveDelivery;
 	
-	public DeliveryController(GetCustomer getCustomer, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery, EnsuresAprimaryDelivery ensuresAprimaryAddress, CustomerIsActiveDelivery customerIsActiveDelivery) {
-		this.getCustomer = getCustomer;
+	public DeliveryController(GetCustomerById getCustomerById, CreateDelivery createDelivery, ListDelivery listDelivery, UpdateDelivery upadateDelivery, DeleteDelivery deleteDelivery, EnsuresAprimaryDelivery ensuresAprimaryAddress, CustomerIsActiveDelivery customerIsActiveDelivery) {
+		this.getCustomerById = getCustomerById;
 		this.createDelivery = createDelivery;
 		this.listDelivery = listDelivery;
 		this.upadateDelivery = upadateDelivery;
@@ -51,34 +53,39 @@ public class DeliveryController {
 		this.customerIsActiveDelivery = customerIsActiveDelivery;
 	}
 	
-	@PostMapping("/{cpf}")
-	public ResponseEntity<DeliveryListDto> createDelivery(@PathVariable String cpf, @RequestBody @Valid DeliveryDto dto) {
-		Customer customer = getCustomer.getCustomerByCpf(cpf);
-		ensuresAprimaryAddress.ensuresAprimaryAddress(cpf, dto.main());
-		customer.addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+	@PostMapping
+	public ResponseEntity<DeliveryListDto> createDelivery(Authentication authentication, @RequestBody @Valid DeliveryDto dto) {
+		
+		String id = authentication.getName();
+		Optional<Customer> customer = getCustomerById.getCustomerById(id);
+		
+		ensuresAprimaryAddress.ensuresAprimaryAddress(customer.get().getCpf(), dto.main());
+		customer.get().addNewDelivery(new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
 
 		if(dto.observation() != null) {
-			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
-			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
+			Delivery delivery = createDelivery.createDelivery(customer.get().getCpf(), new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+			customerIsActiveDelivery.customerIsActiveDelivery(customer.get().getId());
 			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId() ,delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
 			return ResponseEntity.created(URI.create("/delivery/" + delivery.getCep()))
 					   					 .body(deliveryListDto);
 		}
 		else {	
-			Delivery delivery = createDelivery.createDelivery(cpf, new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
-			customerIsActiveDelivery.customerIsActiveDelivery(customer.getId());
+			Delivery delivery = createDelivery.createDelivery(customer.get().getCpf(), new Delivery(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.streetType(), dto.typeResidence(), dto.city(), dto.deliveryPhrase()));
+			customerIsActiveDelivery.customerIsActiveDelivery(customer.get().getId());
 			DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId() ,delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
 			return ResponseEntity.created(URI.create("/delivery/" + delivery.getId()))
   					 .body(deliveryListDto);
 		}
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping
 	public ResponseEntity<Page<DeliveryListDto>> listAllDeliveries(
-	        @PathVariable String id, 
+			Authentication authentication, 
 	        @PageableDefault(size = 10) Pageable pageable) {
 	    
-	    List<Delivery> allDeliveries = listDelivery.listDelivery(id);
+		String id = authentication.getName();
+		Optional<Customer> customer = getCustomerById.getCustomerById(id);
+	    List<Delivery> allDeliveries = listDelivery.listDelivery(customer.get().getId());
 
 	    int start = (int) pageable.getOffset();
 	    int end = Math.min((start + pageable.getPageSize()), allDeliveries.size());

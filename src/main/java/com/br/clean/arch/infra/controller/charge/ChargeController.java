@@ -2,12 +2,14 @@ package com.br.clean.arch.infra.controller.charge;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +25,7 @@ import com.br.clean.arch.application.usecases.address.charge.DeleteCharge;
 import com.br.clean.arch.application.usecases.address.charge.EnsuresAprimaryCharge;
 import com.br.clean.arch.application.usecases.address.charge.ListCharge;
 import com.br.clean.arch.application.usecases.address.charge.UpdateCharge;
-import com.br.clean.arch.application.usecases.customer.GetCustomer;
+import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
@@ -33,7 +35,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/charge")
 public class ChargeController {
 
-	private final GetCustomer getCustomer;
+	private final GetCustomerById getCustomerById;
 	private final CreateCharge createCharge;
 	private final ListCharge listCharge;
 	private final UpdateCharge upadateCharge;
@@ -41,8 +43,8 @@ public class ChargeController {
 	private final EnsuresAprimaryCharge ensuresAprimaryAddress;
 	private final CustomerIsActive customerIsActive;
 	
-	public ChargeController(GetCustomer getCustomer, CreateCharge createCharge, ListCharge listCharge, UpdateCharge upadateCharge, DeleteCharge deleteCharge, EnsuresAprimaryCharge ensuresAprimaryAddress, CustomerIsActive customerIsActive) {
-		this.getCustomer = getCustomer;
+	public ChargeController(GetCustomerById getCustomerById, CreateCharge createCharge, ListCharge listCharge, UpdateCharge upadateCharge, DeleteCharge deleteCharge, EnsuresAprimaryCharge ensuresAprimaryAddress, CustomerIsActive customerIsActive) {
+		this.getCustomerById = getCustomerById;
 		this.createCharge = createCharge;
 		this.listCharge = listCharge;
 		this.upadateCharge = upadateCharge;
@@ -51,14 +53,17 @@ public class ChargeController {
 		this.customerIsActive = customerIsActive;
 	}
 	
-	@PostMapping("/{cpf}")
-	public ResponseEntity<ChargeListDto> createCharge(@PathVariable String cpf, @RequestBody @Valid ChargeDto dto) {
-		Customer customer = getCustomer.getCustomerByCpf(cpf);
-		ensuresAprimaryAddress.ensuresAprimaryCharge(cpf, dto.main());
-		customer.addNewCharge(new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
+	@PostMapping
+	public ResponseEntity<ChargeListDto> createCharge(@RequestBody @Valid ChargeDto dto, Authentication authentication) {
+		
+		String id = authentication.getName();
+		Optional<Customer> customer = getCustomerById.getCustomerById(id);
+		
+		ensuresAprimaryAddress.ensuresAprimaryCharge(customer.get().getCpf(), dto.main());
+		customer.get().addNewCharge(new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
 
-		Charge charge = createCharge.createCharge(cpf, new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
-		customerIsActive.customerIsActive(customer.getId());
+		Charge charge = createCharge.createCharge(customer.get().getCpf(), new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
+		customerIsActive.customerIsActive(customer.get().getId());
 		ChargeListDto chargeListDto = new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
 	
 		return ResponseEntity.created(URI.create("/charge/" + charge.getId()))
