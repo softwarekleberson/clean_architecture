@@ -24,7 +24,7 @@ The project is organized into layers, following Clean Architecture principles:
 
 - **Language**: Java 17
 - **Framework**: Spring Boot
-- **Database**: MySQL
+- **Docker**
 - **Other Dependencies**:
   - Spring Data JPA
   - Lombok
