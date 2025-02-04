@@ -15,11 +15,11 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, JwtUtil jwtUtil) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/auth/login/customer", "/auth/register/customer").permitAll()  // Permite acesso público aos endpoints de login e registro
+                .requestMatchers("/auth/login/customer", "/auth/register/customer").permitAll()  
                 .anyRequest().authenticated() 
             )
             .csrf(csrf -> csrf.disable())  
-            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);  // Adiciona o filtro de autenticação JWT
+            .addFilterBefore(new JwtAuthenticationFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class); 
 
         return http.build();
     }

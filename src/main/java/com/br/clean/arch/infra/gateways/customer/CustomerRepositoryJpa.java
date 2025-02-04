@@ -11,7 +11,7 @@ import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
 import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.customer.CustomerUpdateDto;
+import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 

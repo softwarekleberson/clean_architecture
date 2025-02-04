@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.controller.delivery;
+package com.br.clean.arch.infra.controller.delivery.input;
 
 public record DeliveryUpdateDto(
 		

@@ -28,6 +28,9 @@ import com.br.clean.arch.application.usecases.address.charge.UpdateCharge;
 import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.infra.controller.charge.input.ChargeDto;
+import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
+import com.br.clean.arch.infra.controller.charge.output.ChargeListDto;
 
 import jakarta.validation.Valid;
 
@@ -70,12 +73,15 @@ public class ChargeController {
 			   .body(chargeListDto);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping
 	public ResponseEntity<Page<ChargeListDto>> listAllCustomers(
-	        @PathVariable String id, 
+	        Authentication authentication,
 	        @PageableDefault(size = 10) Pageable pageable) {
 
-	    List<Charge> allCharges = listCharge.listCharge(id);
+		String id = authentication.getName();
+		Optional<Customer> customer = getCustomerById.getCustomerById(id);
+
+	    List<Charge> allCharges = listCharge.listCharge(customer.get().getId());
 
 	    int start = (int) pageable.getOffset();
 	    int end = Math.min((start + pageable.getPageSize()), allCharges.size());

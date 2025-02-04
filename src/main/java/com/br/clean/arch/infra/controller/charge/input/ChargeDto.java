@@ -1,8 +1,8 @@
-package com.br.clean.arch.infra.controller.delivery;
+package com.br.clean.arch.infra.controller.charge.input;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record DeliveryDto(
+public record ChargeDto(
 		
 		Boolean main,
 		
@@ -30,10 +30,7 @@ public record DeliveryDto(
 		String typeResidence,
 		
 		@NotBlank
-		String city,
-		
-		@NotBlank
-		String deliveryPhrase
+		String city
 		
 		) {
 }

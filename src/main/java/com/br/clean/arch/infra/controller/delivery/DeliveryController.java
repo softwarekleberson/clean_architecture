@@ -28,6 +28,9 @@ import com.br.clean.arch.application.usecases.address.delivery.UpdateDelivery;
 import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.infra.controller.delivery.input.DeliveryDto;
+import com.br.clean.arch.infra.controller.delivery.input.DeliveryUpdateDto;
+import com.br.clean.arch.infra.controller.delivery.output.DeliveryListDto;
 
 import jakarta.validation.Valid;
 

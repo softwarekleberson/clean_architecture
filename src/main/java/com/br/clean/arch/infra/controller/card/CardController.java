@@ -25,6 +25,8 @@ import com.br.clean.arch.application.usecases.card.ListCard;
 import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.domain.entitie.card.Card;
 import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.infra.controller.card.input.CardDto;
+import com.br.clean.arch.infra.controller.card.output.CardListDto;
 
 import jakarta.validation.Valid;
 

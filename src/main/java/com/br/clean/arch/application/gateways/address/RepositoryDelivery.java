@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.br.clean.arch.domain.entitie.address.Delivery;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.delivery.DeliveryUpdateDto;
+import com.br.clean.arch.infra.controller.delivery.input.DeliveryUpdateDto;
 
 public interface RepositoryDelivery {
 

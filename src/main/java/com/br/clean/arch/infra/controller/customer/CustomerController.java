@@ -19,6 +19,8 @@ import com.br.clean.arch.application.usecases.customer.GetCustomerById;
 import com.br.clean.arch.application.usecases.customer.ListCustomer;
 import com.br.clean.arch.application.usecases.customer.UpdateCustomer;
 import com.br.clean.arch.domain.entitie.customer.Customer;
+import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
+import com.br.clean.arch.infra.controller.customer.output.CustomerListDto;
 
 import jakarta.validation.Valid;
 

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.charge.ChargeUpdateDto;
+import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
 
 public interface RepositoryCharge {
 	

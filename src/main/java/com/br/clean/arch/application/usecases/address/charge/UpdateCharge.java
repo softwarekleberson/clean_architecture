@@ -3,7 +3,7 @@ package com.br.clean.arch.application.usecases.address.charge;
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
 import com.br.clean.arch.domain.entitie.address.Charge;
 import com.br.clean.arch.domain.entitie.address.exception.IncorrectAddressException;
-import com.br.clean.arch.infra.controller.charge.ChargeUpdateDto;
+import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
 
 public class UpdateCharge {
 

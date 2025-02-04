@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.controller.charge;
+package com.br.clean.arch.infra.controller.charge.input;
 
 public record ChargeUpdateDto(
 		

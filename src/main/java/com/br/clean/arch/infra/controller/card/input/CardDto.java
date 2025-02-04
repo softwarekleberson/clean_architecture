@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.controller.card;
+package com.br.clean.arch.infra.controller.card.input;
 
 import java.time.LocalDate;
 

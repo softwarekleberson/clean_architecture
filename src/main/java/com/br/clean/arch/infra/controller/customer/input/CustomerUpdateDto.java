@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.controller.customer;
+package com.br.clean.arch.infra.controller.customer.input;
 
 import java.time.LocalDate;
 

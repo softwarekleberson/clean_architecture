@@ -1,4 +1,4 @@
-package com.br.clean.arch.infra.controller.customer;
+package com.br.clean.arch.infra.controller.customer.output;
 
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 

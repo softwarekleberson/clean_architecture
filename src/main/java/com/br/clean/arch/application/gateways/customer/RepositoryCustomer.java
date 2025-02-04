@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.customer.CustomerUpdateDto;
+import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
 
 public interface RepositoryCustomer {
 

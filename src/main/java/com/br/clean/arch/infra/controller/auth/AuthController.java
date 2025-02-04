@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.br.clean.arch.application.usecases.customer.CreateCustomer;
 import com.br.clean.arch.application.usecases.password.AuthenticateUser;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.customer.CustomerDto;
+import com.br.clean.arch.infra.controller.customer.input.CustomerDto;
 import com.br.clean.arch.infra.security.token.AuthRequest;
 import com.br.clean.arch.infra.security.token.AuthResponse;
 
