@@ -37,3 +37,6 @@ The project is organized into layers, following Clean Architecture principles:
 1. Compile and run the project:
    ```bash
    ./mvnw spring-boot:run
+
+## Swagger UI
+  http://localhost:8080/swagger-ui/index.html#
