@@ -108,9 +108,9 @@ public class ChargeController {
 	    return ResponseEntity.ok(page);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<ChargeListDto> updateCharge(@PathVariable Long id, @RequestBody @Valid ChargeUpdateDto dto) {
-		Charge charge = upadateCharge.updateCharge(id, dto);
+	@PutMapping
+	public ResponseEntity<ChargeListDto> updateCharge(@RequestBody @Valid ChargeUpdateDto dto) {
+		Charge charge = upadateCharge.updateCharge(dto.id(), dto);
 		ChargeListDto chargeListDto = new ChargeListDto(charge.getId() ,charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
 		return ResponseEntity.ok(chargeListDto);
 	}

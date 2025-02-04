@@ -110,9 +110,9 @@ public class DeliveryController {
 	}
 
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<DeliveryListDto> updateDelivery(@PathVariable Long id, @RequestBody @Valid DeliveryUpdateDto dto) {
-		Delivery delivery = upadateDelivery.updateDelivery(id, dto);
+	@PutMapping
+	public ResponseEntity<DeliveryListDto> updateDelivery(@RequestBody @Valid DeliveryUpdateDto dto) {
+		Delivery delivery = upadateDelivery.updateDelivery(dto.id(), dto);
 		DeliveryListDto deliveryListDto = new DeliveryListDto(delivery.getId(), delivery.getReceiver(), delivery.getStreet(), delivery.getNumber(), delivery.getNeighborhood(), delivery.getCep(), delivery.getObservation());
 		return ResponseEntity.ok(deliveryListDto);
 	}
