@@ -32,10 +32,12 @@ import com.br.clean.arch.infra.controller.delivery.input.DeliveryDto;
 import com.br.clean.arch.infra.controller.delivery.input.DeliveryUpdateDto;
 import com.br.clean.arch.infra.controller.delivery.output.DeliveryListDto;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/delivery")
+@SecurityRequirement(name = "bearer-key")
 public class DeliveryController {
 
 	private final GetCustomerById getCustomerById;

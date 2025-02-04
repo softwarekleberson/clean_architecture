@@ -22,10 +22,12 @@ import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
 import com.br.clean.arch.infra.controller.customer.output.CustomerListDto;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/customer")
+@SecurityRequirement(name = "bearer-key")
 public class CustomerController {
 
 	private final ListCustomer listCustomer;

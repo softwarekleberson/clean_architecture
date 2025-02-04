@@ -32,10 +32,12 @@ import com.br.clean.arch.infra.controller.charge.input.ChargeDto;
 import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
 import com.br.clean.arch.infra.controller.charge.output.ChargeListDto;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/charge")
+@SecurityRequirement(name = "bearer-key")
 public class ChargeController {
 
 	private final GetCustomerById getCustomerById;

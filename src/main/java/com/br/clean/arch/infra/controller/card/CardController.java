@@ -28,10 +28,12 @@ import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.infra.controller.card.input.CardDto;
 import com.br.clean.arch.infra.controller.card.output.CardListDto;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/card")
+@SecurityRequirement(name = "bearer-key")
 public class CardController {
 
 	private final GetCustomerById getCustomerById;
