@@ -13,23 +13,14 @@ public class CreateCard {
 		this.repositoy = repositoy;
 	}
 	
-	public Card createCard(String id, Card card) {
-		
+	public Card createCard(String id, Card card) {		
 		customerPresentCard(id);
-		registeredCard(card.getNumberCard());
-				
 		return this.repositoy.createNewCard(id, card);
 	}
 	
 	private void customerPresentCard(String cpf) {
 		if(repositoy.fidByCpf(cpf).isEmpty()) {
 			throw new CustomerNotFoundException("Customer not found");
-		}
-	}
-	
-	private void registeredCard(String numberCard) {
-		if(repositoy.registeredCard(numberCard)) {
-			throw new DuplicateCardException("This card at registered");
 		}
 	}
 }

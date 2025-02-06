@@ -12,7 +12,6 @@ import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeRepository;
-import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
