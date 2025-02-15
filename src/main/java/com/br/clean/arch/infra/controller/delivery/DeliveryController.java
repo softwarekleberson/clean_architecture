@@ -36,7 +36,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/delivery")
+@RequestMapping("customer/deliveries")
 @SecurityRequirement(name = "bearer-key")
 public class DeliveryController {
 

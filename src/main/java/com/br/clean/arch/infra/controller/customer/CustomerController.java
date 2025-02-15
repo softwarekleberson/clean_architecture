@@ -45,7 +45,7 @@ public class CustomerController {
 	        @PageableDefault(size = 10, sort = "name") Pageable pageable) {
 	    
 	    List<Customer> allCustomers = listCustomer.listCustomers();
-
+	    
 	    int start = (int) pageable.getOffset();
 	    int end = Math.min((start + pageable.getPageSize()), allCustomers.size());
 

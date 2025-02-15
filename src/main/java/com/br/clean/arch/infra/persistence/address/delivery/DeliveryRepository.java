@@ -13,7 +13,7 @@ public interface DeliveryRepository extends JpaRepository<DeliveryEntity, Long>{
     @Query("SELECT d FROM DeliveryEntity d WHERE d.customerEntity.id = :customerId")
     List<DeliveryEntity> findByCustomerId(@Param("customerId") String customerId);
 
-    @Query("""
+   @Query("""
             SELECT CASE 
                 WHEN COUNT(DISTINCT d) > 0 AND COUNT(DISTINCT c) > 0 THEN true
                 ELSE false 

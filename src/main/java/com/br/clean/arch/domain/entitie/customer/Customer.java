@@ -71,9 +71,10 @@ public class Customer {
 		this.email = email;
 	}
 
-	public Customer(String id, String cpf, String name, LocalDate birth, Gender gender, Phone phone, Email email, String password) {
+	public Customer(String id, boolean active ,String cpf, String name, LocalDate birth, Gender gender, Phone phone, Email email, String password) {
 		super();
 		this.id = id;
+		this.active = active;
 		this.cpf = cpf;
 		this.name = name;
 		this.birth = birth;

@@ -35,6 +35,7 @@ public class CustomerEntityMapper {
 
 	        return new Customer(
 	            entity.getId(),
+	            entity.isActive(),
 	        	entity.getCpf(),
 	            entity.getName(),
 	            entity.getBirth(),
