@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import com.br.clean.arch.domain.entitie.card.Card;
 import com.br.clean.arch.domain.entitie.card.buider.CardBuilder;
-import com.br.clean.arch.domain.entitie.card.exeptions.IncorrectCardExpetion;
+import com.br.clean.arch.domain.entitie.card.exeptions.CardNotFoundException;
 import com.br.clean.arch.domain.entitie.card.valueObject.Flag;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
@@ -24,7 +24,6 @@ class CustomerBuilderCardTest {
 	        "15624874140",
 	        "kleberson",
 	        LocalDate.of(1994, 10, 5),
-	        "89724521GOLvi1@",
 	        "89724521GOLvi1@",
 	        Gender.MALE,
 	        new Phone("22", "123456789"),
@@ -51,7 +50,7 @@ class CustomerBuilderCardTest {
 	//Invalit data for builder
 	@Test
 	public void ShouldNotAcceptInvalidaCardNumber() {
-		Assertions.assertThrows(IncorrectCardExpetion.class,
+		Assertions.assertThrows(CardNotFoundException.class,
 				() -> new Card(true, "kleberson santos",
 				  "154", "6224758047501577",
 				  Flag.MASTERCARD,
@@ -60,7 +59,7 @@ class CustomerBuilderCardTest {
 	
 	@Test
 	public void ShouldNotAcceptInvalidaCardCode() {
-		Assertions.assertThrows(IncorrectCardExpetion.class,
+		Assertions.assertThrows(CardNotFoundException.class,
 				() -> new Card(true, "kleberson santos",
 				  "15", "4551627971196279",
 				  Flag.VISA,
@@ -69,7 +68,7 @@ class CustomerBuilderCardTest {
 	
 	@Test
 	public void ShouldNotAcceptInvalidaCardDate() {
-		Assertions.assertThrows(IncorrectCardExpetion.class,
+		Assertions.assertThrows(CardNotFoundException.class,
 				() -> new Card(true, "kleberson santos",
 				  "150", "4551627971196279",
 				  Flag.VISA,

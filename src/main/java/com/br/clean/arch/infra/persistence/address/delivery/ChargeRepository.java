@@ -1,7 +1,7 @@
 package com.br.clean.arch.infra.persistence.address.delivery;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 public interface ChargeRepository extends JpaRepository<ChargeEntity, Long>{
     
     @Query("SELECT c FROM ChargeEntity c WHERE c.customerEntity.id = :customerId")
-    List<ChargeEntity> findByCustomerId(@Param("customerId") String customerId);
+    Page<ChargeEntity> findByCustomerId(@Param("customerId") String customerId, Pageable pageable);
 
     @Query("""
             SELECT CASE 

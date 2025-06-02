@@ -3,10 +3,10 @@ package com.br.clean.arch.infra.persistence.customer;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.br.clean.arch.domain.entitie.valueObject.Role;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.card.CardEntity;
-import com.br.clean.arch.infra.security.token.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;

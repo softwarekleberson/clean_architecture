@@ -11,7 +11,7 @@ public class ChargeEntityMapper {
         }
         return new ChargeEntity(
         		charge.getId(),
-        		charge.getMain(),
+        		charge.isMain(),
         		charge.getReceiver(),
         		charge.getStreet(),
         		charge.getNumber(),
@@ -21,7 +21,9 @@ public class ChargeEntityMapper {
         		charge.getStreet(),
         		charge.getStreetType(),
         		charge.getTypeResidence(),
-        		charge.getCity()
+        		charge.getCity(),
+        		charge.getState(),
+        		charge.getCountry()
         );
     }
 
@@ -40,7 +42,29 @@ public class ChargeEntityMapper {
                 chargeEntity.getObservation(),
                 chargeEntity.getStreetType(),
                 chargeEntity.getTypeResidence(),
-                chargeEntity.getCity()
+                chargeEntity.getCity(),
+                chargeEntity.getState(),
+                chargeEntity.getState()
         );
     }
+    
+   
+   public void updateEntityFromDomain(ChargeEntity entity, Charge domainCharge) {
+       if (entity == null || domainCharge == null) {
+           return;
+       }
+       entity.setMain(domainCharge.isMain());
+       entity.setReceiver(domainCharge.getReceiver());
+       entity.setStreet(domainCharge.getStreet());
+       entity.setNumber(domainCharge.getNumber());
+       entity.setNeighborhood(domainCharge.getNeighborhood());
+       entity.setCep(domainCharge.getCep());
+       entity.setObservation(domainCharge.getObservation());
+       entity.setStreetType(domainCharge.getStreetType());
+       entity.setTypeResidence(domainCharge.getTypeResidence());
+       entity.setCity(domainCharge.getCity());
+       entity.setCity(domainCharge.getState());
+       entity.setCity(domainCharge.getCountry());
+   }
 }
+

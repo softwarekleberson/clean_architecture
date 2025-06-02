@@ -3,7 +3,7 @@ package com.br.clean.arch.domain.entitie.card;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import com.br.clean.arch.domain.entitie.card.exeptions.IncorrectCardExpetion;
+import com.br.clean.arch.domain.entitie.card.exeptions.CardNotFoundException;
 import com.br.clean.arch.domain.entitie.card.valueObject.Flag;
 
 public class Card {
@@ -70,7 +70,7 @@ public class Card {
 	public void setCode(String code) {
 		String patterCode = "^[0-9]{3}$";
 		if(!code.matches(patterCode)) {
-			throw new IncorrectCardExpetion("Number card requered 3 numbers");
+			throw new CardNotFoundException("Number card requered 3 numbers");
 		}
 		this.code = code;
 	}
@@ -82,7 +82,7 @@ public class Card {
 	public void setNumberCard(String numberCard) {
 		String patterNumberCard = "^[0-9]{16}$";
 		if(!numberCard.matches(patterNumberCard)) {
-			throw new IncorrectCardExpetion("Your card must have 16 numbers");
+			throw new CardNotFoundException("Your card must have 16 numbers");
 		}
 		this.numberCard = numberCard;
 	}
@@ -102,7 +102,7 @@ public class Card {
 	public void setExpirationDate(LocalDate expirationDate) {
 		LocalDate currentDate = LocalDate.now();
 		if(!expirationDate.isAfter(currentDate)) {
-			throw new IncorrectCardExpetion("Your card need expiration date bigger current date");
+			throw new CardNotFoundException("Your card need expiration date bigger current date");
 		}
 		this.expirationDate = expirationDate;
 	}

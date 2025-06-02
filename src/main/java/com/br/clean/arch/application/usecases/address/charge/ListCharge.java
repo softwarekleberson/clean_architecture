@@ -1,11 +1,13 @@
 package com.br.clean.arch.application.usecases.address.charge;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
+import com.br.clean.arch.application.usecases.address.charge.dto.output.ChargeOutputDto;
 import com.br.clean.arch.domain.entitie.address.Charge;
-import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
+import com.br.clean.arch.domain.entitie.customer.exceptions.CustomerNotFoundException;
 
 public class ListCharge {
 
@@ -17,10 +19,18 @@ public class ListCharge {
 		this.repositoriyCustomer = repositoriyCustomer;
 	}
 	
-	public List<Charge> listCharge(String customerId) {
+	public Page<ChargeOutputDto> listCharge(String customerId, Pageable pageable) {
 		if(repositoriyCustomer.findById(customerId).isEmpty()) {
 			throw new CustomerNotFoundException("Customer not found");
 		}
-		return this.repository.listCharge(customerId);
+		
+		Page<Charge> charges = repository.listCharge(customerId, pageable);
+		return charges.map(charge -> new ChargeOutputDto(
+											  charge.getId(),
+											  charge.getReceiver(),
+											  charge.getStreet(),
+											  charge.getNumber(),
+											  charge.getNeighborhood(),
+											  charge.getCep()));
 	}
 }

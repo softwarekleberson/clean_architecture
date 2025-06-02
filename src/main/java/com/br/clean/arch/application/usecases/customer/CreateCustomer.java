@@ -2,6 +2,7 @@ package com.br.clean.arch.application.usecases.customer;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
 import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
+import com.br.clean.arch.application.usecases.customer.dto.input.CreateCustomerCommand;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 import com.br.clean.arch.domain.entitie.customer.exceptions.DuplicateCpfException;
 import com.br.clean.arch.domain.entitie.customer.exceptions.DuplicateEmailException;
@@ -16,15 +17,30 @@ public class CreateCustomer {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	public Customer createCustomer(Customer customer) {
+	public Customer createCustomer(CreateCustomerCommand dto) {
 		
-		findByCpf(customer.getCpf());
-		findByEmail(customer.getEmail().getEmail());
+		checkPasswordEqualityandConfirmPassword(dto);
+		findByCpf(dto.cpf());
+		findByEmail(dto.email().getEmail());
+		String hashedPassword = passwordEncoder.encode(dto.password());
 		
-		customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-		customer.setConfirmPassword(passwordEncoder.encode(customer.getConfirmPassword()));
+		 Customer newCustomer = new Customer(
+		            dto.cpf(),
+		            dto.name(),
+		            dto.birth(),
+		            hashedPassword,
+		            dto.gender(),
+		            dto.phone(),
+		            dto.email()
+		        );
 		
-		return this.repositoriy.createCustomer(customer);
+		return this.repositoriy.save(newCustomer);
+	}
+
+	private void checkPasswordEqualityandConfirmPassword(CreateCustomerCommand dto) {
+		if(!dto.password().equals(dto.confirmPassword())) {
+			throw new IllegalArgumentException("Password not equals confirm password");
+		}
 	}
 	
 	private void findByEmail(String email) {
@@ -36,6 +52,6 @@ public class CreateCustomer {
 	private void findByCpf(String cpf) {
 		 repositoriy.findByCpf(cpf).ifPresent(e -> {
 	            throw new DuplicateCpfException("Previously registered CPF: " + cpf);
-	        });
+	     });
 	}
 }

@@ -1,8 +1,7 @@
 package com.br.clean.arch.application.usecases.address.charge;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
-import com.br.clean.arch.domain.entitie.address.Charge;
-import com.br.clean.arch.domain.entitie.address.exception.IncorrectAddressException;
+import com.br.clean.arch.domain.entitie.address.exception.AddressNotFoundException;
 
 public class DeleteCharge {
 
@@ -12,8 +11,8 @@ public class DeleteCharge {
 		this.repository = repository;
 	}
 	
-	public Charge deleteCharge(Long id) {
-		repository.findById(id).orElseThrow(() -> new IncorrectAddressException("Delivery not found with id : " + id));
-		return repository.deleteCharge(id);
+	public void deleteCharge(Long id) {
+		repository.findById(id).orElseThrow(() -> new AddressNotFoundException("Delivery not found with id : " + id));
+		repository.deleteCharge(id);
 	}
 }

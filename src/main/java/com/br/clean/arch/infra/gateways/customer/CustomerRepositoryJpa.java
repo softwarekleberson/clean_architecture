@@ -1,73 +1,51 @@
 package com.br.clean.arch.infra.gateways.customer;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
-import com.br.clean.arch.application.gateways.password.RepositoryPasswordEncoder;
-import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
+import com.br.clean.arch.domain.entitie.customer.exceptions.CustomerNotFoundException;
 import com.br.clean.arch.infra.persistence.customer.CustomerEntity;
 import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 
-public class CustomerRepositoryJpa implements RepositoryCustomer, RepositoryPasswordEncoder {
+public class CustomerRepositoryJpa implements RepositoryCustomer {
 
     private final CustomerRepository repository;
     private final CustomerEntityMapper mapper;
-    private final PasswordEncoder passwordEncoder;
 
-    public CustomerRepositoryJpa(CustomerRepository repository, CustomerEntityMapper mapper, PasswordEncoder passwordEncoder) {
+    public CustomerRepositoryJpa(CustomerRepository repository, CustomerEntityMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public Customer createCustomer(Customer customer) {
+    public Customer save(Customer customer) {
         CustomerEntity entity = mapper.toEntity(customer);
-        repository.save(entity);
-        return mapper.toDomain(entity);
+        CustomerEntity savedEntity = repository.save(entity);
+        return mapper.toDomain(savedEntity);
     }
 
     @Override
-    public List<Customer> listCustomer() {
-        return repository.findAll().stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+    public Customer updateCustomer(String id, Customer customer) {
+        CustomerEntity existingEntity = repository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found."));
+
+        mapper.updateEntityFromDomain(existingEntity, customer);
+
+        CustomerEntity savedEntity = repository.save(existingEntity);
+        return mapper.toDomain(savedEntity);
     }
 
     @Override
-    public Customer getCustomerByCpf(String cpf) {
-        return repository.findByCpf(cpf)
-                .map(mapper::toDomain)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer with CPF " + cpf + " not found"));
+    public Page<Customer> listCustomer(Pageable pageable) { // Added Pageable parameter
+        Page<CustomerEntity> entityPage = repository.findAll(pageable); // Pass pageable to findAll()
+
+        return entityPage.map(mapper::toDomain);
     }
-
-    @Override
-    public Customer updateCustomer(String id, CustomerUpdateDto dto) {
-        CustomerEntity entity = repository.findById(id)
-        .orElseThrow(() -> new CustomerNotFoundException("Customer with ID " + id + " not found"));
-
-        updateIfNotNull(dto.phone().getDdd(), entity.getPhoneEntity()::setDdd);
-        updateIfNotNull(dto.phone().getPhone(), entity.getPhoneEntity()::setPhone);
-        updateIfNotNull(dto.birth(), entity::setBirth);
-        updateIfNotNull(dto.name(), entity::setName);
-
-        repository.save(entity);
-        return mapper.toDomain(entity);
-    }
-
-    private <T> void updateIfNotNull(T value, Consumer<T> updater) {
-        if (value != null) {
-            updater.accept(value);
-        }
-    }
-
+    
     @Override
     public Optional<Customer> findByCpf(String cpf) {
         return repository.findByCpf(cpf).map(mapper::toDomain);
@@ -82,14 +60,4 @@ public class CustomerRepositoryJpa implements RepositoryCustomer, RepositoryPass
     public Optional<Customer> findById(String id) {
         return repository.findById(id).map(mapper::toDomain);
     }
-
-	@Override
-	public String encode(String rawPassword) {
-        return passwordEncoder.encode(rawPassword);
-	}
-
-	@Override
-	public boolean matches(String rawPassword, String encodedPassword) {
-	    return passwordEncoder.matches(rawPassword, encodedPassword);
-	}
 }

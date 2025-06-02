@@ -1,14 +1,14 @@
 package com.br.clean.arch.infra.gateways.address;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.address.RepositoryCharge;
 import com.br.clean.arch.domain.entitie.address.Charge;
-import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
+import com.br.clean.arch.domain.entitie.customer.exceptions.CustomerNotFoundException;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.ChargeRepository;
@@ -29,38 +29,41 @@ public class ChargeRepositoryJpa implements RepositoryCharge {
         this.customerEntityMapper = customerEntityMapper;
     }
 
+  
     @Override
-    public List<Charge> listCharge(String customerId) {
-        return chargeRepository.findByCustomerId(customerId).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
-    }
+    public Charge save(String cpf, Charge charge) { 
+        CustomerEntity customerEntity = customerRepository.findByCpf(cpf)
+                                        .orElseThrow(() -> new CustomerNotFoundException("Customer not found for the given CPF: " + cpf));
 
-    @Override
-    public Charge createCharge(String cpf, Charge charge) {
-        CustomerEntity customer = findCustomerByCpf(cpf);
         ChargeEntity entity = mapper.toEntity(charge);
-        entity.setCustomerEntity(customer);
-        
+
+        entity.setCustomerEntity(customerEntity); 
         ChargeEntity savedEntity = chargeRepository.save(entity);
+        
+        return mapper.toDomain(savedEntity);
+    }
+    
+    @Override
+    public Charge updateCharge(Long id, Charge charge) {
+        ChargeEntity existingEntity = findChargeById(id);
+
+        mapper.updateEntityFromDomain(existingEntity, charge);
+        ChargeEntity savedEntity = chargeRepository.save(existingEntity);
+
         return mapper.toDomain(savedEntity);
     }
 
+    
     @Override
-    public Charge updateCharge(Long id, ChargeUpdateDto dto) {
-        ChargeEntity entity = findChargeById(id);
-
-        updateChargeEntityFields(entity, dto);
-        chargeRepository.save(entity);
-
-        return mapper.toDomain(entity);
+    public Page<Charge> listCharge(String customerId, Pageable pageable) {
+        Page<ChargeEntity> chargeEntitiesPage = chargeRepository.findByCustomerId(customerId, pageable);
+        return chargeEntitiesPage.map(mapper::toDomain);
     }
 
     @Override
-    public Charge deleteCharge(Long id) {
+    public void deleteCharge(Long id) {
         ChargeEntity entity = findChargeById(id);
         chargeRepository.delete(entity);
-        return null;
     }
 
     @Override
@@ -80,23 +83,6 @@ public class ChargeRepositoryJpa implements RepositoryCharge {
     }
 
     @Override
-    public Charge customerIsActive(String id) {
-        if (id == null || id.isEmpty()) {
-            throw new CustomerNotFoundException("Id of customer not present");
-        }
-
-        CustomerEntity customer = customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found"));
-
-        if (chargeRepository.existsDeliveryAndChargeByCustomerId(id)) {
-            customer.setActive(true);
-            customerRepository.save(customer);
-        }
-
-        return null;
-    }
-
-    @Override
     public Optional<Customer> findByCpf(String cpf) {
         return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
     }
@@ -109,19 +95,6 @@ public class ChargeRepositoryJpa implements RepositoryCharge {
     private ChargeEntity findChargeById(Long id) {
         return chargeRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Delivery not found"));
-    }
-
-    private void updateChargeEntityFields(ChargeEntity entity, ChargeUpdateDto dto) {
-        Optional.ofNullable(dto.main()).ifPresent(entity::setMain);
-        Optional.ofNullable(dto.receiver()).ifPresent(entity::setReceiver);
-        Optional.ofNullable(dto.street()).ifPresent(entity::setStreet);
-        Optional.ofNullable(dto.number()).ifPresent(entity::setNumber);
-        Optional.ofNullable(dto.neighborhood()).ifPresent(entity::setNeighborhood);
-        Optional.ofNullable(dto.cep()).ifPresent(entity::setCep);
-        Optional.ofNullable(dto.observation()).ifPresent(entity::setObservation);
-        Optional.ofNullable(dto.streetType()).ifPresent(entity::setStreetType);
-        Optional.ofNullable(dto.typeResidence()).ifPresent(entity::setTypeResidence);
-        Optional.ofNullable(dto.city()).ifPresent(entity::setCity);
     }
 
 	@Override

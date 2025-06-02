@@ -1,8 +1,7 @@
 package com.br.clean.arch.application.usecases.address.delivery;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
-import com.br.clean.arch.domain.entitie.address.Delivery;
-import com.br.clean.arch.domain.entitie.address.exception.IncorrectAddressException;
+import com.br.clean.arch.domain.entitie.address.exception.AddressNotFoundException;
 
 public class DeleteDelivery {
 
@@ -12,8 +11,8 @@ public class DeleteDelivery {
 		this.repository = repository;
 	}
 	
-	public Delivery deleteDelivery(Long id) {
-		repository.findById(id).orElseThrow(() -> new IncorrectAddressException("Delivery not found with id : " + id));		
-		return this.repository.deleteDelivery(id);
+	public void deleteDelivery(Long id) {
+		repository.findById(id).orElseThrow(() -> new AddressNotFoundException("Delivery not found with id : " + id));		
+		repository.deleteDelivery(id);
 	} 
 }

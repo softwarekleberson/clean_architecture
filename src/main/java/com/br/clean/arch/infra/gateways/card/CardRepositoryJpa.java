@@ -1,8 +1,9 @@
 package com.br.clean.arch.infra.gateways.card;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.card.RepositoryCard;
 import com.br.clean.arch.domain.entitie.card.Card;
@@ -31,15 +32,14 @@ public class CardRepositoryJpa implements RepositoryCard {
     }
 
     @Override
-    public List<Card> listCard(String customerId) {
-        return repository.findByCustomerId(customerId).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+    public Page<Card> listCard(String customerId, Pageable pageable) {
+        return repository.findByCustomerId(customerId, pageable)
+                .map(mapper::toDomain);
     }
 
     @Override
-    public Card createNewCard(String cpf, Card card) {
-        CustomerEntity customerEntity = customerRepository.findByCpf(cpf)
+    public Card createNewCard(String id, Card card) {
+        CustomerEntity customerEntity = customerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
 
         CardEntity entity = mapper.toEntity(card);
@@ -50,12 +50,11 @@ public class CardRepositoryJpa implements RepositoryCard {
     }
 
     @Override
-    public Card deleteCard(Long id) {
+    public void deleteCard(Long id) {
         CardEntity cardEntity = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Card not found"));
 
         repository.delete(cardEntity);
-        return mapper.toDomain(cardEntity);
     }
 
     @Override

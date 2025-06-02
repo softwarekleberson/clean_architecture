@@ -1,6 +1,6 @@
 package com.br.clean.arch.domain.entitie.card;
 
-import com.br.clean.arch.domain.entitie.card.exeptions.IncorrectCardExpetion;
+import com.br.clean.arch.domain.entitie.card.exeptions.CardNotFoundException;
 
 public class AlgoritmoLumn {
 
@@ -22,7 +22,7 @@ public class AlgoritmoLumn {
 	        }
 
 	        if (sum % 10 != 0) {
-	            throw new IncorrectCardExpetion("Your number card not be validated");
+	            throw new CardNotFoundException("Your number card not be validated");
 	        }
 	}
 		

@@ -1,16 +1,18 @@
 package com.br.clean.arch.application.gateways.card;
 
-import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.domain.entitie.card.Card;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
 public interface RepositoryCard {
 
-	List<Card> listCard (String id);
+	Page<Card> listCard (String id, Pageable pageable);
 	Card createNewCard (String id, Card card);
-	Card deleteCard (Long id);
+	void deleteCard (Long id);
 	boolean registeredCard(String numberCard);
 	Optional<Customer> fidByCpf(String cpf);
 	Optional<Card> findById(Long id);

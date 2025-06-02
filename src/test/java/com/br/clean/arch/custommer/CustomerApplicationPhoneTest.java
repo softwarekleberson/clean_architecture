@@ -21,7 +21,6 @@ class CustomerApplicationPhoneTest {
 	            "kleberson",
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
-	            "123VAIjava@",
 	            Gender.MALE,
 	            new Phone("1", "123456789"),
 	            new Email("santossilvakleberson@gmail.com")
@@ -38,7 +37,6 @@ class CustomerApplicationPhoneTest {
 	            "41762597180",
 	            "kleberson",
 	            LocalDate.now().minusYears(18).minusDays(1),
-	            "123VAIjava@",
 	            "123VAIjava@",
 	            Gender.MALE,
 	            new Phone("111", "123456789"),
@@ -57,7 +55,6 @@ class CustomerApplicationPhoneTest {
 	            "kleberson",
 	            LocalDate.now().minusYears(18).minusDays(1),
 	            "123VAIjava@",
-	            "123VAIjava@",
 	            Gender.MALE,
 	            new Phone("11", "12345678"),
 	            new Email("santossilvakleberson@gmail.com")
@@ -74,7 +71,6 @@ class CustomerApplicationPhoneTest {
 	            "41762597180",
 	            "kleberson",
 	            LocalDate.now().minusYears(18).minusDays(1),
-	            "123VAIjava@",
 	            "123VAIjava@",
 	            Gender.MALE,
 	            new Phone("11", "1234567897"),

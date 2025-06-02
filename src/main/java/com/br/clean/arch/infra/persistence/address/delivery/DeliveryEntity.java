@@ -9,7 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "deliverys")
+@Table(name = "deliveries")
 public class DeliveryEntity extends AddressEntity{
 	
 	
@@ -20,8 +20,8 @@ public class DeliveryEntity extends AddressEntity{
 	private CustomerEntity customerEntity;
 	
 	public DeliveryEntity(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
-			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+			String observation, String streetType, String typeResidence, String city, String deliveryPhrase, String state, String country) {
+		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city, state, country);
 		this.deliveryPhrase = deliveryPhrase;
 	}
 	

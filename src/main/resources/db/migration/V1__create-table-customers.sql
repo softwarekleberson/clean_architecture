@@ -4,10 +4,10 @@ CREATE TABLE customers (
     active BOOLEAN NOT NULL DEFAULT 0, 
     name VARCHAR(255) NOT NULL, 
     birth DATE NOT NULL, 
-    password VARCHAR(255), 
-    gender ENUM('MALE', 'FEMALE'),
-    role ENUM('ROLE_CUSTOMER', 'ROLE_ADM'),
-    ddd VARCHAR(2), 
-    phone VARCHAR(9), 
+    password VARCHAR(255) NOT NULL, 
+    gender ENUM('MALE', 'FEMALE') NOT NULL,
+    role ENUM('ROLE_CUSTOMER', 'ROLE_ADM') NOT NULL,
+    ddd VARCHAR(2) NOT NULL, 
+    phone VARCHAR(9) NOT NULL, 
     email VARCHAR(255) NOT NULL UNIQUE 
 );

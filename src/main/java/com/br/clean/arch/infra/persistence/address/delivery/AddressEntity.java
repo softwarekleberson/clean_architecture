@@ -25,9 +25,11 @@ public abstract class AddressEntity {
 	protected String streetType;
 	protected String typeResidence;
 	protected String city;
+	protected String state;
+	protected String country;
 	
 	public AddressEntity(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
-			String observation, String streetType, String typeResidence, String city) {
+			String observation, String streetType, String typeResidence, String city, String state, String country) {
 		this.main = main;
 		this.receiver = receiver;
 		this.street = street;
@@ -38,10 +40,12 @@ public abstract class AddressEntity {
 		this.streetType = streetType;
 		this.typeResidence = typeResidence;
 		this.city = city;
+		this.state = state;
+		this.country = country;
 	}
 	
 	public AddressEntity(Long id, Boolean main, String receiver, String street, String number, String neighborhood,
-			String cep, String observation, String streetType, String typeResidence, String city) {
+			String cep, String observation, String streetType, String typeResidence, String city, String state, String country) {
 		
 		this.id = id;
 		this.main = main;
@@ -54,6 +58,8 @@ public abstract class AddressEntity {
 		this.streetType = streetType;
 		this.typeResidence = typeResidence;
 		this.city = city;
+		this.state = state;
+		this.country = country;
 	}
 	
 	public AddressEntity() {
@@ -142,9 +148,24 @@ public abstract class AddressEntity {
 	public String getCity() {
 		return city;
 	}
-
+	
 	public void setCity(String city) {
 		this.city = city;
 	}
-
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
+	public String getCountry() {
+		return country;
+	}
+	
+	public void setCountry(String country) {
+		this.country = country;
+	}
 }

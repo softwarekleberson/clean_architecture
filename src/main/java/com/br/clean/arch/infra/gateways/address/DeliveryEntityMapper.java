@@ -10,7 +10,7 @@ public class DeliveryEntityMapper {
             return null;
         }
         return new DeliveryEntity(
-        		delivery.getMain(),
+        		delivery.isMain(),
         		delivery.getReceiver(),
                 delivery.getStreet(),
                 delivery.getNumber(),
@@ -20,7 +20,9 @@ public class DeliveryEntityMapper {
                 delivery.getStreetType(),
                 delivery.getTypeResidence(),
                 delivery.getCity(),
-                delivery.getDeliveryPhrase()
+                delivery.getDeliveryPhrase(),
+                delivery.getState(),
+                delivery.getCountry()
         );
     }
 
@@ -40,7 +42,27 @@ public class DeliveryEntityMapper {
                 deliveryEntity.getStreetType(),
                 deliveryEntity.getTypeResidence(),
                 deliveryEntity.getCity(),
-                deliveryEntity.getDeliveryPhrase()
-        );
+                deliveryEntity.getDeliveryPhrase(),
+                deliveryEntity.getState(),
+                deliveryEntity.getCountry()
+        		);
+    }
+
+    public void updateEntityFromDomain(DeliveryEntity entity, Delivery domainDelivery) {
+        if (entity == null || domainDelivery == null) {
+            return;
+        }
+        entity.setMain(domainDelivery.isMain());
+        entity.setReceiver(domainDelivery.getReceiver());
+        entity.setStreet(domainDelivery.getStreet());
+        entity.setNumber(domainDelivery.getNumber());
+        entity.setNeighborhood(domainDelivery.getNeighborhood());
+        entity.setCep(domainDelivery.getCep());
+        entity.setObservation(domainDelivery.getObservation());
+        entity.setStreetType(domainDelivery.getStreetType());
+        entity.setTypeResidence(domainDelivery.getTypeResidence());
+        entity.setCity(domainDelivery.getCity());
+        entity.setCity(domainDelivery.getState());
+        entity.setCity(domainDelivery.getCountry());
     }
 }

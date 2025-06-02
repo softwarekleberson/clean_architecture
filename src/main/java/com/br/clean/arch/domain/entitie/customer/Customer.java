@@ -2,6 +2,7 @@ package com.br.clean.arch.domain.entitie.customer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import com.br.clean.arch.domain.entitie.customer.exceptions.UnderageException;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Email;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Gender;
 import com.br.clean.arch.domain.entitie.customer.valueObject.Phone;
-import com.br.clean.arch.infra.security.token.Role;
+import com.br.clean.arch.domain.entitie.valueObject.Role;
 
 public class Customer {
 
@@ -26,7 +27,6 @@ public class Customer {
 	public static final int LENGHT_PASSWORD = 8;
 	private String password;
 	
-	private String confirmPassword;
 	private Gender gender;
 	private Phone phone;
 	private Email email;
@@ -39,19 +39,16 @@ public class Customer {
 	
 	public Customer(String cpf, String name,
 					 LocalDate birth, String password,
-					 String confirmPassword, Gender gender,
-					 Phone phone, Email email) {
+					 Gender gender, Phone phone,
+					 Email email) {
 		
 		setCpf(cpf);
-		setBirth(birth);
-		
-		matchPasswordAndConfirmPassword(password, confirmPassword);
+		setBirth(birth);		
 		checkCharacterQuantity(password);
 		
 		this.active = false;
 		this.name = name;
 		this.password = password;
-		this.confirmPassword = confirmPassword;
 		this.gender = gender;
 		this.phone = phone;
 		this.email = email;
@@ -84,34 +81,31 @@ public class Customer {
 		this.password = password;
 	}
 
-	public void addNewDelivery(Delivery delivery) {
-		this.deliveries.add(delivery);
-	}
-	
-	public void addNewCharge(Charge charge) {
-		this.charges.add(charge);
-	}
-	
-	public void addNewCard(Card card) {
-		this.cards.add(card);
-	}
-	
-	private void checkCharacterQuantity(String password) {
-		if(password == null || password.length() < LENGHT_PASSWORD) {
-	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
-		}
-	}
-	
-	private void matchPasswordAndConfirmPassword(String password, String confirmPassword) {
-		if(password == null || confirmPassword == null) {
-			throw new IllegalArgumentException("Password or confirm password not be null or empity");
-		}
+	public void addNewDelivery(Delivery newDelivery) {
+		validateDelivery(newDelivery);
+		handleMainDeliveryStatus(newDelivery);
+		existingDeliveryCheck(newDelivery);
 		
-		if(!password.equals(confirmPassword)) {
-			throw new IllegalArgumentException("Password not equals confirm password");
-		}
+		
+		System.out.println("Bati aqui em");
+		this.deliveries.add(newDelivery);
+	}
+
+	public void addNewCharge(Charge newCharge) {
+		validateCharge(newCharge);
+		handleMainChargeStatus(newCharge);
+		existingChargeCheck(newCharge);
+		
+		this.charges.add(newCharge);
 	}
 	
+	public void addNewCard(Card newCard) {
+		validateCard(newCard);
+		handleMainCardStatus(newCard);
+		
+		this.cards.add(newCard);
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -121,15 +115,15 @@ public class Customer {
 	}
 	
 	public List<Charge> getCharges() {
-		return charges;
+		return Collections.unmodifiableList(this.charges);
 	}
 	
 	public List<Delivery> getDeliveries() {
-		return deliveries;
+		return Collections.unmodifiableList(this.deliveries);
 	}
 	
 	public List<Card> getCards() {
-		return cards;
+        return Collections.unmodifiableList(this.cards);
 	}
 	
 	public void setCards(List<Card> cards) {
@@ -183,14 +177,6 @@ public class Customer {
 		this.password = password;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
 	public Gender getGender() {
 		return gender;
 	}
@@ -219,13 +205,82 @@ public class Customer {
 		return role;
 	}
 
-	@Override
-	public String toString() {
-		return "Custommer [cpf=" + cpf + ", active=" + active + ", name=" + name + ", birth=" + birth
-				+ ", password=" + password + ", confirmPassword=" + confirmPassword + ", gender=" + gender + ", phone="
-				+ phone + ", email=" + email + "]";
+	public void updateDetails(String newName, LocalDate newBirth, String newPhoneDdd , String newPhoneNumber ) {
+		if(newName != null) {
+			this.name = newName;
+		}
+		
+		if(newBirth != null) {
+			this.birth = newBirth;
+		}
+		
+		if (newPhoneDdd != null || newPhoneNumber != null) {
+	           String currentDdd = (this.phone != null) ? this.phone.getDdd() : null;
+	           String currentPhoneNum = (this.phone != null) ? this.phone.getPhone() : null;
+
+	           String finalDdd = (newPhoneDdd != null) ? newPhoneDdd : currentDdd;
+	           String finalPhoneNum = (newPhoneNumber != null) ? newPhoneNumber : currentPhoneNum;
+
+	           if (finalDdd != null || finalPhoneNum != null) {
+	               this.phone = new Phone(finalDdd, finalPhoneNum);
+	           }
+	     }
 	}
 
+	private void handleMainDeliveryStatus(Delivery newDelivery) {
+		if(newDelivery.isMain()) {
+			this.deliveries.forEach(delivery -> delivery.setMain(false));
+		}
+	}
+
+	private void validateDelivery(Delivery newDelivery) {
+		if(newDelivery == null) {
+            throw new IllegalArgumentException("Delivery cannot be null.");
+		}
+	}
+	
+	private void handleMainChargeStatus(Charge newCharge) {
+		if(newCharge.isMain()) {
+			this.charges.forEach(charge -> charge.setMain(false));
+		}
+	}
+
+	private void validateCharge(Charge newCharge) {
+		if(newCharge == null) {
+            throw new IllegalArgumentException("Charge cannot be null.");
+		}
+	}
+	
+	private void validateCard(Card newCard) {
+		if(newCard == null) {
+            throw new IllegalArgumentException("Card cannot be null.");
+		}
+	}
+	
+	private void checkCharacterQuantity(String password) {
+		if(password == null || password.length() < LENGHT_PASSWORD) {
+	        throw new IllegalArgumentException("The password requires at least 8 characters to be valid");
+		}
+	}
+
+	private void handleMainCardStatus(Card newCard) {
+		if(newCard.isMain()) {
+			this.cards.forEach(card -> card.setMain(false));
+		}
+	}
+	
+	private void existingDeliveryCheck(Delivery newDelivery) {
+		if(this.deliveries.stream().anyMatch(c -> c.equals(newDelivery))) {
+	        throw new IllegalArgumentException("Delivery with the same ID already exists.");
+		}
+	}
+
+	private void existingChargeCheck(Charge newCharge) {
+		if(this.charges.stream().anyMatch(c -> c.equals(newCharge))) {
+	        throw new IllegalArgumentException("Charge with the same ID already exists.");
+		}
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -242,5 +297,11 @@ public class Customer {
 		Customer other = (Customer) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", cpf=" + cpf + ", active=" + active + ", name=" + name + ", birth=" + birth
+				+ ", password=" + password + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", role="
+				+ role + ", deliveries=" + deliveries + ", charges=" + charges + ", cards=" + cards + "]";
+	}
 }

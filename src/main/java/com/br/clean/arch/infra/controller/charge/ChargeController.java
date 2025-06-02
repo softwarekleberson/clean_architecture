@@ -1,13 +1,13 @@
 package com.br.clean.arch.infra.controller.charge;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseStatus; // Adicionado para @ResponseStatus
 
 import com.br.clean.arch.application.usecases.address.charge.CreateCharge;
-import com.br.clean.arch.application.usecases.address.charge.CustomerIsActive;
 import com.br.clean.arch.application.usecases.address.charge.DeleteCharge;
 import com.br.clean.arch.application.usecases.address.charge.EnsuresAprimaryCharge;
 import com.br.clean.arch.application.usecases.address.charge.ListCharge;
 import com.br.clean.arch.application.usecases.address.charge.UpdateCharge;
+import com.br.clean.arch.application.usecases.address.charge.dto.input.CreateChargeCommand;
+import com.br.clean.arch.application.usecases.address.charge.dto.input.UpdateChargeCommand;
+import com.br.clean.arch.application.usecases.address.charge.dto.output.ChargeOutputDto;
+import com.br.clean.arch.application.usecases.customer.UpdateCustomerActivityStatus;
+import com.br.clean.arch.application.usecases.customer.dto.output.CustomerOutputDto;
 import com.br.clean.arch.application.usecases.customer.GetCustomerById;
-import com.br.clean.arch.domain.entitie.address.Charge;
-import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.charge.input.ChargeDto;
-import com.br.clean.arch.infra.controller.charge.input.ChargeUpdateDto;
-import com.br.clean.arch.infra.controller.charge.output.ChargeListDto;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -40,88 +40,80 @@ import jakarta.validation.Valid;
 @SecurityRequirement(name = "bearer-key")
 public class ChargeController {
 
+	private static final Logger logger = LoggerFactory.getLogger(ChargeController.class);
+
 	private final GetCustomerById getCustomerById;
 	private final CreateCharge createCharge;
 	private final ListCharge listCharge;
-	private final UpdateCharge upadateCharge;
+	private final UpdateCharge updateCharge;
 	private final DeleteCharge deleteCharge;
-	private final EnsuresAprimaryCharge ensuresAprimaryAddress;
-	private final CustomerIsActive customerIsActive;
-	
-	public ChargeController(GetCustomerById getCustomerById, CreateCharge createCharge, ListCharge listCharge, UpdateCharge upadateCharge, DeleteCharge deleteCharge, EnsuresAprimaryCharge ensuresAprimaryAddress, CustomerIsActive customerIsActive) {
+	private final EnsuresAprimaryCharge ensuresAprimaryCharge;
+	private final UpdateCustomerActivityStatus customerIsActive;
+
+	public ChargeController(GetCustomerById getCustomerById, CreateCharge createCharge, ListCharge listCharge, UpdateCharge updateCharge, DeleteCharge deleteCharge, EnsuresAprimaryCharge ensuresAprimaryCharge, UpdateCustomerActivityStatus customerIsActive) {
 		this.getCustomerById = getCustomerById;
 		this.createCharge = createCharge;
 		this.listCharge = listCharge;
-		this.upadateCharge = upadateCharge;
+		this.updateCharge = updateCharge;
 		this.deleteCharge = deleteCharge;
-		this.ensuresAprimaryAddress = ensuresAprimaryAddress;
+		this.ensuresAprimaryCharge = ensuresAprimaryCharge;
 		this.customerIsActive = customerIsActive;
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<ChargeListDto> createCharge(@RequestBody @Valid ChargeDto dto, Authentication authentication) {
-		
-		String id = authentication.getName();
-		Optional<Customer> customer = getCustomerById.getCustomerById(id);
-		
-		ensuresAprimaryAddress.ensuresAprimaryCharge(customer.get().getCpf(), dto.main());
-		customer.get().addNewCharge(new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
+	@ResponseStatus(HttpStatus.CREATED) 
+	public ResponseEntity<ChargeOutputDto> createCharge(@RequestBody @Valid CreateChargeCommand dto, Authentication authentication) {
 
-		Charge charge = createCharge.createCharge(customer.get().getCpf(), new Charge(dto.main(), dto.receiver(), dto.street(), dto.number(), dto.neighborhood(), dto.cep(), dto.observation(), dto.streetType(), dto.typeResidence(), dto.city()));
-		customerIsActive.customerIsActive(customer.get().getId());
-		ChargeListDto chargeListDto = new ChargeListDto(charge.getId(), charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
-	
-		return ResponseEntity.created(URI.create("/charge/" + charge.getId()))
-			   .body(chargeListDto);
+		String id = authentication.getName();
+		logger.info("Iniciando tentativa de criação de endereço de cobrança para o cliente ID: {}", id);
+
+		CustomerOutputDto customerListDto = getCustomerById.getCustomerById(id);
+
+		ensuresAprimaryCharge.ensuresAprimaryCharge(customerListDto.cpf(), dto.main());
+		ChargeOutputDto chargeOutputDto = createCharge.createCharge(customerListDto.cpf(), dto);
+		customerIsActive.customerIsActive(customerListDto.id());
+
+		logger.info("Endereço de cobrança criado com sucesso para o cliente ID: {}. ID do endereço: {}", id, chargeOutputDto.id());
+		return ResponseEntity.created(URI.create("/customer/charges/" + chargeOutputDto.id()))
+			   .body(chargeOutputDto);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<Page<ChargeListDto>> listAllCustomers(
-	        Authentication authentication,
-	        @PageableDefault(size = 10) Pageable pageable) {
+	public ResponseEntity<Page<ChargeOutputDto>> listAllCharges(
+	 	Authentication authentication,
+	 	@PageableDefault(size = 10) Pageable pageable) {
 
 		String id = authentication.getName();
-		Optional<Customer> customer = getCustomerById.getCustomerById(id);
+		logger.info("Iniciando tentativa de listagem de endereços de cobrança para o cliente ID: {}", id);
 
-	    List<Charge> allCharges = listCharge.listCharge(customer.get().getId());
+		CustomerOutputDto customerOptDto = getCustomerById.getCustomerById(id);
 
-	    int start = (int) pageable.getOffset();
-	    int end = Math.min((start + pageable.getPageSize()), allCharges.size());
+		Page<ChargeOutputDto> chargesPage = listCharge.listCharge(customerOptDto.cpf(), pageable);
 
-	    if (start >= allCharges.size()) {
-	        return ResponseEntity.noContent().build(); 
-	    }
-
-	    List<ChargeListDto> paginatedCharges = allCharges.subList(start, end)
-	            .stream()
-	            .map(u -> new ChargeListDto(
-	                    u.getId(),
-	                    u.getReceiver(),
-	                    u.getStreet(),
-	                    u.getNumber(),
-	                    u.getNeighborhood(),
-	                    u.getCep()))
-	            .toList();
-
-	    Page<ChargeListDto> page = new PageImpl<>(paginatedCharges, pageable, allCharges.size());
-
-	    return ResponseEntity.ok(page);
+		logger.info("Listagem de endereços de cobrança bem-sucedida para o cliente ID: {}", id);
+		return ResponseEntity.ok(chargesPage);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<ChargeListDto> updateCharge(@RequestBody @Valid ChargeUpdateDto dto) {
-		Charge charge = upadateCharge.updateCharge(dto.id(), dto);
-		ChargeListDto chargeListDto = new ChargeListDto(charge.getId() ,charge.getReceiver(), charge.getStreet(), charge.getNumber(), charge.getNeighborhood(), charge.getCep());
+	public ResponseEntity<ChargeOutputDto> updateCharge(@RequestBody @Valid UpdateChargeCommand dto) {
+
+		logger.info("Iniciando tentativa de atualização do endereço de cobrança com ID: {}", dto.id());
+
+		ChargeOutputDto chargeListDto = updateCharge.updateCharge(dto.id(), dto);
+
+		logger.info("Endereço de cobrança com ID {} atualizado com sucesso.", dto.id());
 		return ResponseEntity.ok(chargeListDto);
 	}
-	
+
 	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT) 
 	public ResponseEntity<Void> deleteCharge(@PathVariable Long id) {
-		try {
-			deleteCharge.deleteCharge(id);
-			return ResponseEntity.noContent().build();
-		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
-		}
+
+		logger.info("Iniciando tentativa de exclusão do endereço de cobrança com ID: {}", id);
+
+		deleteCharge.deleteCharge(id);
+
+		logger.info("Endereço de cobrança com ID {} excluído com sucesso.", id);
+		return ResponseEntity.noContent().build();
 	}
 }

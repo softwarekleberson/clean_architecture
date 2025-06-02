@@ -1,9 +1,10 @@
 package com.br.clean.arch.application.usecases.address.delivery;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
+import com.br.clean.arch.application.usecases.address.delivery.dto.input.UpdateDeliveryCommand;
+import com.br.clean.arch.application.usecases.address.delivery.dto.output.DeliveryOutputDto;
 import com.br.clean.arch.domain.entitie.address.Delivery;
-import com.br.clean.arch.domain.entitie.address.exception.IncorrectAddressException;
-import com.br.clean.arch.infra.controller.delivery.input.DeliveryUpdateDto;
+import com.br.clean.arch.domain.entitie.address.exception.AddressNotFoundException;
 
 public class UpdateDelivery {
 
@@ -13,8 +14,33 @@ public class UpdateDelivery {
 		this.repository = repository;
 	}
 	
-	public Delivery updateDelivery(Long id, DeliveryUpdateDto dto){ 
-		repository.findById(id).orElseThrow(() -> new IncorrectAddressException("Delivery not found with id : " + id));		
-		return repository.updateDelivery(id, dto);
+	public DeliveryOutputDto updateDelivery(Long id, UpdateDeliveryCommand dto){ 
+		Delivery delivery = repository.findById(id).orElseThrow(() -> new AddressNotFoundException("Delivery not found with id : " + id));		
+		
+		delivery.updateDetails(
+				dto.main(),
+				dto.receiver(),
+				dto.street(),
+				dto.number(),
+				dto.neighborhood(),
+				dto.cep(),
+				dto.observation(),
+				dto.streetType(),
+				dto.typeResidence(),
+				dto.city(),
+				dto.state(),
+				dto.country()
+		);
+		
+		Delivery savedDelivery = repository.updateDelivery(id, delivery);
+		return new DeliveryOutputDto 
+				(savedDelivery.getId(),
+				savedDelivery.getReceiver(),
+				savedDelivery.getStreet(),
+				savedDelivery.getNumber(),
+				savedDelivery.getNeighborhood(),
+				savedDelivery.getCep(),
+				savedDelivery.getObservation()
+				);
 	}
 }

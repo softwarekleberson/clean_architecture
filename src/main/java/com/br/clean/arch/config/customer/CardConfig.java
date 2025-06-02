@@ -18,8 +18,8 @@ import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 public class CardConfig {
 
 	@Bean
-	public CreateCard createCard(RepositoryCard repositoriyCard) {
-		return new CreateCard(repositoriyCard);
+	public CreateCard createCard(RepositoryCard repositoriyCard, RepositoryCustomer repositoriyCustomer) {
+		return new CreateCard(repositoriyCard, repositoriyCustomer);
 	}
 	
 	@Bean

@@ -1,14 +1,14 @@
 package com.br.clean.arch.infra.gateways.address;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.address.RepositoryDelivery;
 import com.br.clean.arch.domain.entitie.address.Delivery;
-import com.br.clean.arch.domain.entitie.card.exeptions.CustomerNotFoundException;
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.delivery.input.DeliveryUpdateDto;
+import com.br.clean.arch.domain.entitie.customer.exceptions.CustomerNotFoundException;
 import com.br.clean.arch.infra.gateways.customer.CustomerEntityMapper;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryEntity;
 import com.br.clean.arch.infra.persistence.address.delivery.DeliveryRepository;
@@ -45,30 +45,28 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery {
     }
 
     @Override
-    public List<Delivery> listDelivery(String customerId) {
-        return deliveryRepository.findByCustomerId(customerId).stream()
-                .map(mapper::toDomain)
-                .collect(Collectors.toList());
+    public Page<Delivery> listDelivery(String customerId, Pageable pageable) {
+        return deliveryRepository.findByCustomerId(customerId, pageable)
+                .map(mapper::toDomain);
     }
 
     @Override
-    public Delivery updateDelivery(Long id, DeliveryUpdateDto dto) {
-        DeliveryEntity deliveryEntity = deliveryRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Delivery not found"));
+    public Delivery updateDelivery(Long id, Delivery delivery) {
+        DeliveryEntity existingEntity = findDeliveryById(id);
 
-        updateDeliveryEntityFields(deliveryEntity, dto);
+        mapper.updateEntityFromDomain(existingEntity, delivery);
+        DeliveryEntity savedEntity = deliveryRepository.save(existingEntity);
 
-        deliveryRepository.save(deliveryEntity);
-        return mapper.toDomain(deliveryEntity);
+        return mapper.toDomain(savedEntity);
     }
-
+    
     @Override
-    public Delivery deleteDelivery(Long id) {
+    public void deleteDelivery(Long id) {
         DeliveryEntity deliveryEntity = deliveryRepository.findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Delivery not found"));
 
         deliveryRepository.delete(deliveryEntity);
-        return mapper.toDomain(deliveryEntity);
+        mapper.toDomain(deliveryEntity);
     }
 
     @Override
@@ -108,21 +106,12 @@ public class DeliveryRepositoryJpa implements RepositoryDelivery {
         return customerRepository.findByCpf(cpf).map(customerEntityMapper::toDomain);
     }
 
-    private void updateDeliveryEntityFields(DeliveryEntity entity, DeliveryUpdateDto dto) {
-        Optional.ofNullable(dto.main()).ifPresent(entity::setMain);
-        Optional.ofNullable(dto.receiver()).ifPresent(entity::setReceiver);
-        Optional.ofNullable(dto.street()).ifPresent(entity::setStreet);
-        Optional.ofNullable(dto.number()).ifPresent(entity::setNumber);
-        Optional.ofNullable(dto.neighborhood()).ifPresent(entity::setNeighborhood);
-        Optional.ofNullable(dto.cep()).ifPresent(entity::setCep);
-        Optional.ofNullable(dto.observation()).ifPresent(entity::setObservation);
-        Optional.ofNullable(dto.streetType()).ifPresent(entity::setStreetType);
-        Optional.ofNullable(dto.typeResidence()).ifPresent(entity::setTypeResidence);
-        Optional.ofNullable(dto.city()).ifPresent(entity::setCity);
-        Optional.ofNullable(dto.deliveryPhrase()).ifPresent(entity::setDeliveryPhrase);
+    private DeliveryEntity findDeliveryById(Long id) {
+        return deliveryRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Delivery not found"));
     }
 
-	@Override
+    @Override
 	public Optional<Delivery> findById(Long id) {
 		return deliveryRepository.findById(id).map(mapper::toDomain);
 	}

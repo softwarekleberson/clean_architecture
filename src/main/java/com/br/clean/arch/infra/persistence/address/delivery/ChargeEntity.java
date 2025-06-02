@@ -17,13 +17,13 @@ public class ChargeEntity extends AddressEntity{
 	private CustomerEntity customerEntity;
 	
 	public ChargeEntity(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
-			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+			String observation, String streetType, String typeResidence, String city, String deliveryPhrase, String state, String country) {
+		super(main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city, state, country);
 	}
 	
 	public ChargeEntity(Long id, Boolean main, String receiver, String street, String number, String neighborhood, String cep,
-			String observation, String streetType, String typeResidence, String city, String deliveryPhrase) {
-		super(id, main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city);
+			String observation, String streetType, String typeResidence, String city, String deliveryPhrase, String state, String country) {
+		super(id, main, receiver, street, number, neighborhood, cep, observation, streetType, typeResidence, city, state, country);
 	}
 	
 	public ChargeEntity() {

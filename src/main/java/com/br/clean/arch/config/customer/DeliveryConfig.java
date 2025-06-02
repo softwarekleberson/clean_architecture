@@ -22,8 +22,8 @@ import com.br.clean.arch.infra.persistence.customer.CustomerRepository;
 public class DeliveryConfig {
 
 	@Bean
-	public CreateDelivery createDelivery(RepositoryDelivery repositoriyDelivery) {
-		return new CreateDelivery(repositoriyDelivery);
+	public CreateDelivery createDelivery(RepositoryDelivery repositoriyDelivery, RepositoryCustomer repositoryCustomer) {
+		return new CreateDelivery(repositoriyDelivery, repositoryCustomer);
 	}
 	
 	@Bean

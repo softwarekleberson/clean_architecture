@@ -22,7 +22,6 @@ class CustomerBuilderChargeTest {
 	        "kleberson",
 	        LocalDate.of(1994, 10, 5),
 	        "89724521GOLvi1@",
-	        "89724521GOLvi1@",
 	        Gender.MALE,
 	        new Phone("22", "123456789"),
 	        new Email("lordlof@gmail.com")
@@ -33,7 +32,7 @@ class CustomerBuilderChargeTest {
 
 	    customer = builder.builderCharge(
 	        true, "jose silva", "rua das flores", "100", "vila belmiro", "12345-700",
-	        "entregar as 10 horas", "rua", "casa", "São jose"
+	        "entregar as 10 horas", "rua", "casa", "São jose", "São paulo", "Brasil"
 	    );
 
 	    Assertions.assertEquals("jose silva", customer.getCharges().get(0).getReceiver());
@@ -45,5 +44,7 @@ class CustomerBuilderChargeTest {
 	    Assertions.assertEquals("rua", customer.getCharges().get(0).getStreetType());
 	    Assertions.assertEquals("casa", customer.getCharges().get(0).getTypeResidence());
 	    Assertions.assertEquals("São jose", customer.getCharges().get(0).getCity());       
+	    Assertions.assertEquals("São paulo", customer.getCharges().get(0).getState());       
+	    Assertions.assertEquals("Brasil", customer.getCharges().get(0).getCountry());       
 	}
 }

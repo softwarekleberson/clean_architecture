@@ -1,9 +1,10 @@
-
 package com.br.clean.arch.application.usecases.customer;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.br.clean.arch.application.gateways.customer.RepositoryCustomer;
+import com.br.clean.arch.application.usecases.customer.dto.output.CustomerOutputDto;
 import com.br.clean.arch.domain.entitie.customer.Customer;
 
 public class ListCustomer {
@@ -14,7 +15,13 @@ public class ListCustomer {
 		this.repositoriyCustomer = repositoriyCustomer;
 	}
 	
-	public List<Customer> listCustomers(){
-		return this.repositoriyCustomer.listCustomer();
+	public Page<CustomerOutputDto> listCustomers(Pageable pageable){
+		Page<Customer> customers = repositoriyCustomer.listCustomer(pageable);
+		return customers
+						.map(customer -> new CustomerOutputDto
+						(customer.getId(), customer.getCpf(),
+						 customer.getName(), customer.getEmail(),
+						 customer.isActive())
+						);
 	}
 }

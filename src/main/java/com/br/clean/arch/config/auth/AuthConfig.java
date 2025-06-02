@@ -27,5 +27,4 @@ public class AuthConfig {
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 	    return new InMemoryUserDetailsManager();
 	}
-
 }

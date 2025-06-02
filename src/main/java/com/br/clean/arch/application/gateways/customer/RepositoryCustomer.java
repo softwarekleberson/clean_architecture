@@ -1,17 +1,17 @@
 package com.br.clean.arch.application.gateways.customer;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.br.clean.arch.domain.entitie.customer.Customer;
-import com.br.clean.arch.infra.controller.customer.input.CustomerUpdateDto;
 
 public interface RepositoryCustomer {
 
-	Customer createCustomer(Customer customer);
-	List<Customer> listCustomer();
-	Customer getCustomerByCpf(String cpf);
-	Customer updateCustomer(String id, CustomerUpdateDto dto);
+	Customer save(Customer customer);
+	Page<Customer> listCustomer(Pageable pageable);
+	Customer updateCustomer(String id, Customer customer);
 	Optional<Customer> findByCpf(String cpf);
 	Optional<Customer> findByEmail(String email);
 	Optional<Customer> findById(String id);

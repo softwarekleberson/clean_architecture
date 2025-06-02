@@ -14,12 +14,11 @@ public class CustomerBuilder {
 	public Customer builderCustomer(String cpf, String name,
 			 						LocalDate birth,
 			 						String password,
-			 						String confirmPassword,
 			 						Gender gender,
 			 						Phone phone,
 			 						Email email) {
 		
-		 this.customer = new Customer(cpf, name, birth, password, confirmPassword, gender, phone, email);
+		 this.customer = new Customer(cpf, name, birth, password, gender, phone, email);
 		 return customer;
 	}
 }

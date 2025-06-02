@@ -13,9 +13,9 @@ public class ChargeBuilder {
 	}
 	
 	public Customer builderCharge(Boolean main, String receiver, String street, String number, String neighborhood, String cep,
-			String streetType, String typeResidence, String city, String deliveryPhrase) {
+			String streetType, String typeResidence, String city, String deliveryPhrase, String state, String country) {
 				
-		this.customer.addNewCharge(new Charge(main, receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase));
+		this.customer.addNewCharge(new Charge(main, receiver, street, number, neighborhood, cep, streetType, typeResidence, city, deliveryPhrase, state, country));
 		return customer;
 	}
 }
