@@ -1,0 +1,464 @@
+type: collection.insomnia.rest/5.0
+name: clean arc
+meta:
+  id: wrk_5400b83c00f04758b52b6d88b6a577e0
+  created: 1748648669295
+  modified: 1748648669295
+collection:
+  - url: http://localhost:8080/auth/register/customer
+    name: Create Customer
+    meta:
+      id: req_a4751a759b5a4143b770e784d3f5ca45
+      created: 1733495973535
+      modified: 1748877126386
+      isPrivate: false
+      sortKey: -1733495973535
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "cpf": "43803641999",
+          "name": "kleberson",
+          "birth": "1997-01-01",
+          "password": "santos@gmail.com",
+        	"confirmPassword": "santos@gmail.com",
+          "gender": "FEMALE",
+          "phone": {
+            "ddd": "15",
+            "phone": "987654000"
+          },
+          "email": {
+            "email": "kleberson@gmail.com"
+          }
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer
+    name: List all customers
+    meta:
+      id: req_636b8b34a8584803b8431b3552c54021
+      created: 1733514579555
+      modified: 1748791088369
+      isPrivate: false
+      sortKey: -1733514579555
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiN2ZiYmY3NS0xOTNlLTQ5MjYtODQ5ZS1iNGM1ZTQ0NzViYzAiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg3OTEwMDYsImV4cCI6MTc0ODgwMTgwNn0.HQpJuuiGIa4tq5pSwWFcBKCgGLZFCrvJwskbcSHmsk0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/deliveries
+    name: Create Delivery
+    meta:
+      id: req_8194ca2684b949ddab014435630e6fa4
+      created: 1734544717796
+      modified: 1748877351080
+      isPrivate: false
+      sortKey: -1734544717796
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+          "main": true,
+          "receiver": "João da Silva",
+          "street": "Rua das Flores",
+          "number": "123A",
+          "neighborhood": "Centro",
+          "cep": "08700-000",
+          "streetType": "Rua",
+          "typeResidence": "Apartamento",
+          "city": "Mogi das Cruzes",
+        	"state": "São Paulo",
+        	"country": "Brasil",
+          "deliveryPhrase": "Entregar em horário comercial"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYTY1ZTllMi0xZTg2LTRkNDMtOGJiYy1hMTRhNGQ1ZTE0MjciLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4NzcyMDQsImV4cCI6MTc0ODg4ODAwNH0.VfWFXbvex03EV_sNaubOIrJbt7o5uJXx9u_RuQVhZGw
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/deliveries
+    name: List delivery customer
+    meta:
+      id: req_b2822e0530504c1aaef2c047c9f76b96
+      created: 1734571895694
+      modified: 1748666074803
+      isPrivate: false
+      sortKey: -1734571895694
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4NDJmYTg2Ni1mY2U1LTQ0NDgtODI4Mi1mODUzMWUxZWEyZjMiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg2NjU4NjEsImV4cCI6MTc0ODY3NjY2MX0.VDow3xyHDE6mdfPy6QzOIQz6-HE9wUlZYzu0SDlbmn0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/deliveries
+    name: Update Delivery
+    meta:
+      id: req_780c400c8b454df79497d646ad270833
+      created: 1734626806252
+      modified: 1748668830406
+      isPrivate: false
+      sortKey: -1734626806252
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"id": 1,
+          "receiver": "aaaaaaaaaaaaaa",
+          "street": "sssssssss",
+          "number": "cccccccccccccc",
+          "neighborhood": "vvvvvvvvvv"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYjgzYWZiMC1kYThkLTQwYTEtYWU5NC1hMzVmZjM5NDY1ZjgiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg2Njg3NTgsImV4cCI6MTc0ODY3OTU1OH0.MJRoe-7bPj6FrSY_ZajZbuG4ZZG6S86DYvkesI9akU0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/deliveries/1
+    name: Delite Delivery
+    meta:
+      id: req_2854c6ff0e6d485b92f52a0593b9b985
+      created: 1734633265085
+      modified: 1748668988267
+      isPrivate: false
+      sortKey: -1734633265085
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkYjgzYWZiMC1kYThkLTQwYTEtYWU5NC1hMzVmZjM5NDY1ZjgiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg2Njg3NTgsImV4cCI6MTc0ODY3OTU1OH0.MJRoe-7bPj6FrSY_ZajZbuG4ZZG6S86DYvkesI9akU0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer
+    name: Update Customer
+    meta:
+      id: req_0b6711c503584d9e821460a7ec9fbccd
+      created: 1734637799564
+      modified: 1748830040212
+      isPrivate: false
+      sortKey: -1734637799564
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	 "name": "rrrrrrrrrrrrrrrrrr",
+        	  "birth": "1800-08-08",
+        		"phone": {
+            "ddd": "90",
+            "phone": "987657777"
+          }
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzUzNzU3Ny1hYzYyLTQxZjUtYWQxNC02MDM5NDdhYmM1OTkiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4Mjk3NzYsImV4cCI6MTc0ODg0MDU3Nn0.rdBvIBAaeYMWWdNULYy789cT3QfpiJvA_tZkQ2lxs-0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/cards
+    name: Create card
+    meta:
+      id: req_c47e897eafcf42798c1cabb955c31a88
+      created: 1734726840769
+      modified: 1748877238359
+      isPrivate: false
+      sortKey: -1734726840769
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"main": true,
+        	"printedName": "kleber",
+        	"code": "123",
+        	"numberCard": "3523168162711466",
+        	"flag": "VISA",
+        	"expirationDate": "2025-09-25"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYTY1ZTllMi0xZTg2LTRkNDMtOGJiYy1hMTRhNGQ1ZTE0MjciLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4NzcyMDQsImV4cCI6MTc0ODg4ODAwNH0.VfWFXbvex03EV_sNaubOIrJbt7o5uJXx9u_RuQVhZGw
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/cards
+    name: List Card cutomer
+    meta:
+      id: req_f7607b9e6b87427e846e1e3f81f658a3
+      created: 1734739727701
+      modified: 1748801188605
+      isPrivate: false
+      sortKey: -1734739727701
+    method: GET
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiN2ZiYmY3NS0xOTNlLTQ5MjYtODQ5ZS1iNGM1ZTQ0NzViYzAiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4MDExNjYsImV4cCI6MTc0ODgxMTk2Nn0.GwdxMdLtv2Wu3yZ8c8WA-tSw1KanmsPM7pf0HWedJ3Y
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/card/1
+    name: Delete Card
+    meta:
+      id: req_c41663980397459c828f8614b8404aef
+      created: 1734741616917
+      modified: 1738697608243
+      isPrivate: false
+      sortKey: -1734741616917
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzZGIyYWViNC1hNzMzLTQxNGEtOWFhNi1hYTg2OTk4NmNkODgiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg2OTcyOTUsImV4cCI6MTczODc4MzY5NX0.7kVe1o0atyS5kA_N43e6zA87NCtrHsm1L9PUnjLDiwI
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/charges
+    name: Create Charge
+    meta:
+      id: req_d889ff067297475897f7f305830a21ff
+      created: 1735314909467
+      modified: 1748877312064
+      isPrivate: false
+      sortKey: -1735314909467
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"main": true,
+        	"receiver": "aaaaaaaaaaaaaaaaaaaa",
+        	"street": "rua das flores",
+        	"number": "001",
+        	"neighborhood": "Jardim Primavera",
+        	"cep": "98765-432",
+        	"observation": "Entregar no bloco B, apto 203.",
+        	"streetType": "Travessa",
+        	"typeResidence": "Casa",
+        	"city": "Mogi das cruzes",
+        	"state": "Minas gerais",
+        	"country": "Paris"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYTY1ZTllMi0xZTg2LTRkNDMtOGJiYy1hMTRhNGQ1ZTE0MjciLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4NzcyMDQsImV4cCI6MTc0ODg4ODAwNH0.VfWFXbvex03EV_sNaubOIrJbt7o5uJXx9u_RuQVhZGw
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/charges
+    name: List charge customer
+    meta:
+      id: req_f855e05e811740d39068464dcc453da2
+      created: 1735406409955
+      modified: 1748667985156
+      isPrivate: false
+      sortKey: -1734558306745
+    method: GET
+    headers:
+      - id: pair_7519b361137d4cfdb5ba4d6514e4aadc
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4NDJmYTg2Ni1mY2U1LTQ0NDgtODI4Mi1mODUzMWUxZWEyZjMiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg2NjY0OTIsImV4cCI6MTc0ODY3NzI5Mn0.zHm39NHcYpzp8cujZvTdjQsrfwUHZdhM5mshFIGREok
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/charges
+    name: Update Charge
+    meta:
+      id: req_7ae41660053d400d9054b9aa6f3c80e2
+      created: 1735411756404
+      modified: 1748830302374
+      isPrivate: false
+      sortKey: -1734599350973
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"id": 2,
+          "main": true,
+          "receiver": "xxxxxxx",
+          "street": "xxxxxxxxx",
+          "number": "xxxx",
+          "neighborhood": "xxxxx",
+          "cep": "98765-432",
+          "observation": "xxxxx",
+          "streetType": "xxxx",
+          "typeResidence": "xxxx",
+          "city": "xxxxx"
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyNzUzNzU3Ny1hYzYyLTQxZjUtYWQxNC02MDM5NDdhYmM1OTkiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg4Mjk3NzYsImV4cCI6MTc0ODg0MDU3Nn0.rdBvIBAaeYMWWdNULYy789cT3QfpiJvA_tZkQ2lxs-0
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/customer/charges/1
+    name: Delite Charge
+    meta:
+      id: req_4dd565aeb56943e49acb24350e4321a0
+      created: 1735411972381
+      modified: 1748668493839
+      isPrivate: false
+      sortKey: -1734630035668.5
+    method: DELETE
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4NDJmYTg2Ni1mY2U1LTQ0NDgtODI4Mi1mODUzMWUxZWEyZjMiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3NDg2NjY0OTIsImV4cCI6MTc0ODY3NzI5Mn0.zHm39NHcYpzp8cujZvTdjQsrfwUHZdhM5mshFIGREok
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/auth/login/customer
+    name: Login Customer
+    meta:
+      id: req_b8d4cd833bd84133afa775a2bf62280f
+      created: 1737057169950
+      modified: 1748877201398
+      isPrivate: false
+      sortKey: -1731564460346.5
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "password": "santos@gmail.com",
+          "email": {
+            "email": "kleberson@gmail.com"
+          }
+        }
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: bearer
+      token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkODMzY2JhZS0zNzY2LTQyMzUtYTZhNC0zZWMxOTMwZjZjYmQiLCJyb2xlIjoiQ1VTVE9NRVIiLCJpYXQiOjE3Mzg0MzE1OTAsImV4cCI6MTczODUxNzk5MH0.13J3Cby8AbVOuT8PLvp9f0KTIS_n1dHq14vKlvmx72c
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_db2a76a711ac45a282a8ff7eb9691fdb
+    created: 1733495970195
+    modified: 1748801068401
+  cookies:
+    - key: JSESSIONID
+      value: 2952BE5DBD9B18EA9E4F3240BE1F0A33
+      domain: localhost
+      path: /
+      httpOnly: true
+      hostOnly: true
+      creation: 2024-12-21T19:55:33.902Z
+      lastAccessed: 2025-06-01T18:04:28.400Z
+      id: d6254e59-e556-4319-ad88-04b304677768
+environments:
+  name: Base Environment
+  meta:
+    id: env_4277297755724f4290af483ebf5d5252
+    created: 1733495970189
+    modified: 1733495970189
+    isPrivate: false
